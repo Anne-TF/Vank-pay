@@ -1,9 +1,9 @@
 import ITestRepository from 'src/repositories/test/ITestRepository';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import routes from 'src/repositories/test/routes';
-import { AxiosFactory } from 'src/factories';
+import { AxiosFactory } from 'src/app/factories';
 import TestPayload from 'src/repositories/test/payloads/TestPayload';
-import getUrl from 'src/helpers/GetUrl';
+import getUrl from 'src/app/shared/helpers/GetUrl';
 
 export default class TestRepository implements ITestRepository
 {

@@ -1,5 +1,5 @@
-import { REPOSITORIES, repositories } from 'src/repositories';
-import { IBootRepositories } from 'src/repositories/interfaces';
+import { REPOSITORIES, repositories } from '../../repositories';
+import { IBootRepositories } from '../../repositories/interfaces';
 
 export class RepositoryFactory
 {

@@ -14,6 +14,9 @@
                 <q-toolbar-title> Quasar App </q-toolbar-title>
 
                 <div>Quasar v{{ version }}</div>
+                <div>
+                    <q-toggle :model-value="dark.isActive" @update:model-value="switchMode" />
+                </div>
             </q-toolbar>
         </q-header>
 
@@ -37,10 +40,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import EssentialLink from 'components/EssentialLink.vue';
+import EssentialLink from '../components/EssentialLink.vue';
 import { useQuasar } from 'quasar';
 
 const { version } = useQuasar();
+const { dark } = useQuasar();
 
 const linksList = [
     {
@@ -94,4 +98,8 @@ const toggleLeftDrawer = () =>
     leftDrawerOpen.value = !leftDrawerOpen.value;
 };
 
+const switchMode = () =>
+{
+    dark.set(!dark.isActive);
+};
 </script>

@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import { PropType, computed, ref, toRef } from 'vue';
 import { Todo, Meta } from './Models';
-import { useCounterStore } from 'stores/test';
+import { useCounterStore } from '../../stores/test';
 
 const props = defineProps({
     title: {

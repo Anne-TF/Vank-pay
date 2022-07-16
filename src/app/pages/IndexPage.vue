@@ -1,18 +1,18 @@
 <template>
     <q-page class="row items-center justify-evenly">
-        <example-component
+        <ExampleComponent
             title="Example component"
             active
             :todos="todos"
             :meta="meta"
-        ></example-component>
+        ></ExampleComponent>
     </q-page>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { Todo, Meta } from 'components/Models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+import { Todo, Meta } from '../components/Models';
+import ExampleComponent from '../components/ExampleComponent.vue';
 
 const todos = ref<Todo[]>([
     {

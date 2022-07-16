@@ -1,1 +1,157 @@
 // app global css in SCSS form
+
+// IMPORTS
+
+@import "_variables";
+@import "_fonts";
+@import "_spacing";
+
+// COLORS
+
+$colors: (
+"primary" : $nv-primary,
+'secondary' : $nv-secondary,
+'tertiary' : $nv-tertiary,
+'light-grey' : $nv-light-grey,
+'dark-grey' : $nv-dark-grey,
+'danger' : $nv-danger,
+'ifno': $nv-info,
+'light' : $nv-light,
+'dark' : $nv-dark,
+);
+
+// COLOR RELATED CLASSED
+
+@each $name, $color in $colors {
+  // classes for texts in every color
+  .text-nv-#{$name} {
+    color: $color !important;
+  }
+  // classes for backgrounds in every color
+  .bg-nv-#{$name} {
+    background-color: $color !important;
+  }
+  // classes for borders in every color
+  .border-#{$name} {
+    border-left: 1px solid $color !important;
+    border-right: 1px solid $color !important;
+    border-top: 1px solid $color !important;
+    border-bottom: 1px solid $color !important;
+  }
+  // classes for text shadows in every color
+  .ts-#{$name} {
+    text-shadow: -1px -1px 7px $color;
+  }
+}
+
+html,
+body {
+  font-family: $regular;
+}
+
+body.body--dark {
+  background: $nv-dark;
+  color: $nv-light;
+}
+
+body.body--light {
+  background: $nv-light;
+  color: $nv-dark;
+}
+
+// CLASSES
+.q-field--error .q-field__bottom {
+  color: #f0505a !important;
+}
+
+.text-negative {
+  color: #f0505a !important;
+}
+
+.q-field__label {
+  font-size: 13px !important;
+}
+
+.q-field__messages {
+  font-family: $regular;
+}
+
+.no-padding-dialog {
+  .q-dialog__inner--minimized {
+    padding: 0 !important;
+  }
+}
+
+//  SCROLL CLASS STARTS
+/* Tamaño del scroll */
+.scroll::-webkit-scrollbar {
+  width: 8px;
+  margin: 80px !important;
+}
+
+/* Estilos barra (thumb) de scroll */
+.scroll::-webkit-scrollbar-thumb {
+  background: $nv-primary;
+  border-radius: 4px;
+  height: 19px !important;
+}
+
+.scroll::-webkit-scrollbar-thumb:active {
+  background-color: $nv-primary;
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: $nv-primary;
+  opacity: .5;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos track de scroll */
+.scroll::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+.scroll::-webkit-scrollbar-track:hover,
+.scroll::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
+// SCROLL CLASS ENDS
+
+// GENERAL SCROLLBAR STYLES STARTS
+
+::-webkit-scrollbar {
+  width: 8px;
+  margin: 80px !important;
+}
+
+/* Estilos barra (thumb) de scroll */
+::-webkit-scrollbar-thumb {
+  background: $nv-primary;
+  border-radius: 4px;
+  height: 19px !important;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: $nv-primary;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $nv-primary;
+  opacity: .5;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos track de scroll */
+::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track:hover,
+::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
+// GENERAL SCROLLBAR STYLES ENDS

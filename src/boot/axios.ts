@@ -1,6 +1,6 @@
 // @ts-ignore
 import { boot } from 'quasar/wrappers';
-import { AxiosFactory } from 'src/factories';
+import { AxiosFactory } from 'src/app/factories';
 import axios, { AxiosInstance } from 'axios';
 
 declare module '@vue/runtime-core' {
