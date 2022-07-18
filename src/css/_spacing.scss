@@ -24,8 +24,15 @@
   .pr-#{$size} {
     padding-right: #{$size}px !important;
   }
+  .px-#{$size} {
+    padding-right: #{$size}px !important;
+    padding-left: #{$size}px !important;
+  }
   .pb-#{$size} {
     padding-bottom: #{$size}px !important;
+  }
+  .pt-#{$size} {
+    padding-top: #{$size}px !important;
   }
   .mb-#{$size} {
     margin-bottom: #{$size}px !important;

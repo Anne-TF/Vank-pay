@@ -54,12 +54,12 @@ body {
 
 body.body--dark {
   background: $nv-dark;
-  color: $nv-light;
+  color: $nv-light-tertiary !important;
 }
 
 body.body--light {
   background: $nv-light;
-  color: $nv-light-light-grey;
+  color: $nv-light-tertiary !important;
 }
 
 // CLASSES
@@ -84,6 +84,40 @@ body.body--light {
     padding: 0 !important;
   }
 }
+
+.rounded--dark-input {
+  .q-field__control {
+    height: 48px !important;
+    background-color: #353E49 !important;
+    border-radius: 13px !important;
+  }
+
+  .q-field__marginal {
+    height: 48px !important;
+  }
+}
+
+.rounded--light-input {
+  .q-field__control {
+    height: 48px !important;
+    background-color: #F5F5F5 !important;
+    border-radius: 13px !important;
+  }
+
+  .q-field__marginal {
+    height: 48px !important;
+    color: #353E49 !important;
+  }
+
+   .q-field__native {
+    color: #353E49 !important;
+  }
+}
+
+.q-field__control::before, .q-field__control::after {
+  display: none !important;
+}
+
 
 //  SCROLL CLASS STARTS
 /* Tamaño del scroll */

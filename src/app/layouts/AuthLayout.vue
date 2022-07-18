@@ -1,8 +1,8 @@
 <template>
-    <q-layout view="lHh Lpr lFf">
+    <q-layout style="overflow: hidden !important;" view="lHh Lpr lFf">
         <q-page-container
             :class="{ 'light--bg' : !Dark.isActive }"
-            style="height: 100vh !important;"
+            style="height: 100vh !important; "
             class="hp-100">
             <span
               :style="`
@@ -50,11 +50,11 @@ import { Dark } from 'quasar';
 }
 
 .balls:nth-child(1) {
-    animation: pulse1 5s linear infinite;
+    animation: pulse1 10s linear infinite;
 }
 
 .balls:nth-child(2) {
-    animation: pulse2 5s linear infinite;
+    animation: pulse2 10s linear infinite;
 }
 
 @keyframes pulse1 {
