@@ -118,6 +118,28 @@ body.body--light {
   display: none !important;
 }
 
+.dense-select-input {
+  .q-field__control {
+    height: 35px !important;
+    min-height: 35px !important;
+    padding: 0 !important;
+  }
+
+  .q-field__marginal, .q-field__control, .q-field__native {
+    height: 35px !important;
+    min-height: 35px !important;
+  }
+
+  .q-select .q-field__input,
+  .q-field__input {
+    min-height: 25px !important;
+    max-height: 35px !important;
+    margin-top: -20px !important;
+    padding: 0 !important;
+  }
+}
+
+
 
 //  SCROLL CLASS STARTS
 /* Tamaño del scroll */

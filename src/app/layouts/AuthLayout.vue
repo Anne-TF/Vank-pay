@@ -1,9 +1,8 @@
 <template>
-    <q-layout style="overflow: hidden !important;" view="lHh Lpr lFf">
+    <q-layout style="overflow-x: hidden !important;" view="lHh Lpr lFf">
         <q-page-container
             :class="{ 'light--bg' : !Dark.isActive }"
-            style="height: 100vh !important; "
-            class="hp-100">
+            :style="`height: ${isMobile ? '100vmax' : '100vh'} !important;`">
             <span
               :style="`
                 top: -40px;
@@ -20,13 +19,16 @@
                 class="balls"
                 :class="{ 'light--balls' : !Dark.isActive, 'dark--balls' : Dark.isActive }"
             ></span>
-            <router-view />
+            <router-view style="height: 100% !important;" />
         </q-page-container>
     </q-layout>
 </template>
 
 <script lang="ts" setup>
-import { Dark } from 'quasar';
+import { Dark, Screen } from 'quasar';
+import { computed } from 'vue';
+
+const isMobile = computed(() => Screen.lt.md);
 </script>
 
 <style lang="scss" scoped>

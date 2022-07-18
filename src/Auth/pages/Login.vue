@@ -82,9 +82,12 @@
                 </q-card-section>
 
                 <q-card-section>
-                    <q-form ref="formRef">
-                        <p class="text-nv-light-tertiary q-mt-none q-mb-sm">
+                    <q-form ref="formRef" greedy>
+                        <p class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between">
                             {{ $t('fields.email') }} o {{ $t('fields.phoneNumber') }}
+                            <span @click="changeValidate()" :class="`text-nv-${GetSuffix('accent')} text-medium ls-2 cursor-pointer ${isMobile ? 'fs-10' : 'fs-12'}`">
+                                {{ validating === 'email' ? $t('fields.phoneNumber') : $t('fields.email') }}
+                            </span>
                         </p>
                         <q-input
                             dark
@@ -98,12 +101,30 @@
                                 'rounded--dark-input' : Dark.isActive,
                                 'rounded--light-input text-black' : !Dark.isActive
                             }"
-                            :rules="[
-                                val => val && val !== /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/ || $t('validations.email')
-                            ]"
-                        />
+                            :rules="getRule"
+                        >
+                            <template v-slot:prepend>
+                                <q-select
+                                    v-if="validating === 'phone'"
+                                    v-model="data.code"
+                                    class="no-padding no-margin dense-select-input"
+                                    borderless
+                                    @blur="formRef?.reset()"
+                                    :color="`nv-${GetSuffix('accent')}`"
+                                    :options="options"
+                                >
+                                <template v-slot:selected>
+                                    <span :class="{
+                                        'text-nv-light-light-grey' : data.code.length < 1
+                                    }">
+                                        {{ data.code.length < 1 ? '+1' : data.code }}
+                                    </span>
+                                </template>
+                                </q-select>
+                            </template>
+                       </q-input>
                         <q-space />
-                        <p class="text-nv-light-tertiary q-mt-none q-mb-sm">
+                        <p class="text-nv-light-tertiary q-mt-none q-mb-sm fs-14">
                             {{ $t('fields.password') }}
                         </p>
                         <q-input
@@ -157,6 +178,7 @@
 <script lang="ts" setup>
 import { Dark, Screen } from 'quasar';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import Logo from '../../app/components/Logo.vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 
@@ -164,10 +186,20 @@ import GetSuffix from '../../app/shared/helpers/GetSuffix';
 const button = ref('login');
 const formRef = ref(null);
 const isPwd = ref(true);
+const validating = ref('email');
+const { t } = useI18n({ useScope: 'global' });
 const data = reactive({
     email: '',
-    password: ''
+    password: '',
+    code: ''
 });
+
+const options = [
+    '+58',
+    '+57',
+    '+1',
+    '+45'
+];
 
 // COMPUTEDS
 
@@ -177,11 +209,24 @@ const isXS = computed(() => Screen.lt.sm);
 
 const name = computed(() => process.env.APP_NAME);
 
+const getRule = computed(() =>
+{
+    return validating.value === 'email' ?
+        [(val: string) => val && val.match(/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/) || t('validations.email')] :
+        [(val: string) => val && val.length > 0 || t('validations.required')];
+});
+
 // FUNCTIONS
 
 const switchMode = () =>
 {
     Dark.set(!Dark.isActive);
+};
+
+const changeValidate = () =>
+{
+    validating.value = validating.value === 'email' ? 'phone' : 'email';
+    formRef.value?.reset();
 };
 </script>
 
