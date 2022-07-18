@@ -207,5 +207,8 @@ module.exports = {
         '@typescript-eslint/no-unsafe-call': 0,
         '@typescript-eslint/require-await': 0,
         'no-mixed-spaces-and-tabs': 0,
+        'vue/multi-word-component-names': ['error', {
+            'ignores': ['Login', 'Logo']
+          }]
     },
 };

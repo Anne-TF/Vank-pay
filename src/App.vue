@@ -3,9 +3,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { Dark } from 'quasar';
+import { defineComponent, onMounted } from 'vue';
 
 export default defineComponent({
-    name: 'App'
+    name: 'App',
+    setup()
+    {
+        onMounted(() =>
+        {
+            const aux = process.env.APP_NAME === 'Qoripay' ? true : 'auto';
+            Dark.set(aux);
+        });
+    }
 });
 </script>

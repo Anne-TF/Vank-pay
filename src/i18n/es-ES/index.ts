@@ -1,7 +1,9 @@
 // This is just an example,
 // so you can safely delete all default props below
+import login from './login';
 
 export default {
-    failed: 'La acción ha fallado',
-    success: 'La acción fue éxitosa'
+    login: {
+        ...login
+    }
 };

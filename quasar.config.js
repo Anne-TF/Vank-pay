@@ -51,6 +51,7 @@ module.exports = configure(function(/* ctx */)
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
         build: {
+            env: require('dotenv').config().parsed,
             target: {
                 browser: [
                     'es2019',
@@ -171,6 +172,9 @@ module.exports = configure(function(/* ctx */)
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-cordova-apps/configuring-cordova
         cordova: {
+            version,
+            description: 'cautosQoripay app',
+            androidVersionCode: '10'
             // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
         },
 

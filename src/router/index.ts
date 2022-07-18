@@ -36,5 +36,27 @@ export default route(function(/* { store, ssrContext } */)
         history: createHistory(process.env.VUE_ROUTER_BASE)
     });
 
+    Router.beforeEach(async(to) =>
+    {
+        // See if any of the matched routes has meta "requiresAuth"
+        if (to.matched.some(_route => _route.meta.requiredAuth))
+        {
+            /*  // Yes this route requires authentication. See if the user is authenticated.
+            if (!store.getters['auth/isAuthenticated'])
+            {
+                // User is authenticated, we allow access.
+                await Router.push('/');
+            } */
+            await Router.push('/login');
+        }
+        /* else
+        {
+            if (store.getters['auth/isAuthenticated'])
+            {
+                await Router.push({ path: '/available-services' });
+            }
+        } */
+    });
+
     return Router;
 });
