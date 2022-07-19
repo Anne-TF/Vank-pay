@@ -74,14 +74,14 @@
                             }
                         `"
                             class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
-                            @click="button = 'login'"
+                            @click="changeView('login')"
                         >
                             {{ $t('buttons.login') }}
                         </div>
                         <div
                             :class="`
                             ${
-                                button === 'register'
+                                button === 'sign-up'
                                     ? `bg-nv-${GetSuffix('secondary')}
                             ${!Dark.isActive ? 'text-nv-light-accent' : ''}`
                                     : `text-nv-${GetSuffix(
@@ -94,7 +94,7 @@
                             }
                         `"
                             class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
-                            @click="button = 'register'"
+                            @click="changeView('sign-up')"
                         >
                             {{ $t('buttons.register') }}
                         </div>
@@ -109,257 +109,393 @@
                     />
                 </q-card-section>
 
-                <q-card-section>
-                    <q-form ref="formRef" greedy>
-                        <p
-                            class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between"
-                        >
-                            {{ $t('fields.email') }} o
-                            {{ $t('fields.phoneNumber') }}
-                            <span
-                                @click="changeValidate()"
-                                :class="`text-nv-${GetSuffix(
-                                    'accent'
-                                )} text-medium ls-2 cursor-pointer ${
-                                    isMobile ? 'fs-10' : 'fs-12'
-                                }`"
-                            >
-                                {{
-                                    validating === 'email'
-                                        ? $t('fields.phoneNumber')
-                                        : $t('fields.email')
-                                }}
-                            </span>
-                        </p>
-                        <q-input
-                            dark
-                            filled
-                            rounded
-                            v-model="data.emailOrPhone"
-                            :color="'transparent'"
-                            type="email"
-                            class="q-mb-md"
-                            :class="{
-                                'rounded--dark-input': Dark.isActive,
-                                'rounded--light-input text-black':
-                                    !Dark.isActive
-                            }"
-                            :rules="getRule"
-                        >
-                            <template v-slot:prepend>
-                                <span
-                                    class="fs-14 cursor-pointer"
-                                    :class="{
-                                        'text-nv-light-tertiary':
-                                            data.code.length < 1
-                                    }"
-                                    v-if="validating === 'phone'"
-                                    @click="country = true"
-                                >
-                                    <q-avatar class="q-mr-xs" color="transparent" size="20px">
-                                        <q-img
-                                            style="
-                                                object-fit: fill !important;
-                                                object-position: center !important;
-                                                top: -10px !important;
-                                            "
-                                            :spinner-color="`nv-${GetSuffix(
-                                                'primary'
-                                            )}`"
-                                            spinner-size="10px"
-                                            :src="getFlag(data.code.length > 0 ? data.code : '+93')"
-                                        />
-                                    </q-avatar>
-                                    {{ data.code.length > 0 ? data.code : '+93' }}
-                                    <q-icon size="21px" :name="!country ? 'expand_more' : 'expand_less'" />
-                                </span>
 
-                                <q-dialog
-                                    v-model="country"
-                                    :position="isMobile ? 'bottom' : 'standard'"
+                <transition
+                    mode="in-out"
+                    enter-active-class="animated zoomIn"
+                    v-show="button === 'login'"
+                    :duration='{enter: 700, leave: 0 }'>
+                    <div>
+                        <q-card-section>
+                            <q-form ref="formRef" greedy>
+                                <p
+                                    class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between"
                                 >
-                                    <q-card
-                                        class="q-pa-sm"
-                                        :class="{
-                                            'br-40': !isMobile
-                                        }"
-                                        :style="`${
-                                            isMobile
-                                                ? 'border-radius: 40px 40px 0px 0px !important; height: 440px; width: 100%;'
-                                                : 'height: 600px; width: 600px;'
+                                    {{ $t('fields.email') }} o
+                                    {{ $t('fields.phoneNumber') }}
+                                    <span
+                                        @click="changeValidate()"
+                                        :class="`text-nv-${GetSuffix(
+                                            'accent'
+                                        )} text-medium ls-2 cursor-pointer ${
+                                            isMobile ? 'fs-10' : 'fs-12'
                                         }`"
                                     >
-                                        <q-card-section
-                                            class="flex justify-between q-pt-lg"
+                                        {{
+                                            validating === 'email'
+                                                ? $t('fields.phoneNumber')
+                                                : $t('fields.email')
+                                        }}
+                                    </span>
+                                </p>
+                                <q-input
+                                    dark
+                                    filled
+                                    rounded
+                                    v-model="data.emailOrPhone"
+                                    :color="'transparent'"
+                                    type="email"
+                                    class="q-mb-md"
+                                    :class="{
+                                        'rounded--dark-input': Dark.isActive,
+                                        'rounded--light-input text-black':
+                                            !Dark.isActive
+                                    }"
+                                    :rules="getRule"
+                                >
+                                <!-- NUMBER SLOT --->
+                                    <template v-slot:prepend>
+                                        <span
+                                            class="fs-14 cursor-pointer"
+                                            :class="{
+                                                'text-nv-light-tertiary':
+                                                    data.code.length < 1
+                                            }"
+                                            v-if="validating === 'phone'"
+                                            @click="country = true"
                                         >
-                                            <q-input
-                                                outlined
-                                                v-model="filter"
-                                                :color="`nv-${GetSuffix(
-                                                    'primary'
-                                                )}`"
-                                                rounded
-                                                dense
-                                                class="wp-85 ls-2 text-regular"
+                                            <q-avatar class="q-mr-xs" color="transparent" size="20px">
+                                                <q-img
+                                                    style="
+                                                        object-fit: fill !important;
+                                                        object-position: center !important;
+                                                        top: -10px !important;
+                                                    "
+                                                    :spinner-color="`nv-${GetSuffix(
+                                                        'primary'
+                                                    )}`"
+                                                    spinner-size="10px"
+                                                    :src="getFlag(data.code.length > 0 ? data.code : '+93')"
+                                                />
+                                            </q-avatar>
+                                            {{ data.code.length > 0 ? data.code : '+93' }}
+                                            <q-icon size="21px" :name="!country ? 'expand_more' : 'expand_less'" />
+                                        </span>
+
+                                        <!-- SELECT COUNTRY DIALOG -->
+                                        <q-dialog
+                                            v-model="country"
+                                            :position="isMobile ? 'bottom' : 'standard'"
+                                        >
+                                            <q-card
+                                                class="q-pa-sm"
                                                 :class="{
-                                                    'fs-13': isMobile
+                                                    'br-40': !isMobile
                                                 }"
-                                                :placeholder="
-                                                    $t('fields.search')
-                                                "
-                                            />
-                                            <q-btn
-                                                icon="close"
-                                                flat
-                                                round
-                                                dense
-                                                v-close-popup
-                                            />
-                                        </q-card-section>
-
-                                        <q-card-section class="hp-80 q-py-xs">
-                                            <q-scroll-area
-                                                :thumb-style="{
-                                                    right: '0px',
-                                                    borderRadius: '9px',
-                                                    backgroundColor: `${
-                                                        Dark.isActive
-                                                            ? '#016608'
-                                                            : '#52B301'
-                                                    }`,
-                                                    width: '3px',
-                                                    opacity: '0.7'
-                                                }"
-                                                :barStyle="{
-                                                    right: '0px',
-                                                    borderRadius: '5px',
-                                                    backgroundColor: '#C4C4C4',
-                                                    width: '3px',
-                                                    opacity: '0.4'
-                                                }"
-                                                class="no-margin"
-                                                style="
-                                                    min-height: 100% !important;
-                                                "
+                                                :style="`${
+                                                    isMobile
+                                                        ? 'border-radius: 40px 40px 0px 0px !important; height: 440px; width: 100%;'
+                                                        : 'height: 600px; width: 600px;'
+                                                }`"
                                             >
-                                                <q-list>
-                                                    <q-item
-                                                        v-for="(
-                                                            item, index
-                                                        ) in countries"
-                                                        :key="index"
-                                                        clickable
-                                                        :active="item.countryCode === data.code"
-                                                        :active-class="`text-nv-${GetSuffix('primary')}`"
-                                                        @click="setCode(item.countryCode)"
-                                                        class="text-white small-avatar-section cursor-pointer"
+                                                <q-card-section
+                                                    class="flex justify-between q-pt-lg"
+                                                >
+                                                    <q-input
+                                                        outlined
+                                                        v-model="filter"
+                                                        :color="`nv-${GetSuffix(
+                                                            'primary'
+                                                        )}`"
+                                                        rounded
+                                                        dense
+                                                        class="wp-85 ls-2 text-regular"
+                                                        :class="{
+                                                            'fs-13': isMobile
+                                                        }"
+                                                        :placeholder="
+                                                            $t('fields.search')
+                                                        "
+                                                    />
+                                                    <q-btn
+                                                        icon="close"
+                                                        flat
+                                                        round
+                                                        dense
+                                                        v-close-popup
+                                                    />
+                                                </q-card-section>
+
+                                                <q-card-section class="hp-80 q-py-xs">
+                                                    <q-scroll-area
+                                                        :thumb-style="{
+                                                            right: '0px',
+                                                            borderRadius: '9px',
+                                                            backgroundColor: `${
+                                                                Dark.isActive
+                                                                    ? '#016608'
+                                                                    : '#52B301'
+                                                            }`,
+                                                            width: '3px',
+                                                            opacity: '0.7'
+                                                        }"
+                                                        :barStyle="{
+                                                            right: '0px',
+                                                            borderRadius: '5px',
+                                                            backgroundColor: '#C4C4C4',
+                                                            width: '3px',
+                                                            opacity: '0.4'
+                                                        }"
+                                                        class="no-margin"
+                                                        style="
+                                                            min-height: 100% !important;
+                                                        "
                                                     >
-                                                        <q-item-section avatar>
-                                                            <q-avatar
-                                                                color="transparent"
-                                                                size="25px"
+                                                        <q-list>
+                                                            <q-item
+                                                                v-for="(
+                                                                    item, index
+                                                                ) in countries"
+                                                                :key="index"
+                                                                clickable
+                                                                :active="item.countryCode === data.code"
+                                                                :active-class="`text-nv-${GetSuffix('primary')}`"
+                                                                @click="setCode(item.countryCode)"
+                                                                class="text-white small-avatar-section cursor-pointer"
                                                             >
-                                                                <q-img
-                                                                    style="
-                                                                        object-fit: fill !important;
-                                                                        object-position: center !important;
-                                                                        top: -12px !important;
-                                                                    "
-                                                                    :spinner-color="`nv-${GetSuffix(
-                                                                        'primary'
-                                                                    )}`"
-                                                                    spinner-size="12px"
-                                                                    width="40px"
-                                                                    :src="
-                                                                        item.image
-                                                                    "
-                                                                />
-                                                            </q-avatar>
-                                                        </q-item-section>
-                                                        <q-item-section
-                                                            class="fs-13 ls-2"
-                                                        >
-                                                            {{ item.name }}
-                                                        </q-item-section>
+                                                                <q-item-section avatar>
+                                                                    <q-avatar
+                                                                        color="transparent"
+                                                                        size="25px"
+                                                                    >
+                                                                        <q-img
+                                                                            style="
+                                                                                object-fit: fill !important;
+                                                                                object-position: center !important;
+                                                                                top: -12px !important;
+                                                                            "
+                                                                            :spinner-color="`nv-${GetSuffix(
+                                                                                'primary'
+                                                                            )}`"
+                                                                            spinner-size="12px"
+                                                                            width="40px"
+                                                                            :src="
+                                                                                item.image
+                                                                            "
+                                                                        />
+                                                                    </q-avatar>
+                                                                </q-item-section>
+                                                                <q-item-section
+                                                                    class="fs-13 ls-2"
+                                                                >
+                                                                    {{ item.name }}
+                                                                </q-item-section>
 
-                                                        <q-item-section
-                                                            class="fs-13"
-                                                            side
-                                                            >{{
-                                                                item.countryCode
-                                                            }}</q-item-section
-                                                        >
-                                                    </q-item>
-                                                </q-list>
-                                            </q-scroll-area>
-                                        </q-card-section>
-                                    </q-card>
-                                </q-dialog>
-                            </template>
-                        </q-input>
-                        <q-space />
-                        <p
-                            class="text-nv-light-tertiary q-mt-none q-mb-sm fs-14"
-                        >
-                            {{ $t('fields.password') }}
-                        </p>
-                        <q-input
-                            dark
-                            filled
-                            rounded
-                            v-model="data.password"
-                            :color="'transparent'"
-                            :type="isPwd ? 'password' : 'text'"
-                            :class="{
-                                'rounded--dark-input': Dark.isActive,
-                                'rounded--light-input text-nv-light-accent':
-                                    !Dark.isActive
-                            }"
-                            :rules="[
-                                (val) =>
-                                    (val && val.length > 7) ||
-                                    $t('validations.password')
-                            ]"
-                        >
-                            <template v-slot:append>
-                                <q-icon
-                                    v-show="data.password.length > 0"
-                                    :name="
-                                        isPwd ? 'visibility' : 'visibility_off'
-                                    "
-                                    class="cursor-pointer"
-                                    @click="isPwd = !isPwd"
-                                />
-                            </template>
-                        </q-input>
+                                                                <q-item-section
+                                                                    class="fs-13"
+                                                                    side
+                                                                    >{{
+                                                                        item.countryCode
+                                                                    }}</q-item-section
+                                                                >
+                                                            </q-item>
+                                                        </q-list>
+                                                    </q-scroll-area>
+                                                </q-card-section>
+                                            </q-card>
+                                        </q-dialog>
+                                    </template>
+                                </q-input>
+                                <q-space />
+                                <p
+                                    class="text-nv-light-tertiary q-mt-none q-mb-sm fs-14"
+                                >
+                                    {{ $t('fields.password') }}
+                                </p>
+                                <q-input
+                                    dark
+                                    filled
+                                    rounded
+                                    v-model="data.password"
+                                    :color="'transparent'"
+                                    :type="isPwd ? 'password' : 'text'"
+                                    :class="{
+                                        'rounded--dark-input': Dark.isActive,
+                                        'rounded--light-input text-nv-light-accent':
+                                            !Dark.isActive
+                                    }"
+                                    :rules="[
+                                        (val) =>
+                                            (val && val.length > 7) ||
+                                            $t('validations.password')
+                                    ]"
+                                >
+                                    <template v-slot:append>
+                                        <q-icon
+                                            v-show="data.password.length > 0"
+                                            :name="
+                                                isPwd ? 'visibility' : 'visibility_off'
+                                            "
+                                            class="cursor-pointer"
+                                            @click="isPwd = !isPwd"
+                                        />
+                                    </template>
+                                </q-input>
 
-                        <q-btn
-                            :color="`nv-${GetSuffix('primary')}`"
-                            class="full-width br-20 py-12 q-mt-lg fs-16"
-                            unelevated
-                            no-caps
-                        >
-                            {{ $t('buttons.login') }}
-                        </q-btn>
-                    </q-form>
-                </q-card-section>
+                                <q-btn
+                                    :color="`nv-${GetSuffix('primary')}`"
+                                    class="full-width br-20 py-12 q-mt-lg fs-16"
+                                    unelevated
+                                    no-caps
+                                >
+                                    {{ $t('buttons.login') }}
+                                </q-btn>
+                            </q-form>
+                        </q-card-section>
 
-                <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
-                    {{ $t('login.newInPlatform') }}
-                    <span
-                        :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
-                    >
-                        {{ $t('login.createAnAccount') }}
-                    </span>
+                        <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
+                            {{ $t('login.newInPlatform') }}
+                            <span
+                                :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
+                            >
+                                {{ $t('login.createAnAccount') }}
+                            </span>
 
-                    <p
-                        :class="`text-nv-${GetSuffix(
-                            'accent'
-                        )} q-pt-md cursor-pointer`"
-                    >
-                        {{ $t('login.forgotYourPassword') }}
-                    </p>
-                </q-card-section>
+                            <p
+                                :class="`text-nv-${GetSuffix(
+                                    'accent'
+                                )} q-pt-md cursor-pointer`"
+                            >
+                                {{ $t('login.forgotYourPassword') }}
+                            </p>
+                        </q-card-section>
+                    </div>
+                </transition>
+
+                <transition
+                    mode="in-out"
+                    enter-active-class="animated zoomIn"
+                    v-show="button === 'sign-up'"
+                    :duration='{ enter: 600, leave: 0 }'>
+                    <div>
+                        <q-card-section>
+                            <q-form ref="formRef2" greedy>
+                                <p
+                                    class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between"
+                                >
+                                    {{ $t('fields.email') }}
+                                </p>
+                                <q-input
+                                    dark
+                                    filled
+                                    rounded
+                                    v-model="signUpForm.email"
+                                    :color="'transparent'"
+                                    type="email"
+                                    class="q-mb-md"
+                                    :class="{
+                                        'rounded--dark-input': Dark.isActive,
+                                        'rounded--light-input text-black':
+                                            !Dark.isActive
+                                    }"
+                                    :rules="[
+                                            (val) =>
+                                                (val &&
+                                                    val.match(
+                                                        /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+                                                    )) ||
+                                                t('validations.email')
+                                        ]"
+                                >
+                                </q-input>
+
+                                <q-space />
+
+                                <p
+                                    class="text-nv-light-tertiary q-mt-none q-mb-sm fs-14"
+                                >
+                                    {{ $t('fields.password') }}
+                                </p>
+                                <q-input
+                                    dark
+                                    filled
+                                    rounded
+                                    v-model="signUpForm.password"
+                                    :color="'transparent'"
+                                    class="q-mb-md"
+                                    :type="isPwd ? 'password' : 'text'"
+                                    :class="{
+                                        'rounded--dark-input': Dark.isActive,
+                                        'rounded--light-input text-nv-light-accent':
+                                            !Dark.isActive
+                                    }"
+                                    :rules="[
+                                        (val) =>
+                                            (val && val.length > 7) ||
+                                            $t('validations.password')
+                                    ]"
+                                >
+                                    <template v-slot:append>
+                                        <q-icon
+                                            v-show="signUpForm.password.length > 0"
+                                            :name="
+                                                isPwd ? 'visibility' : 'visibility_off'
+                                            "
+                                            class="cursor-pointer"
+                                            @click="isPwd = !isPwd"
+                                        />
+                                    </template>
+                                </q-input>
+
+                                <q-space />
+
+                                <p
+                                    class="text-nv-light-tertiary q-mt-none q-mb-sm fs-14"
+                                >
+                                    {{ $t('fields.confirmPassword') }}
+                                </p>
+                                <q-input
+                                    dark
+                                    filled
+                                    rounded
+                                    v-model="signUpForm.confirmPassword"
+                                    :color="'transparent'"
+                                    :type="isPwd ? 'password' : 'text'"
+                                    :class="{
+                                        'rounded--dark-input': Dark.isActive,
+                                        'rounded--light-input text-nv-light-accent':
+                                            !Dark.isActive
+                                    }"
+                                    :rules="[
+                                        (val) =>
+                                            (val && val.length > 7) ||
+                                            $t('validations.password')
+                                    ]"
+                                >
+                                    <template v-slot:append>
+                                        <q-icon
+                                            v-show="signUpForm.confirmPassword.length > 0"
+                                            :name="
+                                                isPwd ? 'visibility' : 'visibility_off'
+                                            "
+                                            class="cursor-pointer"
+                                            @click="isPwd = !isPwd"
+                                        />
+                                    </template>
+                                </q-input>
+
+                                <q-btn
+                                    :color="`nv-${GetSuffix('primary')}`"
+                                    class="full-width br-20 py-12 q-mt-lg fs-16"
+                                    unelevated
+                                    no-caps
+                                >
+                                    {{ $t('buttons.login') }}
+                                </q-btn>
+                            </q-form>
+                        </q-card-section>
+                    </div>
+                </transition>
             </q-card>
         </div>
     </q-page>
@@ -367,15 +503,20 @@
 
 <script lang="ts" setup>
 import { Dark, Screen } from 'quasar';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { computed, reactive, ref, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import Logo from '../../app/components/Logo.vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import countries from '../../assets/resources/countries';
 
+// CONSTANTS
+const $router = useRouter();
+
 // REFERENCES
 const button = ref<string>('login');
 const formRef = ref<any>(null);
+const formRef2 = ref<any>(null);
 const isPwd = ref<boolean>(true);
 const filter = ref<string>('');
 const country = ref<boolean>(false);
@@ -385,6 +526,12 @@ const data = reactive({
     emailOrPhone: '',
     password: '',
     code: ''
+});
+
+const signUpForm = reactive({
+    email: '',
+    password: '',
+    confirmPassword: ''
 });
 
 // COMPUTEDS
@@ -436,6 +583,26 @@ const setCode = (code: string) =>
     data.code = code;
     country.value = false;
 };
+
+const changeView = (view: string) =>
+{
+    button.value = view;
+    $router.replace(`/${view}`);
+    formRef.value?.reset();
+};
+
+// LIFECYCLE HOOKS
+watchEffect(() =>
+{
+    if ($router.currentRoute.value.fullPath.includes('/sign-up'))
+    {
+        button.value = 'sign-up';
+    }
+    else if ($router.currentRoute.value.fullPath.includes('/login'))
+    {
+        button.value = 'login';
+    }
+});
 </script>
 
 <style lang="scss" scoped>
