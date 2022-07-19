@@ -95,6 +95,10 @@ body.body--light {
   .q-field__marginal {
     height: 48px !important;
   }
+
+  .q-field__control::before, .q-field__control::after {
+    display: none !important;
+  }
 }
 
 .rounded--light-input {
@@ -112,10 +116,10 @@ body.body--light {
    .q-field__native {
     color: #353E49 !important;
   }
-}
 
-.q-field__control::before, .q-field__control::after {
-  display: none !important;
+  .q-field__control::before, .q-field__control::after {
+    display: none !important;
+  }
 }
 
 .dense-select-input {
