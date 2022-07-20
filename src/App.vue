@@ -2,19 +2,31 @@
     <router-view />
 </template>
 
-<script lang="ts">
-import { Dark } from 'quasar';
-import { defineComponent, onMounted } from 'vue';
+<script lang="ts" setup>
+import { Dark, Platform } from 'quasar';
+import {onMounted, watchEffect} from 'vue';
 
-export default defineComponent({
-    name: 'App',
-    setup()
+watchEffect(() =>
+{
+    if(Dark.isActive)
     {
-        onMounted(() =>
-        {
-            const aux = process.env.APP_NAME === 'Qoripay' ? true : 'auto';
-            Dark.set(aux);
-        });
+        StatusBar.styleLightContent();
+    }
+    else
+    {
+        StatusBar.styleDefault();
+    }
+})
+
+onMounted(() =>
+{
+    const aux = process.env.APP_NAME === 'Qoripay' ? true : 'auto';
+    Dark.set(aux);
+    if (Platform.is.android)
+    {
+        StatusBar.overlaysWebView(true);
+        StatusBar.backgroundColorByHexString('rgba(255,255,255,0)');
     }
 });
+
 </script>
