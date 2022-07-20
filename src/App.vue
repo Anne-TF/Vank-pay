@@ -4,19 +4,19 @@
 
 <script lang="ts" setup>
 import { Dark, Platform } from 'quasar';
-import {onMounted, watchEffect} from 'vue';
+import { onMounted, watchEffect } from 'vue';
 
 watchEffect(() =>
 {
-    if(Dark.isActive)
+    if (Dark.isActive && Platform.is.android)
     {
         StatusBar.styleLightContent();
     }
-    else
+    else if (!Dark.isActive && Platform.is.android)
     {
         StatusBar.styleDefault();
     }
-})
+});
 
 onMounted(() =>
 {

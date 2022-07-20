@@ -25,6 +25,7 @@
                 @click="changeValidate()"
                 :color="`nv-${GetSuffix('accent')}`"
                 v-show="width <= 444"
+                class="q-mr-sm"
                 :name="validating === 'email' ? 'smartphone' : 'mail'"
             />
         </p>
@@ -35,6 +36,8 @@
             v-model="data.emailOrPhone"
             :color="'transparent'"
             type="email"
+            :placeholder="validating === 'email' ? 'money@qoripay.com' : '4240000001'"
+            :inputmode="validating === 'phone' ? 'numeric' : 'text'"
             class="q-mb-md"
             :class="{
                 'rounded--dark-input': Dark.isActive,
@@ -168,6 +171,7 @@
             filled
             rounded
             v-model="data.password"
+            placeholder="************"
             :color="'transparent'"
             :type="isPwd ? 'password' : 'text'"
             :class="{

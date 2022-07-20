@@ -1,5 +1,6 @@
 export default {
     login: 'Log in',
     register: 'Sign up',
-    createAccount: 'Create account'
+    createAccount: 'Create account',
+    changeLanguageTo: 'Change language to '
 };

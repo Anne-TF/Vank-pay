@@ -143,7 +143,9 @@ body.body--light {
   }
 }
 
-
+.q-placeholder::placeholder {
+  opacity: .3 !important;
+}
 
 //  SCROLL CLASS STARTS
 /* Tamaño del scroll */

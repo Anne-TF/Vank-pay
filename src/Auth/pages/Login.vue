@@ -16,7 +16,7 @@
                 }"
                 class="flex column items-center"
             >
-                <Logo class="q-mb-lg" :size="isMobile ? '165px' : '545px;'" />
+                <Logo class="q-mb-lg" :size="isMobile ? '165px' : '545px'" />
                 <h5
                     :class="{ 'fs-23': isXS }"
                     class="no-padding q-mb-xs q-mt-sm text-center"
@@ -37,11 +37,20 @@
 
         <div
             :class="{
-                'hp-100 wp-100': isMobile && button === 'sign-up' || screenSize.height <= 764,
-                'hp-60': isMobile && button === 'login' && screenSize.height > 764,
+                'hp-100 wp-100':
+                    (isMobile && button === 'sign-up') ||
+                    screenSize.height <= 764,
+                'hp-60':
+                    isMobile && button === 'login' && screenSize.height > 764,
                 'col-5 col-lg-4 flex justify-center items-center': !isMobile
             }"
-            :style="`${isMobile && button === 'sign-up' || screenSize.height <= 764 ? `top: ${screenSize.height <= 764 ? '0' : position}% !important; position: absolute;` : ''}`"
+            :style="`${
+                (isMobile && button === 'sign-up') || screenSize.height <= 764
+                    ? `top: ${
+                          screenSize.height <= 764 ? '0' : position
+                      }% !important; position: absolute;`
+                    : ''
+            }`"
         >
             <!-- LOGIN CARD -->
             <q-card
@@ -60,24 +69,24 @@
             >
                 <q-scroll-area
                     :thumb-style="{
-                                    right: '0px',
-                                    borderRadius: '9px',
-                                    backgroundColor: `${
-                                        Dark.isActive ? '#016608' : '#52B301'
-                                    }`,
-                                    width: '3px',
-                                    opacity: '0.7'
-                                }"
+                        right: '0px',
+                        borderRadius: '9px',
+                        backgroundColor: `${
+                            Dark.isActive ? '#016608' : '#52B301'
+                        }`,
+                        width: '3px',
+                        opacity: '0.7'
+                    }"
                     :barStyle="{
-                                    right: '0px',
-                                    borderRadius: '5px',
-                                    backgroundColor: '#C4C4C4',
-                                    width: '3px',
-                                    opacity: '0.4'
-                                }"
+                        right: '0px',
+                        borderRadius: '5px',
+                        backgroundColor: '#C4C4C4',
+                        width: '3px',
+                        opacity: '0.4'
+                    }"
                     class="no-margin hp-100"
                 >
-                    <q-card-section class="pt-35 row no-margin justify-between">
+                    <q-card-section class="pt-28 row no-margin justify-between">
                         <div class="flex flex-inline justify-start">
                             <div
                                 :class="`
@@ -132,27 +141,34 @@
 
                     <transition
                         mode="in-out"
-                        :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
+                        :enter-active-class="`${
+                            isMobile ? '' : 'animated zoomIn'
+                        }`"
                         v-show="button === 'login'"
-                        :duration='{enter: 0, leave: 0 }'>
+                        :duration="{ enter: 0, leave: 0 }"
+                    >
                         <div>
                             <q-card-section>
                                 <LoginForm :width="screenSize.width" />
                             </q-card-section>
 
-                            <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
+                            <q-card-section
+                                class="fs-12 text-nv-light-tertiary q-py-none"
+                            >
                                 {{ $t('login.newInPlatform') }}
                                 <span
-                                    :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
+                                    :class="`text-nv-${GetSuffix(
+                                        'accent'
+                                    )} cursor-pointer`"
                                     @click="changeView('sign-up')"
                                 >
-                                {{ $t('login.createAnAccount') }}
-                            </span>
+                                    {{ $t('login.createAnAccount') }}
+                                </span>
 
                                 <p
                                     :class="`text-nv-${GetSuffix(
-                                    'accent'
-                                )} q-pt-md cursor-pointer`"
+                                        'accent'
+                                    )} q-pt-md cursor-pointer`"
                                 >
                                     {{ $t('login.forgotYourPassword') }}
                                 </p>
@@ -162,15 +178,39 @@
 
                     <transition
                         mode="in-out"
-                        :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
+                        :enter-active-class="`${
+                            isMobile ? '' : 'animated zoomIn'
+                        }`"
                         v-show="button === 'sign-up'"
-                        :duration='{ enter: 0, leave: 0 }'>
+                        :duration="{ enter: 0, leave: 0 }"
+                    >
                         <div>
                             <q-card-section>
                                 <SignUpForm :height="screenSize.height" />
                             </q-card-section>
                         </div>
                     </transition>
+
+                    <div
+                        class="fixed-bottom fs-10 text-center text-nv-light-tertiary cursor-pointer"
+                        @click="setLang(locale.includes('es') ? 'en-US' : 'es-ES')"
+                    >
+                        {{ $t('buttons.changeLanguageTo') }}
+                        <span
+                            class="ml-3"
+                            :class="`text-nv-${GetSuffix('accent')}`"
+                        >
+                            {{
+                                $t(
+                                    `langs.${
+                                        locale.includes('es')
+                                            ? 'english'
+                                            : 'spanish'
+                                    }`
+                                )
+                            }}
+                        </span>
+                    </div>
                 </q-scroll-area>
             </q-card>
         </div>
@@ -178,17 +218,20 @@
 </template>
 
 <script lang="ts" setup>
-import { Dark, Screen } from 'quasar';
+import { Dark, Screen, useQuasar } from 'quasar';
 import { computed, onUnmounted, reactive, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import Logo from '../../app/components/Logo.vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import LoginForm from '../component/LoginForm.vue';
 import SignUpForm from '../component/SignUpForm.vue';
+import { useI18n } from 'vue-i18n';
 
 // CONSTANTS
 const $router = useRouter();
 const animateTimeout = <any>ref(null);
+const { locale } = useI18n({ useScope: 'global' });
+const $q = useQuasar();
 
 // REFERENCES
 const button = ref<string>('login');
@@ -250,8 +293,21 @@ function onResize()
     screenSize.width = window.innerWidth;
 }
 
+const setLang = (lang: string) =>
+{
+    if (lang.includes('es'))
+    {
+        locale.value = 'es-ES';
+    }
+    else
+    {
+        locale.value = 'en-US';
+    }
+};
+
 onResize();
 window.addEventListener('resize', onResize, { passive: true });
+setLang($q.lang.getLocale() ?? 'es-ES');
 
 // WATCHERS
 watchEffect(() =>

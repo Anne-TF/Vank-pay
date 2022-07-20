@@ -1,6 +1,6 @@
 export default {
     welcome: 'Welcome to {0}! 👋',
-    caption: 'Join to the best platform to save and send your mony',
+    caption: 'Join to the best platform to save and send your money',
     newInPlatform: 'Are you new in the platform?',
     createAnAccount: 'Create an account',
     forgotYourPassword: 'Forgot your password?',

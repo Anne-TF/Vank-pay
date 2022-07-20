@@ -17,6 +17,7 @@
             rounded
             v-model="signUpForm.email"
             :color="'transparent'"
+            placeholder="money@qoripay.com"
             type="email"
             class="q-mb-md"
             :class="{
@@ -43,6 +44,7 @@
             dark
             filled
             rounded
+            placeholder="************"
             v-model="signUpForm.password"
             :color="'transparent'"
             class="q-mb-md"
@@ -72,6 +74,7 @@
         </p>
         <q-input
             dark
+            placeholder="************"
             filled
             rounded
             v-model="signUpForm.confirmPassword"
