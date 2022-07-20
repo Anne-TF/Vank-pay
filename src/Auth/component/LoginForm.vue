@@ -70,7 +70,9 @@
                     <q-card
                         class="q-pa-sm"
                         :class="{
-                            'br-40': !isMobile
+                            'br-40': !isMobile,
+                            'bg-nv-dark' : Dark.isActive,
+                            'bg-nv-light': !Dark.isActive
                         }"
                         :style="`${
                             isMobile
@@ -128,7 +130,7 @@
                                         clickable
                                         :active="item.countryCode === data.code"
                                         :active-class="`text-nv-${GetSuffix(
-                                            'primary'
+                                            'accent'
                                         )}`"
                                         @click="setCode(item.countryCode)"
                                         :class="{'text-white' : Dark.isActive, 'text-nv-dark' : !Dark.isActive }"
@@ -142,7 +144,11 @@
                                             {{ item.name }}
                                         </q-item-section>
 
-                                        <q-item-section class="fs-13" side>{{
+                                        <q-item-section
+                                        :class="`${(data.code === item.countryCode) ? `text-nv-${GetSuffix('accent')}` : ''}`"
+                                        class="fs-13"
+                                        side>
+                                        {{
                                             item.countryCode
                                         }}</q-item-section>
                                     </q-item>
