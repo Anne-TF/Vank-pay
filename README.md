@@ -1,4 +1,4 @@
-# Nova pay App (nova-pay)
+# Qori pay App (qori-pay)
 
 A Quasar Project
 

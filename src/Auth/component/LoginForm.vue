@@ -7,6 +7,7 @@
             {{ $t('fields.phoneNumber') }}
             <span
                 @click="changeValidate()"
+                v-show="width > 444"
                 :class="`text-nv-${GetSuffix(
                     'accent'
                 )} text-medium ls-2 cursor-pointer ${
@@ -19,6 +20,13 @@
                         : $t('fields.email')
                 }}
             </span>
+            <q-icon
+                size="1.6em"
+                @click="changeValidate()"
+                :color="`nv-${GetSuffix('accent')}`"
+                v-show="width <= 444"
+                :name="validating === 'email' ? 'smartphone' : 'mail'"
+            />
         </p>
         <q-input
             dark
@@ -44,23 +52,10 @@
                     v-if="validating === 'phone'"
                     @click="country = true"
                 >
-                    <q-avatar class="q-mr-xs" color="transparent" size="20px">
-                        <q-img
-                            style="
-                                object-fit: fill !important;
-                                object-position: center !important;
-                                top: -10px !important;
-                            "
-                            :spinner-color="`nv-${GetSuffix('primary')}`"
-                            spinner-size="10px"
-                            :src="
-                                getFlag(
-                                    data.code.length > 0 ? data.code : '+93'
-                                )
-                            "
-                        />
+                    <q-avatar class="q-mr-xs" color="transparent" size="3em">
+                        {{ getEmoji(data.code) }}
                     </q-avatar>
-                    {{ data.code.length > 0 ? data.code : '+93' }}
+                    {{ data.code }}
                     <q-icon
                         size="21px"
                         :name="!country ? 'expand_more' : 'expand_less'"
@@ -90,6 +85,7 @@
                                 :color="`nv-${GetSuffix('primary')}`"
                                 rounded
                                 dense
+                                @update:model-value="onFilter"
                                 class="wp-85 ls-2 text-regular"
                                 :class="{
                                     'fs-13': isMobile
@@ -123,8 +119,7 @@
                                     width: '3px',
                                     opacity: '0.4'
                                 }"
-                                class="no-margin"
-                                style="min-height: 100% !important"
+                                class="no-margin hp-100"
                             >
                                 <q-list>
                                     <q-item
@@ -136,28 +131,13 @@
                                             'primary'
                                         )}`"
                                         @click="setCode(item.countryCode)"
-                                        class="text-white small-avatar-section cursor-pointer"
+                                        :class="{'text-white' : Dark.isActive, 'text-nv-dark' : !Dark.isActive }"
+                                        class="small-avatar-section cursor-pointer"
                                     >
                                         <q-item-section avatar>
-                                            <q-avatar
-                                                color="transparent"
-                                                size="25px"
-                                            >
-                                                <q-img
-                                                    style="
-                                                        object-fit: fill !important;
-                                                        object-position: center !important;
-                                                        top: -12px !important;
-                                                    "
-                                                    :spinner-color="`nv-${GetSuffix(
-                                                        'primary'
-                                                    )}`"
-                                                    spinner-size="12px"
-                                                    width="40px"
-                                                    :src="item.image"
-                                                />
-                                            </q-avatar>
+                                            {{ item.emoji }}
                                         </q-item-section>
+
                                         <q-item-section class="fs-13 ls-2">
                                             {{ item.name }}
                                         </q-item-section>
@@ -217,21 +197,29 @@
 import { Dark, Screen } from 'quasar';
 import { computed, reactive, ref } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
-import countries from '../../assets/resources/countries';
+import countriesData, { ICountry } from '../../assets/resources/countries';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n({ useScope: 'global' });
 
-const data = reactive({
-    emailOrPhone: '',
-    password: '',
-    code: ''
+defineProps({
+    width: {
+        type: Number,
+        default: 0
+    }
 });
 
 const formRef = ref<any>(null);
+const countries = ref<ICountry[]>([...countriesData]);
 const isPwd = ref<boolean>(true);
 const country = ref<boolean>(false);
 const validating = ref<string>('email');
 const filter = ref<string>('');
+
+const data = reactive({
+    emailOrPhone: '',
+    password: '',
+    code: countries.value[0].countryCode
+});
 
 const isMobile = computed(() => Screen.lt.md);
 const getRule = computed(() =>
@@ -258,14 +246,40 @@ const changeValidate = () =>
     formRef.value?.reset();
 };
 
-const getFlag = (code: string) =>
+
+const getEmoji = (countryCode: string): string | null =>
 {
-    return countries.find((e: any) => e.countryCode === code)?.image ?? '';
+    return countries.value.find(c => c.countryCode === countryCode)?.emoji ?? null;
 };
 
-const setCode = (code: string) =>
+const setCode = (code: string): void  =>
 {
     data.code = code;
     country.value = false;
 };
+
+const onFilter = () =>
+{
+    if (filter.value.length > 0)
+    {
+        countries.value = countries.value.filter((e) =>
+        {
+            return e.name.toLowerCase().includes(filter.value.toLowerCase());
+        });
+    }
+    else
+    {
+        countries.value = [...countriesData];
+    }
+};
+
 </script>
+
+<style lang="scss" scoped>
+.small-avatar-section {
+    .q-item__section--avatar {
+        min-width: 30px !important;
+        width: 30px !important;
+    }
+}
+</style>

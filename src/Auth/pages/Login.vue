@@ -37,16 +37,16 @@
 
         <div
             :class="{
-                'hp-100 wp-100': isMobile && button === 'sign-up',
-                'hp-60': isMobile && button === 'login',
+                'hp-100 wp-100': isMobile && button === 'sign-up' || screenSize.height <= 764,
+                'hp-60': isMobile && button === 'login' && screenSize.height > 764,
                 'col-5 col-lg-4 flex justify-center items-center': !isMobile
             }"
-            :style="`${isMobile && button === 'sign-up' ? `top: ${position}% !important; position: absolute;` : ''}`"
+            :style="`${isMobile && button === 'sign-up' || screenSize.height <= 764 ? `top: ${screenSize.height <= 764 ? '0' : position}% !important; position: absolute;` : ''}`"
         >
             <!-- LOGIN CARD -->
             <q-card
                 :style="`${
-                    isMobile && button === 'login'
+                    isMobile && button === 'login' && screenSize.height > 764
                         ? 'border-radius: 40px 40px 0px 0px !important;'
                         : ''
                 }`"
@@ -54,14 +54,33 @@
                 :class="{
                     'dark--card': Dark.isActive,
                     'bg-white': !Dark.isActive,
-                    'br-40 hp-80 wp-93': !isMobile,
+                    'br-40 hp-80 wp-93 q-py-md': !isMobile,
                     'hp-100 wp-100': isMobile
                 }"
             >
-                <q-card-section class="pt-35 row no-margin justify-between">
-                    <div class="flex flex-inline justify-start">
-                        <div
-                            :class="`
+                <q-scroll-area
+                    :thumb-style="{
+                                    right: '0px',
+                                    borderRadius: '9px',
+                                    backgroundColor: `${
+                                        Dark.isActive ? '#016608' : '#52B301'
+                                    }`,
+                                    width: '3px',
+                                    opacity: '0.7'
+                                }"
+                    :barStyle="{
+                                    right: '0px',
+                                    borderRadius: '5px',
+                                    backgroundColor: '#C4C4C4',
+                                    width: '3px',
+                                    opacity: '0.4'
+                                }"
+                    class="no-margin hp-100"
+                >
+                   <q-card-section class="pt-35 row no-margin justify-between">
+                       <div class="flex flex-inline justify-start">
+                           <div
+                               :class="`
                             ${
                                 button === 'login'
                                     ? `bg-nv-${GetSuffix('secondary')}
@@ -75,13 +94,13 @@
                                       )}`
                             }
                         `"
-                            class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
-                            @click="changeView('login')"
-                        >
-                            {{ $t('buttons.login') }}
-                        </div>
-                        <div
-                            :class="`
+                               class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
+                               @click="changeView('login')"
+                           >
+                               {{ $t('buttons.login') }}
+                           </div>
+                           <div
+                               :class="`
                             ${
                                 button === 'sign-up'
                                     ? `bg-nv-${GetSuffix('secondary')}
@@ -95,63 +114,75 @@
                                       )}`
                             }
                         `"
-                            class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
-                            @click="changeView('sign-up')"
-                        >
-                            {{ $t('buttons.register') }}
-                        </div>
-                    </div>
+                               class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
+                               @click="changeView('sign-up')"
+                           >
+                               {{ $t('buttons.register') }}
+                           </div>
+                       </div>
 
-                    <q-btn
-                        @click="switchMode()"
-                        flat
-                        round
-                        :color="Dark.isActive ? 'white' : 'nv-light-tertiary'"
-                        :icon="Dark.isActive ? 'brightness_5' : 'dark_mode'"
-                    />
-                </q-card-section>
+                       <q-btn
+                           @click="switchMode()"
+                           flat
+                           round
+                           :color="Dark.isActive ? 'white' : 'nv-light-tertiary'"
+                           :icon="Dark.isActive ? 'brightness_5' : 'dark_mode'"
+                       />
+                   </q-card-section>
 
+                   <transition
+                       mode="in-out"
+                       :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
+                       v-show="button === 'login'"
+                       :duration='{enter: 0, leave: 0 }'>
+                       <div>
+                           <q-card-section>
+                               <LoginForm :width="screenSize.width" />
+                           </q-card-section>
 
-                <transition
-                    mode="in-out"
-                    :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
-                    v-show="button === 'login'"
-                    :duration='{enter: 0, leave: 0 }'>
-                    <div>
-                        <q-card-section>
-                           <LoginForm />
-                        </q-card-section>
-
-                        <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
-                            {{ $t('login.newInPlatform') }}
-                            <span
-                                :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
-                            >
+                           <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
+                               {{ $t('login.newInPlatform') }}
+                               <span
+                                   :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
+                                   @click="changeView('sign-up')"
+                               >
                                 {{ $t('login.createAnAccount') }}
                             </span>
 
-                            <p
-                                :class="`text-nv-${GetSuffix(
+                               <p
+                                   :class="`text-nv-${GetSuffix(
                                     'accent'
                                 )} q-pt-md cursor-pointer`"
-                            >
-                                {{ $t('login.forgotYourPassword') }}
-                            </p>
-                        </q-card-section>
-                    </div>
-                </transition>
+                               >
+                                   {{ $t('login.forgotYourPassword') }}
+                               </p>
+                           </q-card-section>
+                       </div>
+                   </transition>
 
-                <transition
-                    mode="in-out"
-                    :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
-                    v-show="button === 'sign-up'"
-                    :duration='{ enter: 0, leave: 0 }'>
-                    <div>
-                        <q-card-section>
-                            <SignUpForm />
-                        </q-card-section>
-                    </div>
-                </transition>
+                   <transition
+                       mode="in-out"
+                       :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
+                       v-show="button === 'sign-up'"
+                       :duration='{ enter: 0, leave: 0 }'>
+                       <div>
+                           <q-card-section>
+                               <SignUpForm />
+                           </q-card-section>
+
+                           <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
+                               {{ $t('login.alreadyHaveAnAccount') }}
+                               <span
+                                   :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
+                                   @click="$router.replace('/login')"
+                               >
+                                {{ $t('login.login') }}
+                            </span>
+
+                           </q-card-section>
+                       </div>
+                   </transition>
+                </q-scroll-area>
             </q-card>
         </div>
     </q-page>
@@ -159,11 +190,10 @@
 
 <script lang="ts" setup>
 import { Dark, Screen } from 'quasar';
-import { computed, reactive, ref, watchEffect } from 'vue';
+import { computed, onUnmounted, reactive, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import Logo from '../../app/components/Logo.vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
-import countries from '../../assets/resources/countries';
 import LoginForm from '../component/LoginForm.vue';
 import SignUpForm from '../component/SignUpForm.vue';
 
@@ -174,7 +204,10 @@ const animateTimeout = <any>ref(null);
 // REFERENCES
 const button = ref<string>('login');
 const position = ref(40);
-
+const screenSize = reactive({
+    height: 0,
+    width: 0
+});
 
 // COMPUTEDS
 
@@ -222,7 +255,16 @@ const changeView = (view: string) =>
     }
 };
 
-// LIFECYCLE HOOKS
+function onResize()
+{
+    screenSize.height = window.innerHeight;
+    screenSize.width = window.innerWidth;
+}
+
+onResize();
+window.addEventListener('resize', onResize, { passive: true });
+
+// WATCHERS
 watchEffect(() =>
 {
     if ($router.currentRoute.value.fullPath.includes('/sign-up'))
@@ -235,16 +277,19 @@ watchEffect(() =>
         button.value = 'login';
     }
 });
+
+// LIFECYCLE HOOKS
+onUnmounted(() =>
+{
+    if (typeof window !== 'undefined')
+    {
+        window.removeEventListener('resize', onResize, true);
+    }
+});
 </script>
 
 <style lang="scss" scoped>
 .dark--card {
     background-color: #1d2229;
-}
-.small-avatar-section {
-    .q-item__section--avatar {
-        min-width: 40px !important;
-        width: 40px !important;
-    }
 }
 </style>

@@ -1,6 +1,12 @@
 import { Dark } from 'quasar';
 
-const GetSuffix = (color: string): string =>
+declare type Color = 'primary' |
+'secondary' |
+'tertiary' |
+'light-grey' |
+'accent'
+
+const GetSuffix = (color: Color): string =>
 {
     return Dark.isActive ? `dark-${color}` : `light-${color}`;
 };

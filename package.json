@@ -1,5 +1,5 @@
 {
-    "name": "nova-pay",
+    "name": "quori-pay",
     "version": "0.0.1",
     "description": "A Quasar Project",
     "productName": "Nova pay App",
@@ -8,9 +8,13 @@
     "scripts": {
         "dev": "quasar dev",
         "build": "quasar build",
+        "icons": "icongenie g -m cordova -i src/assets/icons/Qoripay.png --skip-trim --theme-color 161B22  --quality 12 --splashscreen-icon-ratio 30",
         "lint": "eslint --ext .js,.ts,.vue ./",
         "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
-        "test": "echo \"No test specified\" && exit 0"
+        "test": "echo \"No test specified\" && exit 0",
+        "build:android": "set BUILD_ANDROID=true && quasar build -m android",
+        "dev:android": "npx quasar dev -m android -e 303364fd ",
+        "device": "adb devices"
     },
     "dependencies": {
         "@quasar/extras": "^1.0.0",
