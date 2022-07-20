@@ -1,5 +1,11 @@
 <template>
-    <q-form ref="formRef" greedy>
+    <q-form
+        :class="{
+            ' mb-80': height <= 764
+        }"
+        ref="formRef"
+        greedy
+    >
         <p
             class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between"
         >
@@ -90,8 +96,37 @@
         </q-input>
     </q-form>
 
-    <div class="q-mt-xl">
-         <q-btn
+    <div
+        :class="{
+            'fixed-bottom mb-80 mt-80 q-px-md': height > 764
+        }"
+    >
+        <div
+            class="fs-12 text-nv-light-tertiary q-py-none q-mt-md q-mb-md row q-mx-none items-start"
+        >
+            <div class="col flex items-start">
+                <q-checkbox
+                    v-model="acceptedTerms"
+                    checked-icon="check_circle"
+                    unchecked-icon="check_circle"
+                    :color="`nv-${GetSuffix('accent')}`"
+                    indeterminate-icon="help"
+                    size="xs"
+                />
+            </div>
+            <div class="col-11 q-pl-sm">
+                {{ $t('login.termsAndPolicy') }}
+                <span :class="`text-nv-${GetSuffix('accent')} cursor-pointer`">
+                    {{ $t('login.terms') }}
+                </span>
+                {{ $t('login.and') }}
+                <span :class="`text-nv-${GetSuffix('accent')} cursor-pointer`">
+                    {{ $t('login.politics') }}
+                </span>
+                {{ $t('login.of') }} {{ getName }}
+            </div>
+        </div>
+        <q-btn
             :color="`nv-${GetSuffix('primary')}`"
             class="full-width br-20 py-12 q-mt-lg fs-16"
             unelevated
@@ -99,6 +134,16 @@
         >
             {{ $t('buttons.createAccount') }}
         </q-btn>
+
+        <div class="fs-12 text-nv-light-tertiary q-py-none q-mt-md">
+            {{ $t('login.alreadyHaveAnAccount') }}
+            <span
+                :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
+                @click="$router.replace('/login')"
+            >
+                {{ $t('login.login') }}
+            </span>
+        </div>
     </div>
 </template>
 
@@ -106,6 +151,13 @@
 import { reactive, computed, ref } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { Dark, Screen } from 'quasar';
+
+defineProps({
+    height: {
+        type: Number,
+        default: 0
+    }
+});
 
 const signUpForm = reactive({
     email: '',
@@ -115,6 +167,8 @@ const signUpForm = reactive({
 const isPwd = ref<boolean>(true);
 const isPwd2 = ref<boolean>(true);
 const formRef = ref<any>(null);
+const acceptedTerms = ref<boolean>(false);
 
 const isMobile = computed(() => Screen.lt.md);
+const getName = computed(() => process.env.APP_NAME);
 </script>

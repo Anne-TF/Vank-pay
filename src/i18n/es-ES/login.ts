@@ -6,7 +6,9 @@ export default {
     forgotYourPassword: '¿Olvidó su contraseña?',
     alreadyHaveAnAccount: '¿Ya tienes cuenta?',
     login: 'Inicia sesión',
-    termsAndPolicy: 'He leído y acepto los {0} y la {1} de Nova',
+    termsAndPolicy: 'He leído y acepto los',
     terms: 'Términos de servicio',
+    and: 'y la',
+    of: 'de',
     politics: 'Política de privacidad'
 };

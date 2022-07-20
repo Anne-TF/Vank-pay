@@ -167,18 +167,7 @@
                         :duration='{ enter: 0, leave: 0 }'>
                         <div>
                             <q-card-section>
-                                <SignUpForm />
-                            </q-card-section>
-
-                            <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
-                                {{ $t('login.alreadyHaveAnAccount') }}
-                                <span
-                                    :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
-                                    @click="$router.replace('/login')"
-                                >
-                                {{ $t('login.login') }}
-                            </span>
-
+                                <SignUpForm :height="screenSize.height" />
                             </q-card-section>
                         </div>
                     </transition>
@@ -196,35 +185,6 @@ import Logo from '../../app/components/Logo.vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import LoginForm from '../component/LoginForm.vue';
 import SignUpForm from '../component/SignUpForm.vue';
-import {Meta, Todo} from 'src/app/components/Models';
-import ExampleComponent from 'src/app/components/ExampleComponent.vue';
-
-const todos = ref<Todo[]>([
-    {
-        id: 1,
-        content: 'ct1'
-    },
-    {
-        id: 2,
-        content: 'ct2'
-    },
-    {
-        id: 3,
-        content: 'ct3'
-    },
-    {
-        id: 4,
-        content: 'ct4'
-    },
-    {
-        id: 5,
-        content: 'ct5'
-    }
-]);
-
-const meta = ref<Meta>({
-    totalCount: 1200
-});
 
 // CONSTANTS
 const $router = useRouter();
