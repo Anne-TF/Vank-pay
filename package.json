@@ -8,13 +8,16 @@
     "scripts": {
         "dev": "quasar dev",
         "build": "quasar build",
-        "icons": "icongenie g -m cordova -i src/assets/icons/Qoripay.png --skip-trim --theme-color 161B22  --quality 12 --splashscreen-icon-ratio 30",
+        "icons": "icongenie g -m cordova -i ./src/assets/icons/Qoripay.png --skip-trim --theme-color 161B22  --quality 12 --splashscreen-icon-ratio 30",
         "lint": "eslint --ext .js,.ts,.vue ./",
         "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
         "test": "echo \"No test specified\" && exit 0",
-        "build:android": "set BUILD_ANDROID=true && quasar build -m android",
-        "dev:android": "npx quasar dev -m android -e 303364fd ",
-        "device": "adb devices"
+        "dev:android": "quasar dev -m android -e emulator-5554",
+        "device": "adb devices",
+        "apk:build": "set BUILD_ANDROID=true && quasar build -m android",
+        "apk:key": "keytool -genkey -v -keystore qoripayrelease.keystore -alias qoripay-release-key -keyalg RSA -keysize 2048 -validity 20000",
+        "apk:release": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./qoripayrelease.keystore dist/cordova/android/apk/release/app-release-unsigned.apk qoripay-release-key",
+        "apk:optimize": "/home/**/Android/Sdk/build-tools/31.0.0/zipalign -v 4 dist/cordova/android/apk/release/app-release-unsigned.apk dist/cordova/android/apk/release/qori-pay.apk"
     },
     "dependencies": {
         "@quasar/extras": "^1.0.0",

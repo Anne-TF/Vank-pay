@@ -5,7 +5,7 @@
             active
             :todos="todos"
             :meta="meta"
-        ></ExampleComponent>
+        />
     </q-page>
 </template>
 

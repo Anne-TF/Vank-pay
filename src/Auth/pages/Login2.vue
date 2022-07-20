@@ -1,4 +1,14 @@
 <template>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat, velit.
+    <q-page class="row items-center justify-evenly">
+        <ExampleComponent
+            title="Example component"
+            active
+            :todos="todos"
+            :meta="meta"
+        />
+    </q-page>
+
     <q-page class="hp-100" :class="{ row: !isMobile }">
         <!-- UPPER ROW WITH LOGO FOR MOBILE -->
         <div
@@ -77,10 +87,10 @@
                                 }"
                     class="no-margin hp-100"
                 >
-                    <q-card-section class="pt-35 row no-margin justify-between">
-                        <div class="flex flex-inline justify-start">
-                            <div
-                                :class="`
+                   <q-card-section class="pt-35 row no-margin justify-between">
+                       <div class="flex flex-inline justify-start">
+                           <div
+                               :class="`
                             ${
                                 button === 'login'
                                     ? `bg-nv-${GetSuffix('secondary')}
@@ -94,13 +104,13 @@
                                       )}`
                             }
                         `"
-                                class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
-                                @click="changeView('login')"
-                            >
-                                {{ $t('buttons.login') }}
-                            </div>
-                            <div
-                                :class="`
+                               class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
+                               @click="changeView('login')"
+                           >
+                               {{ $t('buttons.login') }}
+                           </div>
+                           <div
+                               :class="`
                             ${
                                 button === 'sign-up'
                                     ? `bg-nv-${GetSuffix('secondary')}
@@ -114,74 +124,74 @@
                                       )}`
                             }
                         `"
-                                class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
-                                @click="changeView('sign-up')"
-                            >
-                                {{ $t('buttons.register') }}
-                            </div>
-                        </div>
+                               class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
+                               @click="changeView('sign-up')"
+                           >
+                               {{ $t('buttons.register') }}
+                           </div>
+                       </div>
 
-                        <q-btn
-                            @click="switchMode()"
-                            flat
-                            round
-                            color="nv-light-tertiary"
-                            :icon="Dark.isActive ? 'brightness_5' : 'dark_mode'"
-                        />
-                    </q-card-section>
+                       <q-btn
+                           @click="switchMode()"
+                           flat
+                           round
+                           color="nv-light-tertiary"
+                           :icon="Dark.isActive ? 'brightness_5' : 'dark_mode'"
+                       />
+                   </q-card-section>
 
-                    <transition
-                        mode="in-out"
-                        :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
-                        v-show="button === 'login'"
-                        :duration='{enter: 0, leave: 0 }'>
-                        <div>
-                            <q-card-section>
-                                <LoginForm :width="screenSize.width" />
-                            </q-card-section>
+                   <transition
+                       mode="in-out"
+                       :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
+                       v-show="button === 'login'"
+                       :duration='{enter: 0, leave: 0 }'>
+                       <div>
+                           <q-card-section>
+                               <LoginForm :width="screenSize.width" />
+                           </q-card-section>
 
-                            <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
-                                {{ $t('login.newInPlatform') }}
-                                <span
-                                    :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
-                                    @click="changeView('sign-up')"
-                                >
+                           <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
+                               {{ $t('login.newInPlatform') }}
+                               <span
+                                   :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
+                                   @click="changeView('sign-up')"
+                               >
                                 {{ $t('login.createAnAccount') }}
                             </span>
 
-                                <p
-                                    :class="`text-nv-${GetSuffix(
+                               <p
+                                   :class="`text-nv-${GetSuffix(
                                     'accent'
                                 )} q-pt-md cursor-pointer`"
-                                >
-                                    {{ $t('login.forgotYourPassword') }}
-                                </p>
-                            </q-card-section>
-                        </div>
-                    </transition>
+                               >
+                                   {{ $t('login.forgotYourPassword') }}
+                               </p>
+                           </q-card-section>
+                       </div>
+                   </transition>
 
-                    <transition
-                        mode="in-out"
-                        :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
-                        v-show="button === 'sign-up'"
-                        :duration='{ enter: 0, leave: 0 }'>
-                        <div>
-                            <q-card-section>
-                                <SignUpForm />
-                            </q-card-section>
+                   <transition
+                       mode="in-out"
+                       :enter-active-class="`${isMobile ? '' : 'animated zoomIn'}`"
+                       v-show="button === 'sign-up'"
+                       :duration='{ enter: 0, leave: 0 }'>
+                       <div>
+                           <q-card-section>
+                               <SignUpForm />
+                           </q-card-section>
 
-                            <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
-                                {{ $t('login.alreadyHaveAnAccount') }}
-                                <span
-                                    :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
-                                    @click="$router.replace('/login')"
-                                >
+                           <q-card-section class="fs-12 text-nv-light-tertiary q-py-none">
+                               {{ $t('login.alreadyHaveAnAccount') }}
+                               <span
+                                   :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
+                                   @click="$router.replace('/login')"
+                               >
                                 {{ $t('login.login') }}
                             </span>
 
-                            </q-card-section>
-                        </div>
-                    </transition>
+                           </q-card-section>
+                       </div>
+                   </transition>
                 </q-scroll-area>
             </q-card>
         </div>
