@@ -36,7 +36,7 @@
             v-model="data.emailOrPhone"
             :color="'transparent'"
             type="email"
-            :placeholder="validating === 'email' ? 'money@qoripay.com' : '4240000001'"
+            :placeholder="validating === 'email' ? 'money@qoripay.com' : '4240000000'"
             :inputmode="validating === 'phone' ? 'numeric' : 'text'"
             class="q-mb-md"
             :class="{
@@ -79,21 +79,23 @@
                         }"
                         :style="`${
                             isMobile
-                                ? 'border-radius: 40px 40px 0px 0px !important; height: 440px; width: 100%;'
+                                ? 'border-radius: 40px 40px 0px 0px !important; height: 60vh; width: 100%;'
                                 : 'height: 600px; width: 600px;'
                         }`"
                     >
                         <q-card-section class="flex justify-between q-pt-lg">
                             <q-input
-                                outlined
+                                dark
+                                filled
+                                rounded
                                 v-model="filter"
                                 :color="`nv-${GetSuffix('primary')}`"
-                                rounded
-                                dense
                                 @update:model-value="onFilter"
                                 class="wp-85 ls-2 text-regular"
                                 :class="{
-                                    'fs-13': isMobile
+                                    'fs-13': isMobile,
+                                    'rounded--dark-input': Dark.isActive,
+                                    'rounded--light-input text-black': !Dark.isActive
                                 }"
                                 :placeholder="$t('fields.search')"
                             />
@@ -101,8 +103,8 @@
                                 icon="close"
                                 flat
                                 round
-                                dense
                                 v-close-popup
+                                color="nv-light-tertiary"
                             />
                         </q-card-section>
 
