@@ -24,6 +24,7 @@
         "axios": "^0.21.1",
         "dotenv": "^16.0.1",
         "pinia": "^2.0.11",
+        "pinia-plugin-persistedstate-2": "^1.0.1",
         "quasar": "^2.6.0",
         "vue": "^3.0.0",
         "vue-i18n": "^9.0.0",

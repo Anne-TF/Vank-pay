@@ -86,7 +86,7 @@
                     }"
                     class="no-margin hp-100"
                 >
-                    <q-card-section class="pt-28 row no-margin justify-between">
+                    <q-card-section class="pt-20 row no-margin justify-between">
                         <div class="flex flex-inline justify-start">
                             <div
                                 :class="`
@@ -135,7 +135,7 @@
                             flat
                             round
                             color="nv-light-tertiary"
-                            :icon="Dark.isActive ? 'brightness_5' : 'dark_mode'"
+                            :icon="Dark.isActive ? 'light_mode' : 'dark_mode'"
                         />
                     </q-card-section>
 
@@ -148,31 +148,7 @@
                         :duration="{ enter: 0, leave: 0 }"
                     >
                         <div>
-                            <q-card-section>
-                                <LoginForm :width="screenSize.width" />
-                            </q-card-section>
-
-                            <q-card-section
-                                class="fs-12 text-nv-light-tertiary q-py-none"
-                            >
-                                {{ $t('login.newInPlatform') }}
-                                <span
-                                    :class="`text-nv-${GetSuffix(
-                                        'accent'
-                                    )} cursor-pointer`"
-                                    @click="changeView('sign-up')"
-                                >
-                                    {{ $t('login.createAnAccount') }}
-                                </span>
-
-                                <p
-                                    :class="`text-nv-${GetSuffix(
-                                        'accent'
-                                    )} q-pt-md cursor-pointer`"
-                                >
-                                    {{ $t('login.forgotYourPassword') }}
-                                </p>
-                            </q-card-section>
+                            <LoginForm :width="screenSize.width" :change-view="changeView" :set-lang="setLang" />
                         </div>
                     </transition>
 
@@ -185,32 +161,9 @@
                         :duration="{ enter: 0, leave: 0 }"
                     >
                         <div>
-                            <q-card-section>
-                                <SignUpForm :height="screenSize.height" />
-                            </q-card-section>
+                            <SignUpForm :height="screenSize.height" :set-lang="setLang"/>
                         </div>
                     </transition>
-
-                    <div
-                        class="fixed-bottom fs-10 text-center text-nv-light-tertiary cursor-pointer"
-                        @click="setLang(locale.includes('es') ? 'en-US' : 'es-ES')"
-                    >
-                        {{ $t('buttons.changeLanguageTo') }}
-                        <span
-                            class="ml-3"
-                            :class="`text-nv-${GetSuffix('accent')}`"
-                        >
-                            {{
-                                $t(
-                                    `langs.${
-                                        locale.includes('es')
-                                            ? 'english'
-                                            : 'spanish'
-                                    }`
-                                )
-                            }}
-                        </span>
-                    </div>
                 </q-scroll-area>
             </q-card>
         </div>
@@ -226,6 +179,10 @@ import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import LoginForm from '../component/LoginForm.vue';
 import SignUpForm from '../component/SignUpForm.vue';
 import { useI18n } from 'vue-i18n';
+import { useSettingsStore } from 'stores/settings';
+
+// STORE
+const settingsStore = useSettingsStore();
 
 // CONSTANTS
 const $router = useRouter();
@@ -253,7 +210,7 @@ const name = computed(() => process.env.APP_NAME);
 
 const switchMode = () =>
 {
-    Dark.set(!Dark.isActive);
+    void settingsStore.setDarkMode(!Dark.isActive);
 };
 
 const animateDrawerTo = (height: number) =>
@@ -287,27 +244,19 @@ const changeView = (view: string) =>
     }
 };
 
-function onResize()
+const onResize = (): void =>
 {
     screenSize.height = window.innerHeight;
     screenSize.width = window.innerWidth;
-}
+};
 
 const setLang = (lang: string) =>
 {
-    if (lang.includes('es'))
-    {
-        locale.value = 'es-ES';
-    }
-    else
-    {
-        locale.value = 'en-US';
-    }
+    void settingsStore.setLang(lang)
 };
 
 onResize();
 window.addEventListener('resize', onResize, { passive: true });
-setLang($q.lang.getLocale() ?? 'es-ES');
 
 // WATCHERS
 watchEffect(() =>

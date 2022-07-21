@@ -1,8 +1,6 @@
 <template>
-    <q-form
-        :class="{
-            ' mb-80': height <= 764
-        }"
+    <q-card-section>
+        <q-form
         ref="formRef"
         greedy
     >
@@ -97,13 +95,7 @@
                 />
             </template>
         </q-input>
-    </q-form>
 
-    <div
-        :class="{
-            'fixed-bottom mb-80 mt-80 q-px-md': height > 764
-        }"
-    >
         <div
             class="fs-12 text-nv-light-tertiary q-py-none q-mt-md q-mb-md row q-mx-none items-start"
         >
@@ -137,8 +129,9 @@
         >
             {{ $t('buttons.createAccount') }}
         </q-btn>
-
-        <div class="fs-12 text-nv-light-tertiary q-py-none q-mt-md">
+    </q-form>
+    </q-card-section>
+    <q-card-section class="fs-12 text-nv-light-tertiary q-py-none q-pb-md">
             {{ $t('login.alreadyHaveAnAccount') }}
             <span
                 :class="`text-nv-${GetSuffix('accent')} cursor-pointer`"
@@ -146,11 +139,32 @@
             >
                 {{ $t('login.login') }}
             </span>
-        </div>
+    </q-card-section>
+    <div
+        class=" fs-10 text-center text-nv-light-tertiary cursor-pointer"
+        @click="setLang(locale.includes('es') ? 'en-US' : 'es-ES')"
+    >
+        {{ $t('buttons.changeLanguageTo') }}
+        <span
+            class="ml-3"
+            :class="`text-nv-${GetSuffix('accent')}`"
+        >
+           {{
+                $t(
+                    `langs.${
+                        locale.includes('es')
+                            ? 'english'
+                            : 'spanish'
+                    }`
+                )
+            }}
+        </span>
     </div>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
+const { t, locale } = useI18n({ useScope: 'global' });
 import { reactive, computed, ref } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { Dark, Screen } from 'quasar';
@@ -159,6 +173,9 @@ defineProps({
     height: {
         type: Number,
         default: 0
+    },
+    setLang: {
+        type: Function
     }
 });
 

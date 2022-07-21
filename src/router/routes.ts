@@ -5,7 +5,7 @@ const routes: RouteRecordRaw[] = [
         path: '/login',
         component: () => import('../app/layouts/AuthLayout.vue'),
         children: [
-            { path: '', component: () => import('../Auth/pages/Login.vue') }
+            { path: '', component: () => import('../Auth/pages/AuthPage.vue') }
         ],
         meta: { requiredAuth: false }
     },
@@ -13,7 +13,7 @@ const routes: RouteRecordRaw[] = [
         path: '/sign-up',
         component: () => import('../app/layouts/AuthLayout.vue'),
         children: [
-            { path: '', component: () => import('../Auth/pages/Login.vue') }
+            { path: '', component: () => import('../Auth/pages/AuthPage.vue') }
         ],
         meta: { requiredAuth: false }
     },
