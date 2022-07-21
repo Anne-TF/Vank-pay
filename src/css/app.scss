@@ -219,4 +219,10 @@ body.body--light {
   background: #d4d4d4;
 }
 
+.prevent-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 // GENERAL SCROLLBAR STYLES ENDS
