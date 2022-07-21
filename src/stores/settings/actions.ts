@@ -6,11 +6,11 @@ const actions: PiniaActions = {
     {
         if (lang.includes('es'))
         {
-            this.lang = lang
+            this.lang = lang;
         }
         else
         {
-            this.lang = lang
+            this.lang = lang;
         }
     },
     setDarkMode(dark: boolean): void

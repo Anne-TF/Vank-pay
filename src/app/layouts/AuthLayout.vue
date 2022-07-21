@@ -1,5 +1,5 @@
 <template>
-    <q-layout style="overflow-x: hidden !important;" view="lHh Lpr lFf">
+    <q-layout class="no-scroll" style="overflow-x: hidden !important;" view="lHh Lpr lFf">
         <q-page-container
             :class="{ 'light--bg' : !Dark.isActive }"
             :style="`height: ${isMobile ? '100vmax' : '100vh'} !important;`">

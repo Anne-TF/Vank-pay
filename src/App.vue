@@ -16,12 +16,14 @@ const settingsStore = useSettingsStore();
 
 watchEffect(() =>
 {
-    if (Dark.isActive && Platform.is.android)
+    if (Dark.isActive && Platform.is.android && Platform.is.cordova)
     {
+        // @ts-ignore
         StatusBar.styleLightContent();
     }
-    else if (!Dark.isActive && Platform.is.android)
+    else if (!Dark.isActive && Platform.is.android && Platform.is.cordova)
     {
+        // @ts-ignore
         StatusBar.styleDefault();
     }
 });
@@ -33,9 +35,11 @@ watchEffect(() =>
 
 onMounted(() =>
 {
-    if (Platform.is.android)
+    if (Platform.is.android && Platform.is.cordova)
     {
+        // @ts-ignore
         StatusBar.overlaysWebView(true);
+        // @ts-ignore
         StatusBar.backgroundColorByHexString('rgba(255,255,255,0)');
     }
 
