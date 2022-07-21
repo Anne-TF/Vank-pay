@@ -29,6 +29,7 @@ import { Dark, Screen } from 'quasar';
 import { computed } from 'vue';
 
 const isMobile = computed(() => Screen.lt.md);
+
 </script>
 
 <style lang="scss" scoped>

@@ -252,7 +252,7 @@ const onResize = (): void =>
 
 const setLang = (lang: string) =>
 {
-    void settingsStore.setLang(lang)
+    void settingsStore.setLang(lang);
 };
 
 onResize();

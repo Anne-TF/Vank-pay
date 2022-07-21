@@ -7,6 +7,7 @@ import { Dark, Platform, useQuasar } from 'quasar';
 import { onMounted, watchEffect } from 'vue';
 import { useSettingsStore } from 'stores/settings';
 import { useI18n } from 'vue-i18n';
+
 const { locale, availableLocales } = useI18n({ useScope: 'global' });
 
 const $q = useQuasar();

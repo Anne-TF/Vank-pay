@@ -75,5 +75,6 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="resizeOnFullScreen" value="true" />
     <allow-navigation href="about:*" />
 </widget>
