@@ -3,5 +3,6 @@ export default {
     register: 'Registrate',
     createAccount: 'Crear cuenta',
     changeLanguageTo: 'Cambiar idioma a ',
-    send: 'Enviar código'
+    send: 'Enviar código',
+    continue: 'Continuar'
 };

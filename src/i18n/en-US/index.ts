@@ -6,6 +6,7 @@ import fields from './fields';
 import forgotPassword from './forgotPassword';
 import langs from './langs';
 import login from './login';
+import passwordReset from './passwordReset';
 import validations from './validations';
 import verifyEmail from './verifyEmail';
 
@@ -30,5 +31,8 @@ export default {
     },
     verifyEmail: {
         ...verifyEmail
+    },
+    passwordReset: {
+        ...passwordReset
     }
 };

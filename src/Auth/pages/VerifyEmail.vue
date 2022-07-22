@@ -56,7 +56,7 @@
                     class="full-width br-20 py-12 q-mt-sm fs-16"
                     unelevated
                     no-caps
-                    @click="$router.push('/login')"
+                    @click="$router.push('/password-reset')"
                 >
                     {{ $t('buttons.login') }}
                 </q-btn>

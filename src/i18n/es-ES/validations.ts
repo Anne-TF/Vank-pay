@@ -5,5 +5,6 @@ export default {
     validValue: 'El valor ingresado no es válido.',
     numbers: 'Ingrese sólo números en este campo.',
     invalidDate: 'La fecha ingresada no es válida.',
-    validateAll: '¡Debe completar todos los campos solicitados!'
+    validateAll: '¡Debe completar todos los campos solicitados!',
+    passwordsDontMatch: 'Las contraseñas no coinciden.'
 };

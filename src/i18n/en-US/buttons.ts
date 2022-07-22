@@ -3,5 +3,6 @@ export default {
     register: 'Sign up',
     createAccount: 'Create account',
     changeLanguageTo: 'Change language to ',
-    send: 'Send code'
+    send: 'Send code',
+    continue: 'Continue'
 };

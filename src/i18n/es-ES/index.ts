@@ -7,6 +7,7 @@ import forgotPassword from './forgotPassword';
 import langs from './langs';
 import login from './login';
 import validations from './validations';
+import passwordReset from './passwordReset';
 
 export default {
     login: {
@@ -29,5 +30,8 @@ export default {
     },
     verifyEmail: {
         ...verifyEmail
+    },
+    passwordReset: {
+        ...passwordReset
     }
 };

@@ -33,7 +33,6 @@ const routes: RouteRecordRaw[] = [
         ],
         meta: {
             requiredAuth: false,
-            hasAnimation: true,
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft'
         }
@@ -46,7 +45,18 @@ const routes: RouteRecordRaw[] = [
         ],
         meta: {
             requiredAuth: false,
-            hasAnimation: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
+    {
+        path: '/password-reset',
+        component: () => import('../Auth/layouts/AuthLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Auth/pages/PasswordReset.vue') }
+        ],
+        meta: {
+            requiredAuth: false,
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft'
         }
