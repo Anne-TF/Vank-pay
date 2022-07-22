@@ -1,6 +1,11 @@
 <template>
     <router-view v-if="!splashLoading"/>
-    <q-inner-loading :showing="splashLoading" :style="`background-color: ${ Dark.isActive ? '#1d2229' : '#fff'}`" >
+    <q-inner-loading :showing="splashLoading"
+        :class="{
+            'bg-nv-dark' : Dark.isActive,
+            'bg-nv-ligth' : !Dark.isActive
+        }"
+    >
         <q-img
             alt="Qory pay logo"
             src="~assets/icons/QoriPay.svg"

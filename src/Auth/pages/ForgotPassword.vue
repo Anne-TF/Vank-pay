@@ -17,7 +17,7 @@
             />
         </div>
 
-        <div class="q-px-md">
+        <div class="q-px-md q-pt-lg">
             <h5
                 :class="{
                     'fs-23': isXS,
