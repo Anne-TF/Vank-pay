@@ -8,6 +8,7 @@ import langs from './langs';
 import login from './login';
 import validations from './validations';
 import passwordReset from './passwordReset';
+import codeValidation from './codeValidation';
 
 export default {
     login: {
@@ -33,5 +34,8 @@ export default {
     },
     passwordReset: {
         ...passwordReset
+    },
+    codeValidation: {
+        ...codeValidation
     }
 };

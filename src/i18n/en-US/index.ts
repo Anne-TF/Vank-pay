@@ -1,6 +1,7 @@
 // This is just an example,
 // so you can safely delete all default props below
 
+import codeValidation from './codeValidation';
 import buttons from './buttons';
 import fields from './fields';
 import forgotPassword from './forgotPassword';
@@ -34,5 +35,8 @@ export default {
     },
     passwordReset: {
         ...passwordReset
+    },
+    codeValidation: {
+        ...codeValidation
     }
 };
