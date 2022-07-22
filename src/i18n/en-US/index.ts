@@ -3,6 +3,7 @@
 
 import buttons from './buttons';
 import fields from './fields';
+import forgotPassword from './forgotPassword';
 import langs from './langs';
 import login from './login';
 import validations from './validations';
@@ -22,5 +23,8 @@ export default {
     },
     langs: {
         ...langs
+    },
+    forgotPassword: {
+        ...forgotPassword
     }
 };

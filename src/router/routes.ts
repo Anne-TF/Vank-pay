@@ -7,7 +7,11 @@ const routes: RouteRecordRaw[] = [
         children: [
             { path: '', component: () => import('../Auth/pages/AuthPage.vue') }
         ],
-        meta: { requiredAuth: false }
+        meta: {
+            requiredAuth: false,
+            enterAnimation: 'animated fadeInLeft',
+            leaveAnimation: 'animated slideOutRight'
+        }
     },
     {
         path: '/sign-up',
@@ -15,7 +19,24 @@ const routes: RouteRecordRaw[] = [
         children: [
             { path: '', component: () => import('../Auth/pages/AuthPage.vue') }
         ],
-        meta: { requiredAuth: false }
+        meta: {
+            requiredAuth: false,
+            enterAnimation: 'animated slideInLeft',
+            leaveAnimation: 'animated slideOutRight'
+        }
+    },
+    {
+        path: '/forgot-password',
+        component: () => import('../Auth/layouts/AuthLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Auth/pages/ForgotPassword.vue') }
+        ],
+        meta: {
+            requiredAuth: false,
+            hasAnimation: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
     },
     {
         path: '/',

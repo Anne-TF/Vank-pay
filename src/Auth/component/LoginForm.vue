@@ -219,6 +219,7 @@
                                 </span>
 
         <p
+            @click="$router.push('/forgot-password')"
             :class="`text-nv-${GetSuffix(
                                         'accent'
                                     )} q-pt-md cursor-pointer`"
