@@ -39,6 +39,19 @@ const routes: RouteRecordRaw[] = [
         }
     },
     {
+        path: '/verify-email',
+        component: () => import('../Auth/layouts/AuthLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Auth/pages/VerifyEmail.vue') }
+        ],
+        meta: {
+            requiredAuth: false,
+            hasAnimation: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
+    {
         path: '/',
         component: () => import('../app/layouts/MainLayout.vue'),
         children: [

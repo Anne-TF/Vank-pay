@@ -3,10 +3,17 @@
         class="hp-100"
         :class="{
             'bg-nv-dark': Dark.isActive,
-            'bg-nv-light': !Dark.isActive
+            'bg-nv-light': !Dark.isActive,
+            'flex column flex-center' : !isMobile
         }"
     >
-        <div class="flex justify-end q-pt-lg q-px-md">
+        <div>
+            <div
+            :class="{
+                'flex justify-end q-pt-lg q-px-md' : isMobile,
+                'wp-100 flex justify-end' : !isMobile
+            }"
+        >
             <q-btn
                 flat
                 rounded
@@ -78,10 +85,12 @@
                 class="full-width br-20 py-12 q-mt-sm fs-16"
                 unelevated
                 no-caps
+                @click="$router.push('/verify-email')"
             >
                 {{ $t('buttons.send') }}
             </q-btn>
             </q-form>
+        </div>
         </div>
     </q-page>
 </template>

@@ -1,5 +1,6 @@
 // This is just an example,
 // so you can safely delete all default props below
+import verifyEmail from './verifyEmail';
 import buttons from './buttons';
 import fields from './fields';
 import forgotPassword from './forgotPassword';
@@ -25,5 +26,8 @@ export default {
     },
     forgotPassword: {
         ...forgotPassword
+    },
+    verifyEmail: {
+        ...verifyEmail
     }
 };

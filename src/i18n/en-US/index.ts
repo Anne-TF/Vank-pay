@@ -7,6 +7,7 @@ import forgotPassword from './forgotPassword';
 import langs from './langs';
 import login from './login';
 import validations from './validations';
+import verifyEmail from './verifyEmail';
 
 export default {
     login: {
@@ -26,5 +27,8 @@ export default {
     },
     forgotPassword: {
         ...forgotPassword
+    },
+    verifyEmail: {
+        ...verifyEmail
     }
 };
