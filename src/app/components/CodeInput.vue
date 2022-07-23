@@ -8,101 +8,18 @@
         class="flex flex-inline justify-between"
     >
         <q-input
+            v-for="(input, index) in qtInputs" :key="index"
             dark
             filled
             class="text-center input"
             style="width: 3.34em"
             rounded
-            ref="input1"
+            v-model="valueInputs[index]"
+            :ref="_ref => { inputs[index] = _ref }"
+            @update:model-value="onUpdate($event, index)"
+            @paste="onPaste"
             maxlength="1"
             mask="#"
-            v-model="code[0]"
-            @update:model-value="onUpdate(input2, 0)"
-            :color="'transparent'"
-            :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
-            }"
-        />
-        <q-input
-            dark
-            filled
-            class="text-center input"
-            style="width: 3.34em"
-            rounded
-            ref="input2"
-            maxlength="1"
-            mask="#"
-            v-model="code[1]"
-            @update:model-value="onUpdate(input3, 1)"
-            :color="'transparent'"
-            :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
-            }"
-        />
-        <q-input
-            dark
-            filled
-            class="text-center input"
-            style="width: 3.34em"
-            rounded
-            ref="input3"
-            maxlength="1"
-            mask="#"
-            v-model="code[2]"
-            @update:model-value="onUpdate(input4, 2)"
-            :color="'transparent'"
-            :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
-            }"
-        />
-        <q-input
-            dark
-            filled
-            class="text-center input"
-            style="width: 3.34em"
-            rounded
-            ref="input4"
-            maxlength="1"
-            mask="#"
-            v-model="code[3]"
-            @update:model-value="onUpdate(input5, 3)"
-            :color="'transparent'"
-            :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
-            }"
-        />
-        <q-input
-            dark
-            filled
-            class="text-center input"
-            style="width: 3.34em"
-            rounded
-            ref="input5"
-            maxlength="1"
-            mask="#"
-            v-model="code[4]"
-            @update:model-value="onUpdate(input6, 4)"
-            :color="'transparent'"
-            :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
-            }"
-        />
-        <q-input
-            dark
-            filled
-            class="text-center input"
-            style="width: 3.34em"
-            rounded
-            ref="input6"
-            maxlength="1"
-            mask="#"
-            v-model="code[5]"
-            @update:model-value="onUpdate(null, 5)"
             :color="'transparent'"
             :class="{
                 'rounded--dark-input': Dark.isActive,
@@ -112,52 +29,65 @@
     </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
-import { Dark, Screen } from 'quasar';
+<script lang="ts" setup>
 
-export default defineComponent({
-    emits: ['add'],
-    props: {
-        value: {
-            type: Array,
-            default: () => []
-        }
-    },
-    setup(props, { emit })
-    {
-        const input1 = ref(null);
-        const input2 = ref(null);
-        const input3 = ref(null);
-        const input4 = ref(null);
-        const input5 = ref(null);
-        const input6 = ref(null);
+import { Dark, QInput, Screen } from 'quasar';
+import { ref, watchEffect } from 'vue';
 
-        const code = ref<string[]>([]);
-
-        const onUpdate = (input: any, index: number) =>
-        {
-            if (index < 5)
-            {
-                input.focus();
-            }
-            else if (index > 5)
-            {
-                emit('add', code.value);
-            }
-        };
-        return {
-            Dark,
-            onUpdate,
-            Screen,
-            input1,
-            input2,
-            input3,
-            input4,
-            input5,
-            input6,
-            code
-        };
+const props = defineProps({
+    qtInputs: {
+        type: Number,
+        default: 6
     }
 });
+
+const emit = defineEmits(['addCode', 'removeCode']);
+
+const inputs = ref<QInput[]>([]);
+
+const valueInputs = ref<(string|null)[]>([]);
+
+const onUpdate = (value: string, index: number) =>
+{
+    valueInputs.value[index] = value.length > 0 ? value : null;
+
+    if (value.length > 0)
+    {
+        inputs.value[index + 1].focus();
+    }
+    else
+    {
+        inputs.value[index - 1].focus();
+    }
+};
+
+const onPaste = (event: any) =>
+{
+    const copy = event.clipboardData.getData('text');
+
+    if (!Number(copy))
+    {
+        return;
+    }
+
+    const valueCopy = `${copy}`.replaceAll(' ', '').trim().split('');
+
+    for (let i = 0; i < props.qtInputs; i++)
+    {
+        valueInputs.value[i] = valueCopy[i];
+    }
+};
+
+watchEffect(() =>
+{
+    if (valueInputs.value.every(v => v) && valueInputs.value.length === props.qtInputs)
+    {
+        emit('addCode', valueInputs.value.filter(v => v).toString().replaceAll(',', ''));
+    }
+    else
+    {
+        emit('removeCode', null);
+    }
+});
+
 </script>

@@ -55,8 +55,7 @@
                     {{ $t('codeValidation.wasSend') }}
                 </p>
 
-                <code-input :value="code" @add="replaceCode" />
-
+                <CodeInput @addCode="setCode" @removeCode="setCode" />
                 {{ code }}
             </div>
         </div>
@@ -65,18 +64,18 @@
 
 <script lang="ts" setup>
 import { Dark, Screen } from 'quasar';
-import { computed, reactive, ref } from 'vue';
+import {computed, ref} from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import CodeInput from '../../app/components/CodeInput.vue';
-import CodeInput1 from '../../app/components/CodeInput.vue';
 
 const isMobile = computed(() => Screen.lt.md);
 const isXS = computed(() => Screen.lt.sm);
 
-const code = ref([null, null, null, null, null, null]);
+const code = ref<string | null>(null)
 
-const replaceCode = (value: Array) =>
+const setCode = (value: string) =>
 {
-    code.value = [...value];
+    code.value = value;
 };
+
 </script>
