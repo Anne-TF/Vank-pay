@@ -40,16 +40,18 @@
                     {{ $t('codeValidation.twoFAValidation') }}
                 </h5>
                 <!-- CHANGE AUTHENTICATION METHOD BUTTONS -->
-                <div
-                    :class="{ 'mb-40' : tab === 'authy' }"
-                    class="flex flex-inline justify-start mt-35">
+                <div class="flex flex-inline justify-start mt-35">
                     <!-- EMAIL BTN -->
                     <div
                         :class="`
                             ${
                                 tab === 'email'
                                     ? `bg-nv-${GetSuffix('secondary')}
-                            ${!Dark.isActive ? 'text-nv-light-accent' : 'text-white'}`
+                            ${
+                                !Dark.isActive
+                                    ? 'text-nv-light-accent'
+                                    : 'text-white'
+                            }`
                                     : `text-nv-${GetSuffix(
                                           `${
                                               !Dark.isActive
@@ -70,7 +72,11 @@
                             ${
                                 tab === 'phone'
                                     ? `bg-nv-${GetSuffix('secondary')}
-                            ${!Dark.isActive ? 'text-nv-light-accent' : 'text-white'}`
+                            ${
+                                !Dark.isActive
+                                    ? 'text-nv-light-accent'
+                                    : 'text-white'
+                            }`
                                     : `text-nv-${GetSuffix(
                                           `${
                                               !Dark.isActive
@@ -91,7 +97,11 @@
                             ${
                                 tab === 'authy'
                                     ? `bg-nv-${GetSuffix('secondary')}
-                            ${!Dark.isActive ? 'text-nv-light-accent' : 'text-white'}`
+                            ${
+                                !Dark.isActive
+                                    ? 'text-nv-light-accent'
+                                    : 'text-white'
+                            }`
                                     : `text-nv-${GetSuffix(
                                           `${
                                               !Dark.isActive
@@ -104,7 +114,7 @@
                         class="flex items-center justify-center px-17 py-10 br-30 fs-12 ls-2 cursor-pointer"
                         @click="changeView('authy')"
                     >
-                       Authy
+                        Authy
                     </div>
                 </div>
 
@@ -114,12 +124,27 @@
                         'fs-16': !isMobile
                     }"
                     class="mt-30 mb-40"
-                    v-show="tab === 'email' || tab === 'phone'"
+                    v-if="tab === 'email' || tab === 'phone'"
                 >
                     {{ $t('codeValidation.sendTo') }}
                     <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
                         {{ EncodeText(getEncode, tab) }}
                     </span>
+                </p>
+
+                <p
+                    :class="{
+                        'fs-14': isMobile,
+                        'fs-16': !isMobile
+                    }"
+                    class="mt-30 mb-40"
+                    v-else
+                >
+                    {{ $t('codeValidation.enter') }}
+                    <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
+                        Authy
+                    </span>
+                    {{ $t('codeValidation.toObtain') }}
                 </p>
 
                 <CodeInput @addCode="setCode" @removeCode="setCode" />
@@ -174,10 +199,8 @@ const changeView = (view: string) =>
     });
 };
 
-
 if ($router.currentRoute.value.query)
 {
     changeView($router.currentRoute.value?.query?.type ?? 'email');
 }
-
 </script>

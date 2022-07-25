@@ -6,5 +6,7 @@ export default {
     sendTo: 'Se enviará a',
     typeDigits: 'Escribe los 6 dígitos de seguridad',
     sendCode: 'Enviar código',
-    resendCode: 'Reenviar código'
+    resendCode: 'Reenviar código',
+    enter: 'Ingresa a',
+    toObtain: 'para obtener el código de seguridad'
 };
