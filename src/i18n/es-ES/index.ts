@@ -9,6 +9,7 @@ import login from './login';
 import validations from './validations';
 import passwordReset from './passwordReset';
 import codeValidation from './codeValidation';
+import accountCreated from './accountCreated';
 
 export default {
     login: {
@@ -37,5 +38,8 @@ export default {
     },
     codeValidation: {
         ...codeValidation
+    },
+    accountCreated: {
+        ...accountCreated
     }
 };

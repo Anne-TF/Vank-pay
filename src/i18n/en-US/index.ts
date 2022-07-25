@@ -10,6 +10,7 @@ import login from './login';
 import passwordReset from './passwordReset';
 import validations from './validations';
 import verifyEmail from './verifyEmail';
+import accountCreated from './accountCreated';
 
 export default {
     login: {
@@ -38,5 +39,8 @@ export default {
     },
     codeValidation: {
         ...codeValidation
+    },
+    accountCreated: {
+        ...accountCreated
     }
 };

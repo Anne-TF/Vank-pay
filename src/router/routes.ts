@@ -86,6 +86,18 @@ const routes: RouteRecordRaw[] = [
         }
     },
     {
+        path: '/account-created',
+        component: () => import('../Auth/layouts/AuthLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Auth/pages/AccountCreated.vue') }
+        ],
+        meta: {
+            requiredAuth: false,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
+    {
         path: '/',
         component: () => import('../app/layouts/MainLayout.vue'),
         children: [
