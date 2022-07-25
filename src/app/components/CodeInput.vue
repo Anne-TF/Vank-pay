@@ -51,13 +51,21 @@ const onUpdate = (value: string, index: number) =>
 {
     valueInputs.value[index] = value.length > 0 ? value : null;
 
+    const focus = (i: number) =>
+    {
+        if (inputs.value[i])
+        {
+            inputs.value[i].focus();
+        }
+    };
+
     if (value.length > 0)
     {
-        inputs.value[index + 1].focus();
+        focus(index + 1);
     }
     else
     {
-        inputs.value[index - 1].focus();
+        focus(index - 1);
     }
 };
 
