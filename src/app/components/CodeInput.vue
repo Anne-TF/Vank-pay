@@ -7,32 +7,46 @@
         }"
         class="flex flex-inline justify-between"
     >
+    <p :class="{ 'fs-14' : isMobile, 'fs-16' : !isMobile }" class="wp-100 q-mt-none q-mb-sm">
+        {{ $t('codeValidation.typeDigits') }}
+    </p>
         <q-input
             v-for="(input, index) in qtInputs" :key="index"
             dark
-            filled
             class="text-center input"
             style="width: 3.34em"
             rounded
+            outlined
             v-model="valueInputs[index]"
             :ref="_ref => { inputs[index] = _ref }"
             @update:model-value="onUpdate($event, index)"
             @paste="onPaste"
             maxlength="1"
             mask="#"
+            :rules="[
+                (v) => v && v.length > 0 || 'Este campo es requerido.'
+            ]"
             :color="'transparent'"
             :class="{
-                'rounded--dark-input': Dark.isActive,
+                'rounded--dark-input--withAlert': Dark.isActive,
                 'rounded--light-input text-nv-light-accent': !Dark.isActive
             }"
         />
+
+         <p
+            :class="`text-nv-${GetSuffix('accent')}`"
+            style="margin-top: -12px; !important"
+            class="wp-100 text-right fs-12 cursor-pointer">
+            {{ $t('codeValidation.sendCode') }}
+        </p>
     </div>
 </template>
 
 <script lang="ts" setup>
 
 import { Dark, QInput, Screen } from 'quasar';
-import { ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
+import GetSuffix from '../shared/helpers/GetSuffix';
 
 const props = defineProps({
     qtInputs: {
@@ -46,6 +60,8 @@ const emit = defineEmits(['addCode', 'removeCode']);
 const inputs = ref<QInput[]>([]);
 
 const valueInputs = ref<(string|null)[]>([]);
+
+const isMobile = computed(() => Screen.lt.md);
 
 const onUpdate = (value: string, index: number) =>
 {

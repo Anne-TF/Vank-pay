@@ -43,20 +43,42 @@
                 <p
                     :class="{
                         'fs-12': isMobile,
-                        'q-mt-md': isMobile
+                        'mt-25': isMobile
                     }"
                 >
                     {{ $t('codeValidation.theCode') }}
                     <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
                         {{
-                            $t('codeValidation.validation').toLocaleLowerCase()
+                            $t('codeValidation.validation')
                         }}
                     </span>
                     {{ $t('codeValidation.wasSend') }}
                 </p>
 
+                 <p
+                    :class="{
+                        'fs-14': isMobile,
+                        'fs-16' : !isMobile
+                    }"
+                    class="mt-40 q-mb-lg"
+                >
+                    {{ $t('codeValidation.sendTo') }}
+                    <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
+                       {{ EncodeEmail('qoripay@email.com', 'email') }}
+                    </span>
+                </p>
+
                 <CodeInput @addCode="setCode" @removeCode="setCode" />
-                {{ code }}
+
+                 <q-btn
+                        :color="`nv-${GetSuffix('primary')}`"
+                        class="full-width br-20 py-12 mt-40 fs-16"
+                        unelevated
+                        no-caps
+                        @click="$router.push('/login')"
+                    >
+                        {{ $t('buttons.continue') }}
+                </q-btn>
             </div>
         </div>
     </q-page>
@@ -67,11 +89,12 @@ import { Dark, Screen } from 'quasar';
 import {computed, ref} from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import CodeInput from '../../app/components/CodeInput.vue';
+import EncodeEmail from '../../app/shared/helpers/EncodeEmail';
 
 const isMobile = computed(() => Screen.lt.md);
 const isXS = computed(() => Screen.lt.sm);
 
-const code = ref<string | null>(null)
+const code = ref<string | null>(null);
 
 const setCode = (value: string) =>
 {

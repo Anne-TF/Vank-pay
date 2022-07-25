@@ -19,6 +19,7 @@ $colors: (
 'light-tertiary' : $nv-light-tertiary,
 'light-light-grey' : $nv-light-light-grey,
 'light-accent' : $nv-light-accent,
+'danger' : $nv-danger,
 'light' : $nv-light,
 'dark' : $nv-dark,
 );
@@ -64,11 +65,11 @@ body.body--light {
 
 // CLASSES
 .q-field--error .q-field__bottom {
-  color: #f0505a !important;
+  color: $nv-danger !important;
 }
 
 .text-negative {
-  color: #f0505a !important;
+  color: $nv-danger !important;
 }
 
 .q-field__label {
@@ -121,6 +122,35 @@ body.body--light {
     display: none !important;
   }
 }
+
+
+.rounded--dark-input--withAlert {
+  .q-field__control {
+    height: 48px !important;
+    background-color: #353E49 !important;
+    border-radius: 13px !important;
+    padding-bottom: 0 !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .q-field__marginal {
+    height: 48px !important;
+  }
+
+  .q-field__after, .q-field__append, .q-field__messages, .q-field__bottom {
+    display: none !important;
+  }
+
+  .q-field--with-bottom {
+    padding-bottom: 0 !important;
+  }
+
+  .q-field--filled, .q-field__control::before {
+    border: 1px solid rgba(0, 0, 0, 0.24) !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
 
 .dense-select-input {
   .q-field__control {

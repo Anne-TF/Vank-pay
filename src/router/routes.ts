@@ -74,6 +74,18 @@ const routes: RouteRecordRaw[] = [
         }
     },
     {
+        path: '/two-factor-auth',
+        component: () => import('../Auth/layouts/AuthLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Auth/pages/TwoFactorAuthentication.vue') }
+        ],
+        meta: {
+            requiredAuth: false,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
+    {
         path: '/',
         component: () => import('../app/layouts/MainLayout.vue'),
         children: [
