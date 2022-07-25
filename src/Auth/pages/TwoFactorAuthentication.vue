@@ -144,6 +144,9 @@ import { computed, ref } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import CodeInput from '../../app/components/CodeInput.vue';
 import EncodeText from '../../app/shared/helpers/EncodeText';
+import { useRouter } from 'vue-router';
+
+const $router = useRouter();
 
 const code = ref<string | null>(null);
 const tab = ref<string>('email');
@@ -163,5 +166,18 @@ const setCode = (value: string) =>
 const changeView = (view: string) =>
 {
     tab.value = view;
+    $router.replace({
+        path: '/two-factor-auth',
+        query: {
+            type: tab.value
+        }
+    });
 };
+
+
+if ($router.currentRoute.value.query)
+{
+    changeView($router.currentRoute.value?.query?.type ?? 'email');
+}
+
 </script>
