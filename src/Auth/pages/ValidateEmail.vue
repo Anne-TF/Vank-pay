@@ -89,7 +89,7 @@ import { Dark, Screen } from 'quasar';
 import {computed, ref} from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import CodeInput from '../../app/components/CodeInput.vue';
-import EncodeEmail from '../../app/shared/helpers/EncodeEmail';
+import EncodeEmail from '../../app/shared/helpers/EncodeText';
 
 const isMobile = computed(() => Screen.lt.md);
 const isXS = computed(() => Screen.lt.sm);

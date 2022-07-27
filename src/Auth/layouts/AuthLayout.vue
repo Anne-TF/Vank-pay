@@ -33,11 +33,10 @@
                 :appear-active-class="route.meta.enterAnimation"
                 :leave-active-class="route.meta.leaveAnimation"
                 :duration="{
-                  enter: 300,
+                  enter: 100,
                   leave: 200
                 }"
-                mode="out-in"
-		            appear
+                appear
               >
               <component style="height: 100% !important;" :is="Component" />
             </Transition>

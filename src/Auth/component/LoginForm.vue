@@ -200,6 +200,7 @@
                 class="full-width br-20 py-12 q-mt-lg fs-16"
                 unelevated
                 no-caps
+                @click="$router.push('/two-factor-auth')"
             >
                 {{ $t('buttons.login') }}
             </q-btn>
@@ -256,7 +257,10 @@ import { computed, reactive, ref } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import countriesData, { ICountry } from '../../assets/resources/countries';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 const { t, locale } = useI18n({ useScope: 'global' });
+
+const $router = useRouter();
 
 defineProps({
     width: {

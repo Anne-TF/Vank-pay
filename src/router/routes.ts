@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 
+
 const routes: RouteRecordRaw[] = [
     {
         path: '/login',
@@ -20,9 +21,8 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/AuthPage.vue') }
         ],
         meta: {
-            requiredAuth: false,
-            enterAnimation: 'animated slideInLeft',
-            leaveAnimation: 'animated slideOutRight'
+            requiredAuth: false
+
         }
     },
     {

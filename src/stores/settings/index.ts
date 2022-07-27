@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import 'pinia-plugin-persistedstate';
 import state from 'stores/settings/state';
 import getters from 'stores/settings/getters';
 import actions from 'stores/settings/actions';
