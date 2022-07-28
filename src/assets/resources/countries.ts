@@ -86,7 +86,15 @@ const countries: ICountry[] = [
         unicode: 'U+1F1E6 U+1F1F6',
         image: 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AQ.svg',
         countryCode: '+672'
-    } /*,
+    },
+    {
+        name: 'Venezuela',
+        code: 'VE',
+        emoji: '🇻🇪',
+        unicode: 'U+1F1FB U+1F1EA',
+        image: 'https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VE.svg',
+        countryCode: '+58'
+    }/*,
     {
         name: 'Argentina',
         code: 'AR',

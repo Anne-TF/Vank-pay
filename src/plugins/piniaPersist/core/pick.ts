@@ -29,6 +29,8 @@ function set(state: StateTree, path: Array<string>, val: unknown): StateTree
 
 export function unPick(baseState: StateTree, paths: string[]): StateTree
 {
+    baseState = _.cloneDeep(baseState);
+
     paths.forEach((path) =>
     {
         _.unset(baseState, path);

@@ -9,7 +9,7 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/AuthPage.vue') }
         ],
         meta: {
-            requiredAuth: false,
+            fullAuth: false,
             enterAnimation: 'animated fadeInLeft',
             leaveAnimation: 'animated slideOutRight'
         }
@@ -21,8 +21,7 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/AuthPage.vue') }
         ],
         meta: {
-            requiredAuth: false
-
+            fullAuth: false
         }
     },
     {
@@ -32,7 +31,7 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/ForgotPassword.vue') }
         ],
         meta: {
-            requiredAuth: false,
+            fullAuth: false,
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft'
         }
@@ -44,7 +43,7 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/VerifyEmail.vue') }
         ],
         meta: {
-            requiredAuth: false,
+            fullAuth: false,
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft'
         }
@@ -56,7 +55,7 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/PasswordReset.vue') }
         ],
         meta: {
-            requiredAuth: false,
+            fullAuth: false,
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft'
         }
@@ -68,7 +67,7 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/ValidateEmail.vue') }
         ],
         meta: {
-            requiredAuth: false,
+            fullAuth: false,
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft'
         }
@@ -80,7 +79,7 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/TwoFactorAuthentication.vue') }
         ],
         meta: {
-            requiredAuth: false,
+            preAuth: true,
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft'
         }
@@ -92,7 +91,7 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Auth/pages/AccountCreated.vue') }
         ],
         meta: {
-            requiredAuth: false,
+            fullAuth: false,
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft'
         }
@@ -103,7 +102,7 @@ const routes: RouteRecordRaw[] = [
         children: [
             { path: '', component: () => import('../app/pages/IndexPage.vue') }
         ],
-        meta: { requiredAuth: true }
+        meta: { fullAuth: true }
     },
 
     // Always leave this as last one,

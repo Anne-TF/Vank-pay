@@ -201,6 +201,7 @@ const changeView = (view: string) =>
 
 if ($router.currentRoute.value.query)
 {
+    // @ts-ignore
     changeView($router.currentRoute.value?.query?.type ?? 'email');
 }
 </script>

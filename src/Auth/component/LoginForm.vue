@@ -16,7 +16,7 @@
                 }`"
                 >
                 {{
-                        validating === 'email'
+                        loginForm.mode === 'email'
                             ? $t('fields.phoneNumber')
                             : $t('fields.email')
                     }}
@@ -27,18 +27,18 @@
                     :color="`nv-${GetSuffix('accent')}`"
                     v-show="width <= 444"
                     class="q-mr-sm"
-                    :name="validating === 'email' ? 'smartphone' : 'mail'"
+                    :name="loginForm.mode === 'email' ? 'smartphone' : 'mail'"
                 />
             </p>
             <q-input
                 dark
                 filled
                 rounded
-                v-model="data.emailOrPhone"
+                v-model="loginForm.emailOrPhone"
                 :color="'transparent'"
                 type="email"
-                :placeholder="validating === 'email' ? 'money@qoripay.com' : '4240000000'"
-                :inputmode="validating === 'phone' ? 'numeric' : 'text'"
+                :placeholder="loginForm.mode  === 'email' ? 'money@qoripay.com' : '4240000000'"
+                :inputmode="loginForm.mode  === 'phone' ? 'numeric' : 'text'"
                 class="q-mb-md"
                 :class="{
                 'rounded--dark-input': Dark.isActive,
@@ -51,15 +51,15 @@
                 <span
                     class="fs-14 cursor-pointer"
                     :class="{
-                        'text-nv-light-tertiary': data.code.length < 1
+                        'text-nv-light-tertiary': loginForm.code?.length < 1
                     }"
-                    v-if="validating === 'phone'"
+                    v-if="loginForm.mode === 'phone'"
                     @click="country = true"
                 >
                     <q-avatar class="q-mr-xs" color="transparent" size="3em">
-                        {{ getEmoji(data.code) }}
+                        {{ getEmoji(loginForm.code) }}
                     </q-avatar>
-                    {{ data.code }}
+                    {{ loginForm.code }}
                     <q-icon
                         size="21px"
                         :name="!country ? 'expand_more' : 'expand_less'"
@@ -134,7 +134,7 @@
                                             v-for="(item, index) in countries"
                                             :key="index"
                                             clickable
-                                            :active="item.countryCode === data.code"
+                                            :active="item.countryCode === loginForm.code"
                                             :active-class="`text-nv-${GetSuffix(
                                             'accent'
                                         )}`"
@@ -151,7 +151,7 @@
                                             </q-item-section>
 
                                             <q-item-section
-                                                :class="`${(data.code === item.countryCode) ? `text-nv-${GetSuffix('accent')}` : ''}`"
+                                                :class="`${(loginForm.code === item.countryCode) ? `text-nv-${GetSuffix('accent')}` : ''}`"
                                                 class="fs-13"
                                                 side>
                                                 {{
@@ -173,7 +173,7 @@
                 dark
                 filled
                 rounded
-                v-model="data.password"
+                v-model="loginForm.password"
                 placeholder="************"
                 :color="'transparent'"
                 :type="isPwd ? 'password' : 'text'"
@@ -187,7 +187,7 @@
             >
                 <template v-slot:append>
                     <q-icon
-                        v-show="data.password.length > 0"
+                        v-show="loginForm.password?.length > 0"
                         :name="isPwd ? 'visibility' : 'visibility_off'"
                         class="cursor-pointer"
                         @click="isPwd = !isPwd"
@@ -200,7 +200,8 @@
                 class="full-width br-20 py-12 q-mt-lg fs-16"
                 unelevated
                 no-caps
-                @click="$router.push('/two-factor-auth')"
+                :loading="loading"
+                @click="handleLogin"
             >
                 {{ $t('buttons.login') }}
             </q-btn>
@@ -252,16 +253,14 @@
 </template>
 
 <script lang="ts" setup>
-import { Dark, Screen } from 'quasar';
-import { computed, reactive, ref } from 'vue';
-import GetSuffix from '../../app/shared/helpers/GetSuffix';
-import countriesData, { ICountry } from '../../assets/resources/countries';
-import { useI18n } from 'vue-i18n';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-const { t, locale } = useI18n({ useScope: 'global' });
+import { useI18n } from 'vue-i18n';
+import { Dark, QForm, Screen, useQuasar } from 'quasar';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from 'stores/auth';
 
-const $router = useRouter();
-
+// Props
 defineProps({
     width: {
         type: Number,
@@ -275,30 +274,46 @@ defineProps({
     }
 });
 
-const formRef = ref<any>(null);
+// Constants
+const $q = useQuasar();
+const $router = useRouter();
+
+// Stores
+const authStore = useAuthStore();
+const { loginForm } = storeToRefs(authStore);
+
+// Locales
+const { t, locale } = useI18n({ useScope: 'global' });
+
+// Helpers
+import GetSuffix from '../../app/shared/helpers/GetSuffix';
+
+// Data
+import countriesData, { ICountry } from '../../assets/resources/countries';
+
+// Repositories
+import { useQoriPayRepository } from 'boot/axios';
+
+// Ref
+const formRef = ref<QForm | null>(null);
 const countries = ref<ICountry[]>([...countriesData]);
 const isPwd = ref<boolean>(true);
 const country = ref<boolean>(false);
-const validating = ref<string>('email');
 const filter = ref<string>('');
+const loading = ref<boolean>(false);
 
-const data = reactive({
-    emailOrPhone: '',
-    password: '',
-    code: countries.value[0].countryCode
-});
-
+// Computed
 const isMobile = computed(() => Screen.lt.md);
 const getRule = computed(() =>
 {
-    return validating.value === 'email'
+    return loginForm.value.mode === 'email'
         ? [
             (val: string) =>
                 (val &&
-                      val.match(
-                          /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
-                      )) ||
-                  t('validations.email')
+                    val.match(
+                        /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+                    )) ||
+                t('validations.email')
         ]
         : [
             (val: string) =>
@@ -306,10 +321,31 @@ const getRule = computed(() =>
         ];
 });
 
+
+// Methods
+const initializeForm = () =>
+{
+    authStore.setLoginForm({
+        mode: loginForm.value.mode ?? 'phone',
+        emailOrPhone: loginForm.value.emailOrPhone ?? '',
+        password: loginForm.value.password ?? '',
+        code: loginForm.value.code ?? countries.value[0].countryCode
+    });
+};
+
 const changeValidate = () =>
 {
-    validating.value = validating.value === 'email' ? 'phone' : 'email';
-    data.emailOrPhone = '';
+    authStore.setLoginForm({
+        ...loginForm.value,
+        emailOrPhone: '',
+        mode:  loginForm.value.mode === 'email' ? 'phone' : 'email'
+    });
+    $router.replace({
+        path: '/login',
+        query: {
+            mode: loginForm.value.mode
+        }
+    });
     formRef.value?.reset();
 };
 
@@ -320,7 +356,10 @@ const getEmoji = (countryCode: string): string | null =>
 
 const setCode = (code: string): void  =>
 {
-    data.code = code;
+    authStore.setLoginForm({
+        ...loginForm.value,
+        code
+    });
     country.value = false;
 };
 
@@ -338,6 +377,68 @@ const onFilter = () =>
         countries.value = [...countriesData];
     }
 };
+
+const changeView = (mode: 'email' | 'phone') =>
+{
+    authStore.setLoginForm({
+        ...loginForm.value,
+        mode
+    });
+    $router.replace({
+        path: '/login',
+        query: {
+            mode: loginForm.value.mode
+        }
+    });
+};
+
+const handleLogin = async() =>
+{
+    formRef.value?.validate().then(async(validated) =>
+    {
+        if (validated)
+        {
+            loading.value = true;
+            const { data }  = await useQoriPayRepository.preLogin({
+                Modulo: 'loginCliente',
+                User: <string> (loginForm.value.mode === 'email' ? loginForm.value.emailOrPhone : `${loginForm.value.code}${loginForm.value.emailOrPhone}`.replaceAll('+','')),
+                Password: <string> loginForm.value.password
+            });
+            loading.value = false;
+
+            if (data.error)
+            {
+                $q.notify({
+                    position: isMobile.value ? 'bottom' : 'top-right',
+                    message: `Ups... ${data.msg}`,
+                    color: 'red',
+                    avatar: 'src/assets/icons/Icon.png'
+                });
+                return;
+            }
+            else
+            {
+                authStore.setPreAuth(true);
+                authStore.setActive2FA(data.active2fa);
+                await $router.push('/two-factor-auth');
+            }
+        }
+    });
+
+};
+
+const initializeMode = () =>
+{
+    if ($router.currentRoute.value.query)
+    {
+        const mode = loginForm.value.mode ?? 'email';
+        // @ts-ignore
+        changeView($router.currentRoute.value?.query?.mode ?? mode);
+    }
+}
+
+initializeForm();
+initializeMode();
 
 </script>
 

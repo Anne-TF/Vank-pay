@@ -38,8 +38,8 @@ export default route(function(/* { store, ssrContext } */)
 
     Router.beforeEach(async(to) =>
     {
-        // See if any of the matched routes has meta "requiresAuth"
-        if (to.matched.some(_route => _route.meta.requiredAuth))
+        // See if any of the matched routes has meta "fullAuth"
+        if (to.matched.some(_route => _route.meta.fullAuth) || to.matched.some(_route => _route.meta.requiredAuth))
         {
             /*  // Yes this route requires authentication. See if the user is authenticated.
             if (!store.getters['auth/isAuthenticated'])
