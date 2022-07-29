@@ -148,7 +148,13 @@
                                 {{ EncodeText(getEncode, tab) }}
                             </span>
                         </p>
-                        <CodeInput :code="codeEmail" mode="counter2FAEmail" class="wp-100"  @addCode="setCodeEmail" @removeCode="setCodeEmail" />
+                        <CodeInput
+                            :code="codeEmail.mailCode"
+                            mode="counter2FAEmail" class="wp-100"
+                            @addCode="setCodeEmail"
+                            @removeCode="setCodeEmail"
+                            @sendCode="sendCode('EnviarMail', (data) => codeEmail.mailHash = data.msg)"
+                        />
                     </q-tab-panel>
 
                     <q-tab-panel
@@ -166,7 +172,12 @@
                                 {{ EncodeText(getEncode, tab) }}
                             </span>
                         </p>
-                        <CodeInput class="wp-100" :code="codePhone" mode="counter2FAPhone" @addCode="codePhone" @removeCode="codePhone" />
+                        <CodeInput class="wp-100"
+                                   :code="codePhone.smsCode"
+                                   mode="counter2FAPhone"
+                                   @addCode="setCodePhone"
+                                   @removeCode="setCodePhone"
+                                   @sendCode="sendCode('EnviarSms', (data) => codePhone.smsHash = data.msg)" />
                     </q-tab-panel>
 
                     <q-tab-panel
@@ -185,7 +196,7 @@
                             </span>
                             {{ $t('codeValidation.toObtain') }}
                         </p>
-                        <CodeInput class="wp-100" :code="codeAuthy" :show-send-code="false" @addCode="setCodeAuthy" @removeCode="setCodeAuthy" />
+                        <CodeInput class="wp-100" :code="codeAuthy" :show-send-code="false" @addCode="setCodeAuthy" @removeCode="setCodeAuthy"/>
                     </q-tab-panel>
                 </q-tab-panels>
 
@@ -204,23 +215,44 @@
 </template>
 
 <script lang="ts" setup>
-import { Dark, Screen } from 'quasar';
-import { computed, ref } from 'vue';
+import { Dark, Screen, useQuasar } from 'quasar';
+import { computed, reactive, ref } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import CodeInput from '../../app/components/CodeInput.vue';
 import EncodeText from '../../app/shared/helpers/EncodeText';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
+import { useQoriPayRepository } from 'boot/axios';
+import { storeToRefs } from 'pinia';
 
+const $q = useQuasar();
 const $router = useRouter();
 
-const codeEmail = ref<string | null>(null);
-const codePhone = ref<string | null>(null);
+const login = ref<boolean>(false);
+
+const codeEmail = reactive<{
+    mailCode: string | null;
+    mailHash: string | null
+}>({
+    mailCode: null,
+    mailHash: null
+});
+
+const codePhone = reactive<{
+    smsCode: string | null;
+    smsHash: string | null;
+}>({
+    smsCode: null,
+    smsHash: null
+});
+
 const codeAuthy = ref<string | null>(null);
 
 const tab = ref<string>('email');
 
+// Stores
 const authStore = useAuthStore();
+const { loginForm } = storeToRefs(authStore);
 
 const isMobile = computed(() => Screen.lt.md);
 
@@ -238,13 +270,36 @@ const getEncode = computed(() =>
 
 const setCodeEmail = (value: string) =>
 {
-    console.log('holamnundo', value)
-    codeEmail.value = value;
+    codeEmail.mailCode = value;
+};
+
+const sendCode = async(modulo: 'EnviarMail' | 'EnviarSms', fn: (data: Record<string, any>) => void) =>
+{
+    const { data }  = await useQoriPayRepository.sendCode({
+        Modulo: modulo,
+        User: <string> (loginForm.value.mode === 'email' ? loginForm.value.emailOrPhone : `${loginForm.value.code}${loginForm.value.emailOrPhone}`.replaceAll('+', '')),
+        Password: <string> loginForm.value.password
+    });
+
+    if (data.error)
+    {
+        $q.notify({
+            position: isMobile.value ? 'bottom' : 'top-right',
+            message: `Ups... ${data.msg}` /* t(data.key) */,
+            color: 'red',
+            icon: 'warning'
+        });
+        return;
+    }
+    else
+    {
+        fn(data);
+    }
 };
 
 const setCodePhone = (value: string) =>
 {
-    codePhone.value = value;
+    codePhone.smsCode = value;
 };
 
 const setCodeAuthy = (value: string) =>

@@ -3,6 +3,8 @@ import routes from 'src/repositories/auth/routes';
 import { AxiosFactory } from 'src/app/factories';
 import PreLoginPayload from 'src/repositories/auth/payloads/PreLoginPayload';
 import getUrl from 'src/app/shared/helpers/GetUrl';
+import SendEmailCodePayload from 'src/repositories/auth/payloads/SendEmailCodePayload';
+import SendSmsCodePayload from 'src/repositories/auth/payloads/SendSmsCodePayload';
 
 export default class QoriPayRepository
 {
@@ -18,6 +20,11 @@ export default class QoriPayRepository
     }
 
     async preLogin(payload: PreLoginPayload): Promise<AxiosResponse>
+    {
+        return await this.client.post(getUrl(this.routes.module), payload);
+    }
+
+    async sendCode(payload: SendEmailCodePayload | SendSmsCodePayload): Promise<AxiosResponse>
     {
         return await this.client.post(getUrl(this.routes.module), payload);
     }

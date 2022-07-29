@@ -404,7 +404,7 @@ const handleLogin = async() =>
             loading.value = true;
             const { data }  = await useQoriPayRepository.preLogin({
                 Modulo: 'loginCliente',
-                User: <string> (loginForm.value.mode === 'email' ? loginForm.value.emailOrPhone : `${loginForm.value.code}${loginForm.value.emailOrPhone}`.replaceAll('+','')),
+                User: <string> (loginForm.value.mode === 'email' ? loginForm.value.emailOrPhone : `${loginForm.value.code}${loginForm.value.emailOrPhone}`.replaceAll('+', '')),
                 Password: <string> loginForm.value.password
             });
             loading.value = false;
@@ -438,7 +438,7 @@ const initializeMode = () =>
         // @ts-ignore
         changeView($router.currentRoute.value?.query?.mode ?? mode);
     }
-}
+};
 
 initializeForm();
 initializeMode();

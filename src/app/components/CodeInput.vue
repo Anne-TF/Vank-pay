@@ -91,7 +91,7 @@ const inputs = ref<QInput[]>([]);
 
 const valueInputs = ref<(string|null)[]>([]);
 
-if(Boolean(props.code) && props.code)
+if (Boolean(props.code) && props.code)
 {
     valueInputs.value = props.code.trim().split('');
 }
