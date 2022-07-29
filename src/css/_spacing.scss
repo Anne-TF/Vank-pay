@@ -14,6 +14,10 @@
   .mr-#{$size} {
     margin-right: #{$size}px !important;
   }
+  .mx-#{$size} {
+    margin-right: #{$size}px !important;
+    margin-left: #{$size}px !important;
+  }
   .py-#{$size} {
     padding-top: #{$size}px !important;
     padding-bottom: #{$size}px !important;

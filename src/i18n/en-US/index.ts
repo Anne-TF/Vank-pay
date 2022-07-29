@@ -11,6 +11,7 @@ import passwordReset from './passwordReset';
 import validations from './validations';
 import verifyEmail from './verifyEmail';
 import accountCreated from './accountCreated';
+import balance from './balance';
 
 export default {
     login: {
@@ -42,5 +43,8 @@ export default {
     },
     accountCreated: {
         ...accountCreated
+    },
+    balance: {
+        ...balance
     }
 };
