@@ -1,7 +1,7 @@
 <template>
     <div
         :class="{
-            'wp-80': Screen.gt.sm,
+            'wp-100': Screen.gt.sm,
             'wp-55': Screen.sm,
             'wp-100': Screen.xs
         }"
@@ -35,6 +35,7 @@
 
          <p
             :class="`text-nv-${GetSuffix('accent')}`"
+            v-show="showSendCode"
             style="margin-top: -12px; !important"
             class="wp-100 text-right fs-12 cursor-pointer">
             {{ $t('codeValidation.sendCode') }}
@@ -52,6 +53,10 @@ const props = defineProps({
     qtInputs: {
         type: Number,
         default: 6
+    },
+    showSendCode: {
+        type: Boolean,
+        default: true
     }
 });
 

@@ -62,16 +62,16 @@
                     </p>
                     <q-input
                         dark
-                        filled
+                        outlined
                         rounded
                         v-model="data.password"
                         placeholder="************"
                         :color="'transparent'"
                         :type="isPwd ? 'password' : 'text'"
                         :class="{
-                            'rounded--dark-input': Dark.isActive,
-                            'rounded--light-input text-nv-light-accent':
-                                !Dark.isActive
+                            'fs-13' : isMobile,
+                            'rounded--dark-input--withAlert--space': Dark.isActive,
+                            'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
                         }"
                         :rules="[
                             (val) =>
@@ -96,16 +96,16 @@
                     </p>
                     <q-input
                         dark
-                        filled
+                        outlined
                         rounded
                         v-model="data.confirmPassword"
                         placeholder="************"
                         :color="'transparent'"
                         :type="isPwd2 ? 'password' : 'text'"
                         :class="{
-                            'rounded--dark-input': Dark.isActive,
-                            'rounded--light-input text-nv-light-accent':
-                                !Dark.isActive
+                            'fs-13' : isMobile,
+                            'rounded--dark-input--withAlert--space': Dark.isActive,
+                            'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
                         }"
                         :rules="[
                             (val) =>

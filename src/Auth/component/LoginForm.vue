@@ -31,9 +31,8 @@
                 />
             </p>
             <q-input
-                dark
-                filled
                 rounded
+                outlined
                 v-model="loginForm.emailOrPhone"
                 :color="'transparent'"
                 type="email"
@@ -41,9 +40,10 @@
                 :inputmode="loginForm.mode  === 'phone' ? 'numeric' : 'text'"
                 class="q-mb-md"
                 :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-black': !Dark.isActive
-            }"
+                    'fs-13' : isMobile,
+                    'rounded--dark-input--withAlert--space': Dark.isActive,
+                    'rounded--light-input--withAlert--space text-dark': !Dark.isActive
+                }"
                 :rules="getRule"
             >
                 <!-- NUMBER SLOT --->
@@ -86,18 +86,17 @@
                         >
                             <q-card-section class="flex justify-between q-pt-lg">
                                 <q-input
-                                    dark
-                                    filled
+                                    outlined
                                     rounded
                                     v-model="filter"
                                     :color="`nv-${GetSuffix('primary')}`"
                                     @update:model-value="onFilter"
                                     class="wp-85 ls-2 text-regular"
-                                    :class="{
-                                    'fs-13': isMobile,
-                                    'rounded--dark-input': Dark.isActive,
-                                    'rounded--light-input text-black': !Dark.isActive
-                                }"
+                                   :class="{
+                                        'fs-13' : isMobile,
+                                        'rounded--dark-input--withAlert--space': Dark.isActive,
+                                        'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
+                                    }"
                                     :placeholder="$t('fields.search')"
                                 />
                                 <q-btn
@@ -170,17 +169,17 @@
                 {{ $t('fields.password') }}
             </p>
             <q-input
-                dark
-                filled
                 rounded
+                outlined
                 v-model="loginForm.password"
                 placeholder="************"
                 :color="'transparent'"
                 :type="isPwd ? 'password' : 'text'"
                 :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
-            }"
+                    'fs-13' : isMobile,
+                    'rounded--dark-input--withAlert--space': Dark.isActive,
+                    'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
+                }"
                 :rules="[
                 (val) => (val && val.length > 7) || $t('validations.password')
             ]"
@@ -410,9 +409,9 @@ const handleLogin = async() =>
             {
                 $q.notify({
                     position: isMobile.value ? 'bottom' : 'top-right',
-                    message: `Ups... ${data.msg}`,
+                    message: `Ups... ${data.msg}` /* t(data.key) */,
                     color: 'red',
-                    avatar: 'src/assets/icons/Icon.png'
+                    icon: 'warning'
                 });
                 return;
             }

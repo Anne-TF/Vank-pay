@@ -11,16 +11,17 @@
         </p>
         <q-input
             dark
-            filled
+            outlined
             rounded
-            v-model="signUpForm.email"
+            v-model="data.email"
             :color="'transparent'"
             placeholder="money@qoripay.com"
             type="email"
             class="q-mb-md"
             :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-black': !Dark.isActive
+                'fs-13' : isMobile,
+                'rounded--dark-input--withAlert--space': Dark.isActive,
+                'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
             }"
             :rules="[
                 (val) =>
@@ -40,16 +41,17 @@
         </p>
         <q-input
             dark
-            filled
+            outlined
             rounded
             placeholder="************"
-            v-model="signUpForm.password"
+            v-model="data.password"
             :color="'transparent'"
             class="q-mb-md"
             :type="isPwd ? 'password' : 'text'"
             :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
+                'fs-13' : isMobile,
+                'rounded--dark-input--withAlert--space': Dark.isActive,
+                'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
             }"
             :rules="[
                 (val) => (val && val.length > 7) || $t('validations.password')
@@ -57,7 +59,7 @@
         >
             <template v-slot:append>
                 <q-icon
-                    v-show="signUpForm.password.length > 0"
+                    v-show="data.password.length > 0"
                     :name="isPwd ? 'visibility' : 'visibility_off'"
                     class="cursor-pointer"
                     @click="isPwd = !isPwd"
@@ -73,14 +75,15 @@
         <q-input
             dark
             placeholder="************"
-            filled
+            outlined
             rounded
-            v-model="signUpForm.confirmPassword"
+            v-model="data.confirmPassword"
             :color="'transparent'"
             :type="isPwd ? 'password' : 'text'"
             :class="{
-                'rounded--dark-input': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
+                'fs-13' : isMobile,
+                'rounded--dark-input--withAlert--space': Dark.isActive,
+                'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
             }"
             :rules="[
                 (val) => (val && val.length > 7) || $t('validations.password')
@@ -88,7 +91,7 @@
         >
             <template v-slot:append>
                 <q-icon
-                    v-show="signUpForm.confirmPassword.length > 0"
+                    v-show="data.confirmPassword.length > 0"
                     :name="isPwd2 ? 'visibility' : 'visibility_off'"
                     class="cursor-pointer"
                     @click="isPwd2 = !isPwd2"
@@ -179,7 +182,7 @@ defineProps({
     }
 });
 
-const signUpForm = reactive({
+const data = reactive({
     email: '',
     password: '',
     confirmPassword: ''

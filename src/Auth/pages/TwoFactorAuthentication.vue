@@ -29,18 +29,29 @@
                 />
             </div>
 
-            <div class="q-px-md q-pt-lg">
+            <div
+                :class="{
+                    'flex wp-100 justify-center' : Screen.sm
+                }"
+                class="q-px-md q-pt-lg">
                 <h5
                     :class="{
                         'fs-23': isXS,
-                        'text-white': Dark.isActive
+                        'text-white': Dark.isActive,
+                        'text-left' : !isMobile || Screen.gt.sm || Screen.xs,
+                        'wp-60' : Screen.sm
                     }"
-                    class="no-padding q-mb-xs q-mt-sm text-left"
+                    class="no-padding q-mb-xs q-mt-sm"
                 >
                     {{ $t('codeValidation.twoFAValidation') }}
                 </h5>
                 <!-- CHANGE AUTHENTICATION METHOD BUTTONS -->
-                <div class="flex flex-inline justify-start mt-35">
+                <div
+                    :class="{
+                        'wp-60' : Screen.sm,
+                        'justify-start': Screen.gt.sm || Screen.xs
+                    }"
+                    class="flex flex-inline mt-35 ">
                     <!-- EMAIL BTN -->
                     <div
                         :class="`
@@ -118,36 +129,65 @@
                     </div>
                 </div>
 
-                <p
-                    :class="{
-                        'fs-14': isMobile,
-                        'fs-16': !isMobile
-                    }"
-                    class="mt-30 mb-40"
-                    v-if="tab === 'email' || tab === 'phone'"
-                >
-                    {{ $t('codeValidation.sendTo') }}
-                    <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
-                        {{ EncodeText(getEncode, tab) }}
-                    </span>
-                </p>
+                 <q-tab-panels
+                    :class="`bg-nv-${Dark.isActive ? 'dark' : 'light'} text-nv-light-tertiary ${Screen.sm ? 'wp-60' : 'wp-100'}`"
+                    v-model="tab"
+                    animated>
+                    <q-tab-panel
+                        class="no-margin no-padding no-scroll"
+                        name="email">
+                        <p
+                            :class="{
+                                'fs-14': isMobile,
+                                'fs-16': !isMobile
+                            }"
+                            class="mt-30 mb-40"
+                        >
+                            {{ $t('codeValidation.sendTo') }}
+                            <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
+                                {{ EncodeText(getEncode, tab) }}
+                            </span>
+                        </p>
+                        <CodeInput class="wp-100" :show-send-code="true" @addCode="setCode" @removeCode="setCode" />
+                    </q-tab-panel>
 
-                <p
-                    :class="{
-                        'fs-14': isMobile,
-                        'fs-16': !isMobile
-                    }"
-                    class="mt-30 mb-40"
-                    v-else
-                >
-                    {{ $t('codeValidation.enter') }}
-                    <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
-                        Authy
-                    </span>
-                    {{ $t('codeValidation.toObtain') }}
-                </p>
+                    <q-tab-panel
+                        class="no-margin no-padding no-scroll"
+                        name="phone">
+                        <p
+                            :class="{
+                                'fs-14': isMobile,
+                                'fs-16': !isMobile
+                            }"
+                            class="mt-30 mb-40"
+                        >
+                            {{ $t('codeValidation.sendTo') }}
+                            <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
+                                {{ EncodeText(getEncode, tab) }}
+                            </span>
+                        </p>
+                        <CodeInput class="wp-100"  :show-send-code="true" @addCode="setCode" @removeCode="setCode" />
+                    </q-tab-panel>
 
-                <CodeInput @addCode="setCode" @removeCode="setCode" />
+                    <q-tab-panel
+                        class="no-margin no-padding no-scroll"
+                        name="authy">
+                         <p
+                            :class="{
+                                'fs-14': isMobile,
+                                'fs-16': !isMobile
+                            }"
+                            class="mt-30 mb-40"
+                        >
+                           {{ $t('codeValidation.enter') }}
+                            <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
+                                Authy
+                            </span>
+                            {{ $t('codeValidation.toObtain') }}
+                        </p>
+                        <CodeInput class="wp-100" :show-send-code="false" @addCode="setCode" @removeCode="setCode" />
+                    </q-tab-panel>
+                </q-tab-panels>
 
                 <q-btn
                     :color="`nv-${GetSuffix('primary')}`"
@@ -170,13 +210,19 @@ import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import CodeInput from '../../app/components/CodeInput.vue';
 import EncodeText from '../../app/shared/helpers/EncodeText';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../../stores/auth';
 
 const $router = useRouter();
 
 const code = ref<string | null>(null);
 const tab = ref<string>('email');
+const authStore = useAuthStore();
 
 const isMobile = computed(() => Screen.lt.md);
+const getActiveMethod = computed(() =>
+{
+    return authStore.Active2FA;
+});
 const isXS = computed(() => Screen.lt.sm);
 const getEncode = computed(() =>
 {
@@ -190,18 +236,38 @@ const setCode = (value: string) =>
 
 const changeView = (view: string) =>
 {
-    tab.value = view;
-    $router.replace({
-        path: '/two-factor-auth',
-        query: {
-            type: tab.value
-        }
-    });
+    if (
+        view === 'phone' && getActiveMethod.value.telefono ||
+        view === 'email' && getActiveMethod.value.correo ||
+        view === 'authy' && getActiveMethod.value.authy
+    )
+    {
+        tab.value = view;
+        $router.replace({
+            path: '/two-factor-auth',
+            query: {
+                type: tab.value
+            }
+        });
+    }
 };
 
 if ($router.currentRoute.value.query)
 {
     // @ts-ignore
-    changeView($router.currentRoute.value?.query?.type ?? 'email');
+    const find = Object.keys(getActiveMethod.value).filter((e) =>
+    {
+        return getActiveMethod.value[e];
+    });
+
+    if (find)
+    {
+        const aux = find.toString() === 'correo' ? 'email' : (find.toString() === 'telefono' ? 'phone' : 'authy');
+        changeView($router.currentRoute.value?.query?.type?.toString() ?? aux);
+    }
+    else
+    {
+        changeView($router.currentRoute.value?.query?.type?.toString() ?? 'email');
+    }
 }
 </script>

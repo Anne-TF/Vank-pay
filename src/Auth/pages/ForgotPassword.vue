@@ -59,7 +59,7 @@
                 </p>
                 <q-input
                     dark
-                    filled
+                    outlined
                     rounded
                     v-model="data.email"
                     :color="'transparent'"
@@ -67,8 +67,9 @@
                     placeholder="money@qoripay.com"
                     class="q-mb-md"
                     :class="{
-                        'rounded--dark-input': Dark.isActive,
-                        'rounded--light-input text-black': !Dark.isActive
+                        'fs-13' : isMobile,
+                        'rounded--dark-input--withAlert--space': Dark.isActive,
+                        'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
                     }"
                     :rules="[
                         (val) =>
