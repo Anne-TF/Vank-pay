@@ -22,6 +22,7 @@
             @update:model-value="onUpdate($event, index)"
             @paste="onPaste"
             maxlength="1"
+            inputmode="number"
             mask="#"
             :rules="[
                 (v) => v && v.length > 0 || 'Este campo es requerido.'
@@ -33,10 +34,24 @@
             }"
         />
 
+        <p
+            v-if="props.mode && settingsStore[props.mode]?.active"
+            v-show="showSendCode"
+            style="margin-top: -12px; !important"
+            class="wp-100 text-right fs-12 cursor-pointer"
+            :class="{
+                'text-nv-tertiary' : Dark.isActive,
+                'text-nv-secondary' : !Dark.isActive
+            }"
+        >
+            {{ $t('codeValidation.resendCode') }} {{ settingsStore[props.mode].counter }}s
+        </p>
          <p
+             v-else
             :class="`text-nv-${GetSuffix('accent')}`"
             v-show="showSendCode"
             style="margin-top: -12px; !important"
+            @click="activeCounter"
             class="wp-100 text-right fs-12 cursor-pointer">
             {{ $t('codeValidation.sendCode') }}
         </p>
@@ -46,8 +61,10 @@
 <script lang="ts" setup>
 
 import { Dark, QInput, Screen } from 'quasar';
-import { computed, ref, watchEffect } from 'vue';
+import { computed, PropType, ref, watchEffect } from 'vue';
 import GetSuffix from '../shared/helpers/GetSuffix';
+import { useSettingsStore } from 'stores/settings';
+import { storeToRefs } from 'pinia';
 
 const props = defineProps({
     qtInputs: {
@@ -57,14 +74,27 @@ const props = defineProps({
     showSendCode: {
         type: Boolean,
         default: true
+    },
+    code: String,
+    mode: {
+        type: String as PropType<'counter2FAPhone' | 'counter2FAEmail'>,
+        default: null
     }
 });
 
-const emit = defineEmits(['addCode', 'removeCode']);
+const emit = defineEmits(['addCode', 'removeCode', 'sendCode']);
+
+const settingsStore = useSettingsStore();
+const settingsStoreRef = storeToRefs(settingsStore);
 
 const inputs = ref<QInput[]>([]);
 
 const valueInputs = ref<(string|null)[]>([]);
+
+if(Boolean(props.code) && props.code)
+{
+    valueInputs.value = props.code.trim().split('');
+}
 
 const isMobile = computed(() => Screen.lt.md);
 
@@ -119,4 +149,13 @@ watchEffect(() =>
     }
 });
 
+const activeCounter = () =>
+{
+    if (props.mode)
+    {
+        settingsStoreRef[props.mode].value.active = true;
+        settingsStore.ActiveCounter2FA(props.mode, 60);
+        emit('sendCode');
+    }
+};
 </script>

@@ -8,5 +8,7 @@ export const useSettingsStore = defineStore('settings', {
     state,
     getters,
     actions,
-    persist: true
+    persist: {
+        exclude: ['counter2FAPhone', 'counter2FAEmail']
+    }
 });

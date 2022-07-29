@@ -148,7 +148,7 @@
                                 {{ EncodeText(getEncode, tab) }}
                             </span>
                         </p>
-                        <CodeInput class="wp-100" :show-send-code="true" @addCode="setCode" @removeCode="setCode" />
+                        <CodeInput :code="codeEmail" mode="counter2FAEmail" class="wp-100"  @addCode="setCodeEmail" @removeCode="setCodeEmail" />
                     </q-tab-panel>
 
                     <q-tab-panel
@@ -166,7 +166,7 @@
                                 {{ EncodeText(getEncode, tab) }}
                             </span>
                         </p>
-                        <CodeInput class="wp-100"  :show-send-code="true" @addCode="setCode" @removeCode="setCode" />
+                        <CodeInput class="wp-100" :code="codePhone" mode="counter2FAPhone" @addCode="codePhone" @removeCode="codePhone" />
                     </q-tab-panel>
 
                     <q-tab-panel
@@ -185,7 +185,7 @@
                             </span>
                             {{ $t('codeValidation.toObtain') }}
                         </p>
-                        <CodeInput class="wp-100" :show-send-code="false" @addCode="setCode" @removeCode="setCode" />
+                        <CodeInput class="wp-100" :code="codeAuthy" :show-send-code="false" @addCode="setCodeAuthy" @removeCode="setCodeAuthy" />
                     </q-tab-panel>
                 </q-tab-panels>
 
@@ -214,25 +214,44 @@ import { useAuthStore } from '../../stores/auth';
 
 const $router = useRouter();
 
-const code = ref<string | null>(null);
+const codeEmail = ref<string | null>(null);
+const codePhone = ref<string | null>(null);
+const codeAuthy = ref<string | null>(null);
+
 const tab = ref<string>('email');
+
 const authStore = useAuthStore();
 
 const isMobile = computed(() => Screen.lt.md);
+
 const getActiveMethod = computed(() =>
 {
     return authStore.Active2FA;
 });
+
 const isXS = computed(() => Screen.lt.sm);
+
 const getEncode = computed(() =>
 {
     return tab.value === 'email' ? 'qoripay@email.com' : '+58 4140008907';
 });
 
-const setCode = (value: string) =>
+const setCodeEmail = (value: string) =>
 {
-    code.value = value;
+    console.log('holamnundo', value)
+    codeEmail.value = value;
 };
+
+const setCodePhone = (value: string) =>
+{
+    codePhone.value = value;
+};
+
+const setCodeAuthy = (value: string) =>
+{
+    codeAuthy.value = value;
+};
+
 
 const changeView = (view: string) =>
 {
@@ -257,6 +276,7 @@ if ($router.currentRoute.value.query)
     // @ts-ignore
     const find = Object.keys(getActiveMethod.value).filter((e) =>
     {
+        // @ts-ignore
         return getActiveMethod.value[e];
     });
 

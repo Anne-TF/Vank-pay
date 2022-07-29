@@ -18,8 +18,8 @@ export type State = {
     preAuth: boolean;
     token: string | null;
     userName: string | null;
-    loginForm: LoginForm
-    active2FA: Active2FA
+    loginForm: LoginForm;
+    active2FA: Active2FA;
 }
 
 export type Getters = {

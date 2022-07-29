@@ -38,6 +38,7 @@
                 type="email"
                 :placeholder="loginForm.mode  === 'email' ? 'money@qoripay.com' : '4240000000'"
                 :inputmode="loginForm.mode  === 'phone' ? 'numeric' : 'text'"
+                :disable="loading"
                 class="q-mb-md"
                 :class="{
                     'fs-13' : isMobile,
@@ -50,6 +51,7 @@
                 <template v-slot:prepend>
                 <span
                     class="fs-14 cursor-pointer"
+                    :disable="loading"
                     :class="{
                         'text-nv-light-tertiary': loginForm.code?.length < 1
                     }"
@@ -89,6 +91,7 @@
                                     outlined
                                     rounded
                                     v-model="filter"
+                                    :disable="loading"
                                     :color="`nv-${GetSuffix('primary')}`"
                                     @update:model-value="onFilter"
                                     class="wp-85 ls-2 text-regular"
@@ -173,6 +176,7 @@
                 outlined
                 v-model="loginForm.password"
                 placeholder="************"
+                :disable="loading"
                 :color="'transparent'"
                 :type="isPwd ? 'password' : 'text'"
                 :class="{
