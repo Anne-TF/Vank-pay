@@ -100,7 +100,7 @@ const routes: RouteRecordRaw[] = [
         path: '/',
         component: () => import('../app/layouts/MainLayout.vue'),
         children: [
-            { path: '', component: () => import('../app/pages/IndexPage.vue') }
+            { path: '', component: () => import('../Balance/pages/MainBalanceView.vue') }
         ],
         meta: { fullAuth: true }
     },
