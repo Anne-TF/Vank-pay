@@ -42,11 +42,15 @@ watchEffect(() =>
     {
         // @ts-ignore
         StatusBar.styleLightContent();
+        // @ts-ignore
+        NavigationBar.backgroundColorByHexString('#1D2229', true);
     }
     else if (!Dark.isActive && Platform.is.android && Platform.is.cordova)
     {
         // @ts-ignore
         StatusBar.styleDefault();
+        // @ts-ignore
+        NavigationBar.backgroundColorByHexString('#fff', false);
     }
 });
 
@@ -54,6 +58,7 @@ watchEffect(() =>
 {
     locale.value = settingsStore.Lang ?? 'es-ES';
 });
+
 
 onMounted(() =>
 {

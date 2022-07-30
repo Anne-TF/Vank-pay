@@ -76,6 +76,8 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="NavigationBarBackgroundColor" value="rgba(255,255,255,0)" />
+    <preference name="NavigationBarLight" value="false" />
     <preference name="resizeOnFullScreen" value="true" />
     <allow-navigation href="about:*" />
 </widget>
