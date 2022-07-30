@@ -5,6 +5,10 @@ const getters: PiniaGetters = {
     {
         return state.loginForm;
     },
+    SignUpForm: (state) =>
+    {
+        return state.signUpForm;
+    },
     Active2FA: (state) =>
     {
         return state.active2FA;
@@ -24,6 +28,14 @@ const getters: PiniaGetters = {
     UserName: (state) =>
     {
         return state.userName;
+    },
+    Email: (state) =>
+    {
+        return state.email;
+    },
+    Phone: (state) =>
+    {
+        return state.phone;
     }
 };
 

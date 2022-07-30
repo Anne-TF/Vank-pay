@@ -13,11 +13,12 @@
             dark
             outlined
             rounded
-            v-model="data.email"
+            v-model="signUpForm.email"
             :color="'transparent'"
             placeholder="money@qoripay.com"
             type="email"
             class="q-mb-md"
+            :disable="loading"
             :class="{
                 'fs-13' : isMobile,
                 'rounded--dark-input--withAlert--space': Dark.isActive,
@@ -44,10 +45,11 @@
             outlined
             rounded
             placeholder="************"
-            v-model="data.password"
+            v-model="signUpForm.password"
             :color="'transparent'"
             class="q-mb-md"
             :type="isPwd ? 'password' : 'text'"
+            :disable="loading"
             :class="{
                 'fs-13' : isMobile,
                 'rounded--dark-input--withAlert--space': Dark.isActive,
@@ -59,7 +61,7 @@
         >
             <template v-slot:append>
                 <q-icon
-                    v-show="data.password.length > 0"
+                    v-show="signUpForm.password?.length > 0"
                     :name="isPwd ? 'visibility' : 'visibility_off'"
                     class="cursor-pointer"
                     @click="isPwd = !isPwd"
@@ -77,8 +79,9 @@
             placeholder="************"
             outlined
             rounded
-            v-model="data.confirmPassword"
+            v-model="signUpForm.confirmPassword"
             :color="'transparent'"
+            :disable="loading"
             :type="isPwd ? 'password' : 'text'"
             :class="{
                 'fs-13' : isMobile,
@@ -91,7 +94,7 @@
         >
             <template v-slot:append>
                 <q-icon
-                    v-show="data.confirmPassword.length > 0"
+                    v-show="signUpForm.confirmPassword?.length > 0"
                     :name="isPwd2 ? 'visibility' : 'visibility_off'"
                     class="cursor-pointer"
                     @click="isPwd2 = !isPwd2"
@@ -104,12 +107,13 @@
         >
             <div class="col flex items-start">
                 <q-checkbox
-                    v-model="acceptedTerms"
+                    v-model="signUpForm.acceptedTerms"
                     checked-icon="check_circle"
                     unchecked-icon="check_circle"
                     :color="`nv-${GetSuffix('accent')}`"
                     indeterminate-icon="help"
                     size="xs"
+                    :disable="loading"
                 />
             </div>
             <div class="col-11 q-pl-sm">
@@ -129,6 +133,8 @@
             class="full-width br-20 py-12 q-mt-lg fs-16"
             unelevated
             no-caps
+            :loading="loading"
+            @click="handleSignUp"
         >
             {{ $t('buttons.createAccount') }}
         </q-btn>
@@ -166,12 +172,15 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-const { t, locale } = useI18n({ useScope: 'global' });
-import { reactive, computed, ref } from 'vue';
+import { Dark, QForm, Screen, useQuasar } from 'quasar';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
-import { Dark, Screen } from 'quasar';
+import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from 'stores/auth';
 
+// Props
 defineProps({
     height: {
         type: Number,
@@ -182,16 +191,60 @@ defineProps({
     }
 });
 
-const data = reactive({
-    email: '',
-    password: '',
-    confirmPassword: ''
-});
+// Constants
+const $q = useQuasar();
+const $router = useRouter();
+
+// Stores
+const authStore = useAuthStore();
+const { signUpForm } = storeToRefs(authStore);
+
+// Locales
+const { t, locale } = useI18n({ useScope: 'global' });
+
+// Ref
 const isPwd = ref<boolean>(true);
 const isPwd2 = ref<boolean>(true);
-const formRef = ref<any>(null);
-const acceptedTerms = ref<boolean>(false);
+const formRef = ref<QForm | null>(null);
+const loading = ref<boolean>(false);
 
+// Computed
 const isMobile = computed(() => Screen.lt.md);
 const getName = computed(() => process.env.APP_NAME);
+
+// Methods
+const handleSignUp = async() =>
+{
+    formRef.value?.validate().then(async(validated) =>
+    {
+        if (validated)
+        {
+            loading.value = true;
+            // const { data }  = await useQoriPayRepository.signUp();
+            setInterval(() =>
+            {
+                loading.value = false;
+            }, 3000);
+
+
+            // if (data.error)
+            // {
+            //     $q.notify({
+            //         position: isMobile.value ? 'bottom' : 'top-right',
+            //         message: `Ups... ${data.msg}` /* t(data.key) */,
+            //         color: 'red',
+            //         icon: 'warning'
+            //     });
+            //     return;
+            // }
+            // else
+            // {
+            //     authStore.setPreAuth(true);
+            //     authStore.setActive2FA(data.active2fa);
+            //     await $router.push('/two-factor-auth');
+            // }
+        }
+    });
+
+};
 </script>

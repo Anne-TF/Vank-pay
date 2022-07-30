@@ -17,12 +17,13 @@
             style="width: 3.34em"
             rounded
             outlined
+            :disable="props.disable"
             v-model="valueInputs[index]"
             :ref="_ref => { inputs[index] = _ref }"
             @update:model-value="onUpdate($event, index)"
             @paste="onPaste"
             maxlength="1"
-            inputmode="number"
+            inputmode="numeric"
             mask="#"
             :rules="[
                 (v) => v && v.length > 0 || 'Este campo es requerido.'
@@ -79,6 +80,10 @@ const props = defineProps({
     mode: {
         type: String as PropType<'counter2FAPhone' | 'counter2FAEmail'>,
         default: null
+    },
+    disable: {
+        type: Boolean,
+        default: false
     }
 });
 

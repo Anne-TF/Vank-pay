@@ -6,6 +6,8 @@ const state = (): State =>
         token: null,
         userName: null,
         preAuth: false,
+        email: null,
+        phone: null,
         active2FA: {
             authy: false,
             correo: false,
@@ -16,6 +18,12 @@ const state = (): State =>
             emailOrPhone: null,
             password: null,
             code: null
+        },
+        signUpForm: {
+            email: null,
+            password: null,
+            confirmPassword: null,
+            acceptedTerms: false
         }
     };
 };

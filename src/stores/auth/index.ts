@@ -9,6 +9,10 @@ export const useAuthStore = defineStore('auth', {
     getters,
     actions,
     persist: {
-        exclude: ['loginForm.password', 'preAuth']
+        exclude: [
+            'loginForm.password',
+            'signUpForm.password',
+            'signUpForm.confirmPassword',
+            'preAuth']
     }
 });

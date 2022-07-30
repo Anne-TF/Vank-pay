@@ -413,7 +413,7 @@ const handleLogin = async() =>
             {
                 $q.notify({
                     position: isMobile.value ? 'bottom' : 'top-right',
-                    message: `Ups... ${data.msg}` /* t(data.key) */,
+                    message: `Ups... ${t(data.errorKey)}`,
                     color: 'red',
                     icon: 'warning'
                 });
@@ -423,11 +423,13 @@ const handleLogin = async() =>
             {
                 authStore.setPreAuth(true);
                 authStore.setActive2FA(data.active2fa);
+                authStore.setPhone(data.userData.telefono);
+                authStore.setEmail(data.userData.correo);
+                authStore.setUserName(data.userData.usuario);
                 await $router.push('/two-factor-auth');
             }
         }
     });
-
 };
 
 const initializeMode = () =>

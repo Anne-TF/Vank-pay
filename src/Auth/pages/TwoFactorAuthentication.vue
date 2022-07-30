@@ -150,10 +150,11 @@
                         </p>
                         <CodeInput
                             :code="codeEmail.mailCode"
+                            :disable="loading"
                             mode="counter2FAEmail" class="wp-100"
                             @addCode="setCodeEmail"
                             @removeCode="setCodeEmail"
-                            @sendCode="sendCode('EnviarMail', (data) => codeEmail.mailHash = data.msg)"
+                            @sendCode="sendCode('EnviarMail', (data) => codeEmail.mailHash = data.hash)"
                         />
                     </q-tab-panel>
 
@@ -173,11 +174,12 @@
                             </span>
                         </p>
                         <CodeInput class="wp-100"
+                                   :disable="loading"
                                    :code="codePhone.smsCode"
                                    mode="counter2FAPhone"
                                    @addCode="setCodePhone"
                                    @removeCode="setCodePhone"
-                                   @sendCode="sendCode('EnviarSms', (data) => codePhone.smsHash = data.msg)" />
+                                   @sendCode="sendCode('EnviarSms', (data) => codePhone.smsHash = data.hash)" />
                     </q-tab-panel>
 
                     <q-tab-panel
@@ -196,7 +198,7 @@
                             </span>
                             {{ $t('codeValidation.toObtain') }}
                         </p>
-                        <CodeInput class="wp-100" :code="codeAuthy" :show-send-code="false" @addCode="setCodeAuthy" @removeCode="setCodeAuthy"/>
+                        <CodeInput :disable="loading" class="wp-100" :code="codeAuthy" :show-send-code="false" @addCode="setCodeAuthy" @removeCode="setCodeAuthy"/>
                     </q-tab-panel>
                 </q-tab-panels>
 
@@ -205,7 +207,8 @@
                     class="full-width br-20 py-12 mt-40 fs-16"
                     unelevated
                     no-caps
-                    @click="$router.push('/login')"
+                    @click="handleValidation"
+                    :loading="loading"
                 >
                     {{ $t('buttons.continue') }}
                 </q-btn>
@@ -224,11 +227,15 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
 import { useQoriPayRepository } from 'boot/axios';
 import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
 
 const $q = useQuasar();
 const $router = useRouter();
 
 const login = ref<boolean>(false);
+
+// Locales
+const { t, locale } = useI18n({ useScope: 'global' });
 
 const codeEmail = reactive<{
     mailCode: string | null;
@@ -246,9 +253,11 @@ const codePhone = reactive<{
     smsHash: null
 });
 
+const loading = ref<boolean>(false);
+
 const codeAuthy = ref<string | null>(null);
 
-const tab = ref<string>('email');
+const tab = ref<'email' | 'phone' | 'authy'>('email');
 
 // Stores
 const authStore = useAuthStore();
@@ -265,7 +274,7 @@ const isXS = computed(() => Screen.lt.sm);
 
 const getEncode = computed(() =>
 {
-    return tab.value === 'email' ? 'qoripay@email.com' : '+58 4140008907';
+    return tab.value === 'email' ? authStore.Email : `+${authStore.Phone}`;
 });
 
 const setCodeEmail = (value: string) =>
@@ -285,7 +294,7 @@ const sendCode = async(modulo: 'EnviarMail' | 'EnviarSms', fn: (data: Record<str
     {
         $q.notify({
             position: isMobile.value ? 'bottom' : 'top-right',
-            message: `Ups... ${data.msg}` /* t(data.key) */,
+            message: `Ups... ${t(data.errorKey)}`,
             color: 'red',
             icon: 'warning'
         });
@@ -307,7 +316,6 @@ const setCodeAuthy = (value: string) =>
     codeAuthy.value = value;
 };
 
-
 const changeView = (view: string) =>
 {
     if (
@@ -323,6 +331,56 @@ const changeView = (view: string) =>
                 type: tab.value
             }
         });
+    }
+};
+
+const handleValidation = async() =>
+{
+    loading.value = true;
+
+    const twoFAValidation = {};
+
+    if (tab.value === 'email')
+    {
+        Object.assign(twoFAValidation, codeEmail);
+    }
+
+    if (tab.value === 'phone')
+    {
+        Object.assign(twoFAValidation, codePhone);
+    }
+
+    if (tab.value === 'authy')
+    {
+        Object.assign(twoFAValidation, { '2FAToken': codeAuthy.value });
+    }
+
+    const { data } = await useQoriPayRepository.login({
+        Modulo: 'validarCliente',
+        User: <string> (loginForm.value.mode === 'email' ? loginForm.value.emailOrPhone : `${loginForm.value.code}${loginForm.value.emailOrPhone}`.replaceAll('+', '')),
+        Password: <string> loginForm.value.password,
+        ...twoFAValidation
+    });
+    loading.value = false;
+
+    if (Boolean(data.error))
+    {
+        $q.notify({
+            position: isMobile.value ? 'bottom' : 'top-right',
+            message: `Ups... ${t(data?.errorKey)}`,
+            color: 'red',
+            icon: 'warning'
+        });
+        return;
+    }
+    else
+    {
+        authStore.setToken(data.token);
+        authStore.setUserName(data.username);
+        authStore.setPreAuth(false);
+        authStore.clearLoginForm();
+        authStore.clearSignUpForm();
+        await $router.push('/');
     }
 };
 

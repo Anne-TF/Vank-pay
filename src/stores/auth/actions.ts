@@ -1,6 +1,4 @@
 import { PiniaActions } from 'stores/auth/types';
-import { useQoriPayRepository } from 'boot/axios';
-import { useRouter } from 'vue-router';
 
 const actions: PiniaActions = {
     setUserName(value)
@@ -11,13 +9,13 @@ const actions: PiniaActions = {
     {
         this.active2FA = value;
     },
-    setFullAuth(value)
-    {
-        this.fullAuth = value;
-    },
     setLoginForm(value)
     {
         this.loginForm = value;
+    },
+    setSignUpForm(value)
+    {
+        this.signUpForm = value;
     },
     setPreAuth(value)
     {
@@ -26,6 +24,32 @@ const actions: PiniaActions = {
     setToken(value)
     {
         this.token = value;
+    },
+    setEmail(value)
+    {
+        this.email = value;
+    },
+    setPhone(value)
+    {
+        this.phone = value;
+    },
+    clearLoginForm()
+    {
+        this.loginForm = {
+            mode: 'email',
+            emailOrPhone: null,
+            password: null,
+            code: null
+        };
+    },
+    clearSignUpForm()
+    {
+        this.signUpForm = {
+            email: null,
+            password: null,
+            confirmPassword: null,
+            acceptedTerms: false
+        };
     }
 };
 
