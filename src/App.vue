@@ -18,9 +18,13 @@
 
 <script lang="ts" setup>
 import { Dark, Platform, useQuasar } from 'quasar';
-import { onMounted, watchEffect, ref } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 import { useSettingsStore } from 'stores/settings';
 import { useI18n } from 'vue-i18n';
+
+// Capacitor Plugins
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Keyboard, KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 
 const { locale, availableLocales } = useI18n({ useScope: 'global' });
 
@@ -36,21 +40,19 @@ setTimeout(() =>
     splashLoading.value = false;
 }, 3000 + 1500);
 
-watchEffect(() =>
+watchEffect(async() =>
 {
-    if (Dark.isActive && Platform.is.android && Platform.is.cordova)
+    if (Dark.isActive && Platform.is.android && Platform.is.capacitor)
     {
-        // @ts-ignore
-        StatusBar.styleLightContent();
-        // @ts-ignore
-        NavigationBar.backgroundColorByHexString('#1D2229', true);
+        await StatusBar.setStyle({ style: Style.Dark });
+        await Keyboard.setStyle({ style: KeyboardStyle.Dark });
+        // NavigationBar.backgroundColorByHexString('#1D2229', true);
     }
-    else if (!Dark.isActive && Platform.is.android && Platform.is.cordova)
+    else if (!Dark.isActive && Platform.is.android && Platform.is.capacitor)
     {
-        // @ts-ignore
-        StatusBar.styleDefault();
-        // @ts-ignore
-        NavigationBar.backgroundColorByHexString('#fff', false);
+        await StatusBar.setStyle({ style: Style.Light });
+        await Keyboard.setStyle({ style: KeyboardStyle.Light });
+        // NavigationBar.backgroundColorByHexString('#fff', false);
     }
 });
 
@@ -59,15 +61,11 @@ watchEffect(() =>
     locale.value = settingsStore.Lang ?? 'es-ES';
 });
 
-
 onMounted(() =>
 {
-    if (Platform.is.android && Platform.is.cordova)
+    if (Platform.is.android && Platform.is.capacitor)
     {
-        // @ts-ignore
-        StatusBar.overlaysWebView(true);
-        // @ts-ignore
-        StatusBar.backgroundColorByHexString('rgba(255,255,255,0)');
+        StatusBar.setOverlaysWebView({ overlay: true });
     }
 
     settingsStore.setDarkMode(<boolean> settingsStore.DarkMode ?? 'auto');

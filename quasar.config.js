@@ -111,6 +111,7 @@ module.exports = configure(function(ctx)
         devServer: {
             https: false,
             // port: 2701,
+            host: '192.168.31.113',
             open: true // opens browser window automatically
         },
 
@@ -119,7 +120,7 @@ module.exports = configure(function(ctx)
             config: {
                 notify: { /* look at QuasarConfOptions from the API card */ },
                 capacitor: {
-                    iosStatusBarPadding: true // add the dynamic top padding on iOS mobile devices
+                    iosStatusBarPadding: true // add the dynamic top padding on iOS mobile devices,
                 }
             },
 
@@ -192,14 +193,14 @@ module.exports = configure(function(ctx)
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-cordova-apps/configuring-cordova
         cordova: {
             version,
-            description: 'Qori pay app',
+            description: 'Qori pay',
             androidVersionCode: '10'
             // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
         capacitor: {
-            hideSplashscreen: true,
+            hideSplashscreen: false,
             appName: 'QoriPay',
             version,
             description: 'Qori pay app'
