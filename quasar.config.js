@@ -12,7 +12,7 @@ const { configure } = require('quasar/wrappers');
 const path = require('path');
 const version = require('./package.json').version;
 
-module.exports = configure(function(/* ctx */)
+module.exports = configure(function(ctx)
 {
     return {
         eslint: {
@@ -30,7 +30,7 @@ module.exports = configure(function(/* ctx */)
         // app boot file (/src/boot)
         // --> boot files are part of "main.js"
         // https://v2.quasar.dev/quasar-cli-vite/boot-files
-        boot: ['i18n', 'axios'],
+        boot: ['i18n', 'axios', 'capacitor'],
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
         css: ['app.scss'],
@@ -96,12 +96,20 @@ module.exports = configure(function(/* ctx */)
                         runtimeOnly: false
                     }
                 ]
-            ]
+            ],
+
+            extendViteConf(viteConf)
+            {
+                if (ctx.mode.capacitor)
+                {
+                    // do something with ViteConf
+                }
+            }
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
         devServer: {
-            // https: true
+            https: true,
             port: 2701,
             open: true // opens browser window automatically
         },
@@ -109,7 +117,10 @@ module.exports = configure(function(/* ctx */)
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
         framework: {
             config: {
-                notify: { /* look at QuasarConfOptions from the API card */ }
+                notify: { /* look at QuasarConfOptions from the API card */ },
+                capacitor: {
+                    iosStatusBarPadding: true // add the dynamic top padding on iOS mobile devices
+                }
             },
 
             // iconSet: 'material-icons', // Quasar icon set
@@ -188,7 +199,10 @@ module.exports = configure(function(/* ctx */)
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
         capacitor: {
-            hideSplashscreen: true
+            hideSplashscreen: true,
+            appName: 'QoriPay',
+            version,
+            description: 'Qori pay app'
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron

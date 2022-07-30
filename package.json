@@ -8,22 +8,28 @@
     "scripts": {
         "dev": "quasar dev",
         "build": "quasar build",
-        "icons": "icongenie g -m cordova -i ./src/assets/icons/Icon.png --skip-trim --theme-color 1D2229  --quality 12 --splashscreen-icon-ratio 30",
+        "icons": "icongenie g -m capacitor -i ./src/assets/icons/Icon.png --skip-trim --theme-color 1D2229  --quality 12 --splashscreen-icon-ratio 30",
         "lint": "eslint --ext .js,.ts,.vue ./",
         "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
         "test": "echo \"No test specified\" && exit 0",
-        "dev:android": "quasar dev -m android -e emulator-5554",
+        "dev:android": "quasar dev -m capacitor -T android -e emulator-5554",
         "device": "adb devices",
-        "apk:build": "set BUILD_ANDROID=true && quasar build -m android",
+        "apk:build": "set BUILD_ANDROID=true && quasar build -m capacitor -T android ",
         "apk:key": "keytool -genkey -v -keystore qoripayrelease.keystore -alias qoripay-release-key -keyalg RSA -keysize 2048 -validity 20000",
-        "apk:release": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./qoripayrelease.keystore dist/cordova/android/apk/release/app-release-unsigned.apk qoripay-release-key",
-        "apk:optimize": "/home/**/Android/Sdk/build-tools/31.0.0/zipalign -v 4 dist/cordova/android/apk/release/app-release-unsigned.apk dist/cordova/android/apk/release/qori-pay.apk"
+        "apk:release": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./qoripayrelease.keystore dist/capacitor/android/apk/release/app-release-unsigned.apk qoripay-release-key",
+        "apk:optimize": "/home/**/Android/Sdk/build-tools/31.0.0/zipalign -v 4 dist/capacitor/android/apk/release/app-release-unsigned.apk dist/capacitor/android/apk/release/qori-pay.apk"
     },
     "dependencies": {
+        "@capacitor/android": "^4.0.1",
+        "@capacitor/app": "^4.0.1",
+        "@capacitor/cli": "^4.0.1",
+        "@capacitor/core": "^4.0.1",
+        "@capacitor/splash-screen": "^4.0.1",
         "@quasar/extras": "^1.0.0",
         "axios": "^0.21.1",
         "dotenv": "^16.0.1",
         "lodash": "^4.17.21",
+        "open": "^8.4.0",
         "pinia": "^2.0.11",
         "quasar": "^2.6.0",
         "remixicon": "^2.5.0",
@@ -51,5 +57,8 @@
         "node": "^18 || ^16 || ^14.19",
         "npm": ">= 6.13.4",
         "yarn": ">= 1.21.1"
+    },
+    "resolutions": {
+        "open": "7.1.0"
     }
 }

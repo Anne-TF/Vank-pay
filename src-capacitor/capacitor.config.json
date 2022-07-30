@@ -1,0 +1,7 @@
+{
+  "appId": "net.qoripay.quasar.app",
+  "appName": "Qory pay App",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www"
+}
