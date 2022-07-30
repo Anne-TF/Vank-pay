@@ -86,7 +86,7 @@
 
 <script lang="ts" setup>
 import { Dark, Screen } from 'quasar';
-import {computed, ref} from 'vue';
+import { computed, ref } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import CodeInput from '../../app/components/CodeInput.vue';
 import EncodeEmail from '../../app/shared/helpers/EncodeText';

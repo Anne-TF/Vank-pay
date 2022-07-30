@@ -109,8 +109,8 @@ module.exports = configure(function(ctx)
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
         devServer: {
-            https: true,
-            port: 2701,
+            https: false,
+            // port: 2701,
             open: true // opens browser window automatically
         },
 
@@ -228,7 +228,7 @@ module.exports = configure(function(ctx)
             builder: {
                 // https://www.electron.build/configuration/configuration
 
-                appId: 'nova-pay'
+                appId: 'qori-pay'
             }
         },
 

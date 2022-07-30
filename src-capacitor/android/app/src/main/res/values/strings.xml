@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Qory pay App</string>
+    <string name="title_activity_main">Qory pay App</string>
+    <string name="package_name">net.qoripay.quasar.app</string>
+    <string name="custom_url_scheme">net.qoripay.quasar.app</string>
+</resources>

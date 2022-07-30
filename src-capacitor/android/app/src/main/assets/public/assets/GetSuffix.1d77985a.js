@@ -1,6 +1,0 @@
-import { P as Plugin } from "./index.f0dfeb9e.js";
-const GetSuffix = (color) => {
-  return Plugin.isActive ? `dark-${color}` : `light-${color}`;
-};
-export { GetSuffix as G };
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiR2V0U3VmZml4LjFkNzc5ODVhLmpzIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvYXBwL3NoYXJlZC9oZWxwZXJzL0dldFN1ZmZpeC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBEYXJrIH0gZnJvbSAncXVhc2FyJztcblxuZGVjbGFyZSB0eXBlIENvbG9yID0gJ3ByaW1hcnknIHxcbidzZWNvbmRhcnknIHxcbid0ZXJ0aWFyeScgfFxuJ2xpZ2h0LWdyZXknIHxcbidhY2NlbnQnXG5cbmNvbnN0IEdldFN1ZmZpeCA9IChjb2xvcjogQ29sb3IpOiBzdHJpbmcgPT5cbntcbiAgICByZXR1cm4gRGFyay5pc0FjdGl2ZSA/IGBkYXJrLSR7Y29sb3J9YCA6IGBsaWdodC0ke2NvbG9yfWA7XG59O1xuXG5leHBvcnQgZGVmYXVsdCBHZXRTdWZmaXg7XG4iXSwibmFtZXMiOlsiRGFyayJdLCJtYXBwaW5ncyI6IjtBQVFNLE1BQUEsWUFBWSxDQUFDLFVBQ25CO0FBQ0ksU0FBT0EsT0FBSyxXQUFXLFFBQVEsVUFBVSxTQUFTO0FBQ3REOzsifQ==
