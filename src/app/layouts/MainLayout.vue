@@ -34,16 +34,28 @@
 
         <q-page-container>
             <q-scroll-observer @scroll="handleScroll" />
-            <transition
+            <Transition
                 enter-active-class="enter-overlay"
                 leave-active-class="leave-overlay"
             >
                 <div v-show="showMenu" class="overlay" />
-            </transition>
-            <router-view />
+            </Transition>
+            <router-view v-slot="{ Component, route }" >
+            <Transition
+                :appear-active-class="route.meta.enterAnimation"
+                :leave-active-class="route.meta.leaveAnimation"
+                :duration="{
+                  enter: 100,
+                  leave: 200
+                }"
+                appear
+              >
+              <component style="height: 100% !important;" :is="Component" />
+            </Transition>
+            </router-view>
         </q-page-container>
 
-        <transition
+        <Transition
             mode="in-out"
             enter-active-class="animated fadeInUp"
             :duration='{ enter: 200, leave: 200 }'
@@ -153,7 +165,7 @@
                     </div>
 
                     <!-- MENU ICONS -->
-                    <transition
+                    <Transition
                         enter-active-class="enter-icons"
                         leave-active-class="leave-icons"
                     >
@@ -199,10 +211,10 @@
                                 />
                             </div>
                         </div>
-                    </transition>
+                    </Transition>
                 </div>
             </div>
-        </transition>
+        </Transition>
     </q-layout>
 </template>
 
