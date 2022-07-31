@@ -1,6 +1,6 @@
 <template>
     <q-layout view="lHh Lpr lFf">
-        <q-header elevated>
+        <!-- <q-header elevated>
             <q-toolbar>
                 <q-btn
                     flat
@@ -30,68 +30,107 @@
                     v-bind="link"
                 />
             </q-list>
-        </q-drawer>
+        </q-drawer> -->
 
         <q-page-container>
+             <q-scroll-observer @scroll="handleScroll" />
             <router-view />
         </q-page-container>
+
+        <transition
+            mode="in-out"
+            enter-active-class="animated fadeInUp"
+            :duration='{ enter: 200, leave: 200 }'
+            leave-active-class="animated fadeOutDown">
+            <div
+                v-show="isMobile && showMobileMenu"
+                :style="`background-color: ${dark.isActive ? '#1D2229' : '#F5F5F5'}; height: 60px;`"
+                class="fixed-bottom mb-30 mx-35 br-18 q-py-sm q-px-lg flex flex-inline items-center justify-between"
+            >
+                <div
+                    v-for="(link, index) in linksList"
+                    :key="index"
+                    class="wp-13 hp-80 flex items-center justify-center br-8"
+                    :style="`
+                        ${
+                            getRoute === link.link && link.link !== '#' && dark.isActive ?
+                            'background-color: #29313C' : (getRoute === link.link ? 'background-color: #868E9B' : '')}
+                            ${
+                                link.link === '#' ?
+                                'background-color: #3B424B; width: 52px; height: 52px; border-radius: 13px; transform: rotate(-45deg);' : ''
+                            }
+                    `"
+                >
+                    <q-icon
+                        size="22px"
+                        v-show="link.library === 'fa'"
+                        :name="link.icon"
+                        :class="{
+                            'text-white' : getRoute === link.link,
+                        }"
+                    />
+                    <span
+                        v-show="link.library === 'ic'"
+                        class="iconify fs-32"
+                        style="transform: rotate(46deg);"
+                        :class="`text-nv-${GetSuffix('accent')}`"
+                        :data-icon="link.icon">
+                    </span>
+
+                    <i v-show="link.library === 'ri'" :class="`fs-24 ${link.icon} ${getRoute === link.link ? 'text-white' : ''}`" />
+                </div>
+            </div>
+        </transition>
     </q-layout>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import EssentialLink from '../components/EssentialLink.vue';
 import { useQuasar } from 'quasar';
+import { useRouter } from 'vue-router';
+import GetSuffix from '../shared/helpers/GetSuffix';
 
 const { version } = useQuasar();
 const { dark } = useQuasar();
+const { screen } = useQuasar();
+const $router = useRouter();
 
 const linksList = [
     {
-        title: 'Docs',
-        caption: 'quasar.dev',
-        icon: 'school',
-        link: 'https://quasar.dev'
+        title: 'Billeteras',
+        icon: 'fa-solid fa-wallet',
+        link: '/',
+        library: 'fa'
     },
     {
-        title: 'Github',
-        caption: 'github.com/quasarframework',
-        icon: 'code',
-        link: 'https://github.com/quasarframework'
+        title: 'Notificaciones',
+        icon: 'ri-notification-4-fill',
+        link: '/notifications',
+        library: 'ri'
     },
     {
-        title: 'Discord Chat Channel',
-        caption: 'chat.quasar.dev',
-        icon: 'chat',
-        link: 'https://chat.quasar.dev'
+        title: 'Pagos',
+        icon: 'gg:arrows-exchange',
+        link: '#',
+        library: 'ic'
     },
     {
-        title: 'Forum',
-        caption: 'forum.quasar.dev',
-        icon: 'record_voice_over',
-        link: 'https://forum.quasar.dev'
+        title: 'Mi perfil',
+        icon: 'fa-solid fa-user',
+        link: '/auth/my-profile',
+        library: 'fa'
     },
     {
-        title: 'Twitter',
-        caption: '@quasarframework',
-        icon: 'rss_feed',
-        link: 'https://twitter.quasar.dev'
-    },
-    {
-        title: 'Facebook',
-        caption: '@QuasarFramework',
-        icon: 'public',
-        link: 'https://facebook.quasar.dev'
-    },
-    {
-        title: 'Quasar Awesome',
-        caption: 'Community Quasar projects',
-        icon: 'favorite',
-        link: 'https://awesome.quasar.dev'
+        title: 'Configuraciones',
+        icon: 'fa-solid fa-sliders',
+        link: '/settings',
+        library: 'fa'
     }
 ];
 
-const leftDrawerOpen = ref(false);
+const leftDrawerOpen = ref<boolean>(false);
+const showMobileMenu = ref<boolean>(true);
 
 const toggleLeftDrawer = () =>
 {
@@ -102,4 +141,22 @@ const switchMode = () =>
 {
     dark.set(!dark.isActive);
 };
+
+const handleScroll = (info: any) =>
+{
+    if (info?.direction === 'down')
+    {
+        showMobileMenu.value = false;
+    }
+    else
+    {
+        setTimeout(() =>
+        {
+            showMobileMenu.value = true;
+        }, 50);
+    }
+};
+
+const getRoute = computed(() => $router.currentRoute.value.path);
+const isMobile = computed(() => screen.lt.md);
 </script>

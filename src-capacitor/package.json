@@ -1,0 +1,16 @@
+{
+  "name": "QoriPay",
+  "version": "0.0.1",
+  "description": "Qori pay app",
+  "author": "Roxnny A Barrios C <roxnny.barrios@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "^4.0.0-beta.0",
+    "@capacitor/app": "^4.0.1",
+    "@capacitor/cli": "^4.0.1",
+    "@capacitor/core": "^4.0.1",
+    "@capacitor/keyboard": "^4.0.1",
+    "@capacitor/splash-screen": "^4.0.1",
+    "@capacitor/status-bar": "^4.0.1"
+  }
+}

@@ -5,29 +5,29 @@
 
 @font-face {
   font-family: Poppins-Light;
-  src: url(../../assets/fonts/Poppins-Light.ttf);
+  src: url(../assets/fonts/Poppins-Light.ttf);
 }
 
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url(../../assets/fonts/Poppins-Regular.ttf);
+  src: url(../assets/fonts/Poppins-Regular.ttf);
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url(../../assets/fonts/Poppins-Medium.ttf);
+  src: url(../assets/fonts/Poppins-Medium.ttf);
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url(../../assets/fonts/Poppins-SemiBold.ttf);
+  src: url(../assets/fonts/Poppins-SemiBold.ttf);
 }
 
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url(../../assets/fonts/Poppins-Bold.ttf);
+  src: url(../assets/fonts/Poppins-Bold.ttf);
 }
 
 $extra-light: "Poppins-ExtraLight";
@@ -52,7 +52,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $semi-bold;
+  font-family: $medium;
 }
 
 @for $size from 8 through 100 {
@@ -68,4 +68,8 @@ h6 {
   .text-#{$name} {
     font-family: $font !important;
   }
+}
+
+.ls-2 {
+  letter-spacing: 0.02em !important;
 }

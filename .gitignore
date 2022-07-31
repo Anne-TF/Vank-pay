@@ -35,3 +35,6 @@ yarn-error.log*
 /yarn.lock
 
 /.vscode/
+/qoripayrelease.keystore
+/qori-pay.apk
+/qoripayrelease.jks
