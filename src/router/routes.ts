@@ -115,6 +115,17 @@ const routes: RouteRecordRaw[] = [
             hideMobileMenu: true
         }
     },
+    {
+        path: '/cards',
+        component: () => import('../app/layouts/MainLayout.vue'),
+        children: [
+            { path: ':card', component: () => import('../Balance/pages/_CardDetail.vue') }
+        ],
+        meta: {
+            fullAuth: true,
+            hideMobileMenu: true
+        }
+    },
 
     // Always leave this as last one,
     // but you can also remove it

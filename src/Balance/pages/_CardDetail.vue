@@ -14,39 +14,51 @@
 
         <div
             :class="{
-                'mt-10 q-px-lg flex justify-center' : isMobile,
+                'mt-10 q-px-lg q-mx-auto' : isMobile,
             }"
         >
-        <q-img class="wp-77" :src="getCard">
-            <div class="wp-100 hp-100 flex flex-center" style="background-color: transparent;">
-                <div class="flex flex-inline items-center justify-center">
-                    <q-icon size="2.5em" name="img:icons/Vector.svg" />
-
-                    <h5
-                        class="q-my-none q-mr-none text-medium fs-22 text-nv-dark-primary q-ml-xs"
-                    >
-                        {{ getAcronym }}
-                    </h5>
-
-                    <h5
-                        class="no-margin q-pt-xs wp-100 text-center text-semi-bold fs-15 text-nv-dark-primary"
-                    >
-                        1.00
-                    </h5>
-
-                    <h5
-                        class="no-margin wp-100 text-center text-medium fs-13 text-nv-dark-primary"
-                    >
-                        = $27000.00
-                    </h5>
+        <div :class="{ 'flip-card-rotate' : showBackCard }" class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <q-img
+                        :fit="!isMobile ? 'contain' : 'cover'"
+                        :style="`${!isMobile ? 'width: 5em; height: 13em;' : ''}`"
+                        @click="showBackCard = true"
+                        class="wp-100"
+                        :src="getFrontCard"
+                    />
+                </div>
+                <div class="flip-card-back">
+                    <q-img
+                        :fit="!isMobile ? 'contain' : 'cover'"
+                        :style="`${!isMobile ? 'width: 5em; height: 13em;' : ''}`"
+                        @click="showBackCard = false"
+                        class="wp-100"
+                        :src="getBackCard"/>
                 </div>
             </div>
-        </q-img>
+        </div>
+
+        <div class="q-mt-sm wp-100 text-center">
+            <h5 class="fs-14 text-medium q-mx-none q-mt-sm q-mb-none">
+                {{ $t('balance.balance') }}
+            </h5>
+
+             <h4
+                    class="no-margin text-light fs-31 wp-100"
+                    :class="{
+                        'text-nv-light' : Dark.isActive,
+                        'text-nv-dark' : !Dark.isActive
+                    }"
+                    >
+                    {{ '$'.concat(getBalance) }}
+                </h4>
+        </div>
         </div>
 
         <q-separator size="0.3em" color="nv-ultra-dark" class="mt-30" />
 
-        <div class="mt-20 q-px-lg" style="height: 62vh;">
+        <div class="mt-20 q-px-lg" style="height: 52.6vh;">
             <TransactionHistory
                 @handle-scroll="handleScroll"
                 :filter-options="[
@@ -105,16 +117,16 @@
 <script lang="ts" setup>
 import { Screen, Dark } from 'quasar';
 import { computed, ref } from 'vue';
-import { Router, useRouter } from 'vue-router';
 import TransactionHistory from '../components/TransactionHistory.vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 
-const $router: Router = useRouter();
 const showBtns = ref<boolean>(true);
+const showBackCard = ref<boolean>(false);
 
 const isMobile = computed(() => Screen.lt.md);
-const getCard = computed(() => new URL('../../assets/images/currency-card.png', import.meta.url).href);
-const getAcronym = computed(() => $router.currentRoute.value.params.currency);
+const getFrontCard = computed(() => new URL('../../assets/images/card-front.png', import.meta.url).href);
+const getBackCard = computed(() => new URL('../../assets/images/card-back.png', import.meta.url).href);
+const getBalance = computed(() => '80.60');
 
 const handleScroll = (info: any) =>
 {
@@ -132,3 +144,40 @@ const handleScroll = (info: any) =>
 };
 
 </script>
+
+<style lang="scss" scoped>
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 80%;
+  height: 190px;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-rotate .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  color: white;
+  transform: rotateY(180deg);
+}
+</style>

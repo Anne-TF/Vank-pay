@@ -59,7 +59,8 @@
                 v-for="(card, index) in cards"
                 :key="index"
                 flat
-                class="mb-10 br-20 py-5"
+                class="mb-10 br-20 py-5 cursor-pointer"
+                @click="$router.push(`/cards/${card.name.replace(' ', '-')}`)"
                 :class="`bg-nv-${GetSuffix('tertiary')}-opacity`"
             >
                 <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
