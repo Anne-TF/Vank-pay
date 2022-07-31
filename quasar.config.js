@@ -111,7 +111,6 @@ module.exports = configure(function(ctx)
         devServer: {
             https: false,
             // port: 2701,
-            host: '192.168.31.113',
             open: true // opens browser window automatically
         },
 
