@@ -12,7 +12,6 @@
     </p>
         <q-input
             v-for="(input, index) in qtInputs" :key="index"
-            dark
             class="text-center input"
             style="width: 3.34em"
             rounded
@@ -31,7 +30,7 @@
             :color="'transparent'"
             :class="{
                 'rounded--dark-input--withAlert': Dark.isActive,
-                'rounded--light-input text-nv-light-accent': !Dark.isActive
+                'rounded--light-input--withAlert text-nv-light-accent': !Dark.isActive
             }"
         />
 

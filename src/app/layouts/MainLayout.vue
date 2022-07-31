@@ -33,7 +33,13 @@
         </q-drawer> -->
 
         <q-page-container>
-             <q-scroll-observer @scroll="handleScroll" />
+            <q-scroll-observer @scroll="handleScroll" />
+            <transition
+                enter-active-class="enter-overlay"
+                leave-active-class="leave-overlay"
+            >
+                <div v-show="showMenu" class="overlay" />
+            </transition>
             <router-view />
         </q-page-container>
 
@@ -43,41 +49,157 @@
             :duration='{ enter: 200, leave: 200 }'
             leave-active-class="animated fadeOutDown">
             <div
+                style="z-index: 4;"
                 v-show="(isMobile && showMobileMenu) && (!getRouteMeta?.hideMobileMenu ?? true)"
-                :style="`background-color: ${dark.isActive ? '#1D2229' : '#F5F5F5'}; height: 60px;`"
-                class="fixed-bottom mb-30 mx-35 br-18 q-py-sm q-px-lg flex flex-inline items-center justify-between"
-            >
+                class="fixed-bottom flex justify-center mb-30">
                 <div
-                    v-for="(link, index) in linksList"
-                    :key="index"
-                    class="wp-13 hp-80 flex items-center justify-center br-8"
                     :style="`
-                        ${
-                            getRoute === link.link && link.link !== '#' && dark.isActive ?
-                            'background-color: #29313C' : (getRoute === link.link ? 'background-color: #868E9B' : '')}
-                            ${
-                                link.link === '#' ?
-                                'background-color: #3B424B; width: 52px; height: 52px; border-radius: 13px; transform: rotate(-45deg);' : ''
-                            }
+                        background-color: ${dark.isActive ? '#1D2229' : '#FFF'};
+                        border: 1px solid ${dark.isActive ? '#303640' : '#939BA6'};
+                        contain: content;
+                        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
                     `"
+                    :class="{
+                        'enter--menu' : showMenu,
+                        'leave--menu items-end' : !showMenu
+                    }"
+                    class="wp-88 br-18 q-py-sm q-px-lg menu flex"
                 >
-                    <q-icon
-                        size="22px"
-                        v-show="link.library === 'fa'"
-                        :name="link.icon"
-                        :class="{
-                            'text-white' : getRoute === link.link,
-                        }"
-                    />
-                    <span
-                        v-show="link.library === 'ic'"
-                        class="iconify fs-32"
-                        style="transform: rotate(46deg);"
-                        :class="`text-nv-${GetSuffix('accent')}`"
-                        :data-icon="link.icon">
-                    </span>
+                    <!-- PAY OPTIONS -->
 
-                    <i v-show="link.library === 'ri'" :class="`fs-24 ${link.icon} ${getRoute === link.link ? 'text-white' : ''}`" />
+                    <div v-show="showMenu">
+                        <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                            <q-icon size="3.5em" :name="`img:icons/deposit-${getIconSuffix}.svg`" />
+                            <div class="q-ml-md">
+                                <h5
+                                    :class="{
+                                        'text-white' : dark.isActive,
+                                        'text-nv-light-accent' : !dark.isActive
+                                    }"
+                                    style="letter-spacing: 2px;"
+                                    class="no-margin fs-20">
+                                    {{ $t('buttons.deposit.title') }}
+                                </h5>
+                                <p
+                                    :class="{
+                                        'text-white' : dark.isActive,
+                                        'text-nv-light-accent' : !dark.isActive
+                                    }"
+                                    class="q-mt-sm fs-12 text-light q-mb-none">
+                                    {{ $t('buttons.deposit.caption') }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                            <q-icon size="3.5em" :name="`img:icons/withdraw-${getIconSuffix}.svg`" />
+                            <div class="q-ml-md">
+                                <h5
+                                    :class="{
+                                        'text-white' : dark.isActive,
+                                        'text-nv-light-accent' : !dark.isActive
+                                    }"
+                                    style="letter-spacing: 2px;"
+                                    class="no-margin fs-20">
+                                    {{ $t('buttons.withdraw.title') }}
+                                </h5>
+                                <p
+                                    :class="{
+                                        'text-white' : dark.isActive,
+                                        'text-nv-light-accent' : !dark.isActive
+                                    }"
+                                    class="q-mt-sm text-light fs-12 no-margin">
+                                    {{ $t('buttons.withdraw.caption') }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                            <q-icon size="3.5em" :name="`img:icons/p2p-${getIconSuffix}.svg`" />
+                            <div class="q-ml-md">
+                                <h5
+                                    :class="{
+                                        'text-white' : dark.isActive,
+                                        'text-nv-light-accent' : !dark.isActive
+                                    }"
+                                    style="letter-spacing: 2px;"
+                                    class="no-margin fs-20">
+                                    {{ $t('buttons.sendMoney.title') }}
+                                </h5>
+                                <p
+                                    :class="{
+                                        'text-white' : dark.isActive,
+                                        'text-nv-light-accent' : !dark.isActive
+                                    }"
+                                    class="q-mt-sm text-light fs-12 no-margin">
+                                    {{ $t('buttons.sendMoney.caption') }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            :class="{
+                                'bg-nv-dark' : dark.isActive,
+                                'bg-nv-light' : !dark.isActive
+                            }"
+                            class="flex justify-center absolute-bottom pb-3">
+                            <transition
+                                enter-active-class="enter-overlay"
+                                leave-active-class="leave-icons"
+                            >
+                            <q-icon v-show="showMenu" size="4em" :name="`img:icons/close-${getIconSuffix}.svg`" @click="showMenu = false" />
+                            </transition>
+                        </div>
+                    </div>
+
+                    <!-- MENU ICONS -->
+                    <transition
+                        enter-active-class="enter-icons"
+                        leave-active-class="leave-icons"
+                    >
+                        <div v-show="!showMenu" class="flex flex-inline wp-100 justify-between">
+                            <div
+                                v-for="(link, index) in linksList"
+                                :key="index"
+                                @click="openMenu(link.link)"
+                                style="min-height: 38px; max-height: 38px;"
+                                :class="{
+                                    'mb-4' : link.link !== '#',
+                                    'mt-3' : link.link === '#'
+                                }"
+                                class="wp-13 flex items-center no-padding justify-center br-8"
+                                :style="`
+                                    ${
+                                        getRoute === link.link && link.link !== '#' && dark.isActive ?
+                                        'background-color: #29313C' : (getRoute === link.link ? 'background-color: #EBECF0' : '')}
+                                `"
+                            >
+                                <q-icon
+                                    size="22px"
+                                    v-show="link.library === 'fa'"
+                                    :name="link.icon"
+                                    :class="{
+                                        'text-white' : getRoute === link.link && dark.isActive,
+                                        'text-nv-dark' : getRoute === link.link && !dark.isActive,
+                                    }"
+                                />
+
+                                <q-icon
+                                    :name="`img:icons/transfer-${getIconSuffix}.svg`"
+                                    v-show="link.link === '#'"
+                                    size="4em"
+                                    style="margin-top: -10px"
+                                />
+
+                                <i
+                                    v-show="link.library === 'ri'"
+                                    :class="`
+                                        fs-24
+                                        ${link.icon} ${getRoute === link.link && dark.isActive ?'text-white' : (getRoute === link.link && !dark.isActive ? 'text-nv-dark' : '')}`"
+                                />
+                            </div>
+                        </div>
+                    </transition>
                 </div>
             </div>
         </transition>
@@ -131,6 +253,8 @@ const linksList = [
 
 const leftDrawerOpen = ref<boolean>(false);
 const showMobileMenu = ref<boolean>(true);
+const morphGroupModel = ref('menu');
+const showMenu = ref(false);
 
 const toggleLeftDrawer = () =>
 {
@@ -146,7 +270,10 @@ const handleScroll = (info: any) =>
 {
     if (info?.direction === 'down')
     {
-        showMobileMenu.value = false;
+        if (!showMenu.value)
+        {
+            showMobileMenu.value = false;
+        }
     }
     else
     {
@@ -157,7 +284,77 @@ const handleScroll = (info: any) =>
     }
 };
 
+const openMenu = (link: string) =>
+{
+    if (link === '#')
+    {
+        showMenu.value = true;
+    }
+};
+
 const getRoute = computed(() => $router.currentRoute.value.path);
 const getRouteMeta = computed(() => $router.currentRoute.value.meta);
 const isMobile = computed(() => screen.lt.md);
+const getIconSuffix = computed(() => dark.isActive ? 'dark' : 'light');
 </script>
+
+<style lang="scss" scoped>
+.overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.enter-overlay {
+    animation: fade 1s both;
+}
+.leave-overlay {
+    animation: fade1 1s both;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade1 {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.enter-icons {
+    animation: fade 1s both;
+}
+.leave-icons {
+    animation: fade1 0.2s both;
+}
+
+.menu {
+    height: 60px;
+    transition: height 0.5s linear;
+}
+
+.leave--menu {
+    height: 60px;
+}
+
+.enter--menu {
+    height: 40vh;
+}
+</style>

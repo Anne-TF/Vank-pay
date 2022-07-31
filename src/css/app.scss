@@ -27,7 +27,8 @@ $colors: (
 'dark' : $nv-dark,
 'info' : $nv-info,
 'dark-red': $nv-dark-red,
-'ultra-dark' : $nv-ultra-dark
+'ultra-dark' : $nv-ultra-dark,
+'light-grey' : $nv-light-grey
 );
 
 // COLOR RELATED CLASSED
@@ -155,6 +156,10 @@ body.body--light {
     display: none !important;
   }
 
+  .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
+    text-align: center !important;
+  }
+
   .q-field--with-bottom {
     padding-bottom: 0 !important;
   }
@@ -172,6 +177,10 @@ body.body--light {
     border-radius: 13px !important;
     padding-bottom: 0 !important;
     transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
+    text-align: center !important;
   }
 
   .q-field__marginal {
@@ -241,6 +250,7 @@ body.body--light {
   }
   .q-field__marginal {
     height: 28px !important;
+    color:rgba(0, 0, 0, 0.9) !important;
   }
   .q-field--filled, .q-field__control::before {
     border: 1px solid #F5F5F5 !important;

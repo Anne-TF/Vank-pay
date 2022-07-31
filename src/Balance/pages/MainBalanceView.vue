@@ -26,7 +26,7 @@
                 </h4>
         </div>
 
-        <q-separator size="0.3em" color="nv-ultra-dark" class="mt-30" />
+        <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'" class="mt-30" />
 
          <div
             :class="{
@@ -37,20 +37,26 @@
                 <span class="fs-16">{{ $t('balance.cards') }}</span>
 
                 <q-input
-                    class="ultra-dense-input--dark"
                     outlined
                     v-model="search"
                     @focus="onFocus = true"
                     @blur="onFocus = false"
                     :class="{
                         'wp-35' : !onFocus,
-                        'wp-50' : onFocus
+                        'wp-50' : onFocus,
+                        'ultra-dense-input--dark' : Dark.isActive,
+                        'ultra-dense-input--light' : !Dark.isActive
                     }"
                     color="transparent"
                     rounded
                 >
                 <template v-slot:prepend>
-                    <span class="iconify fs-18" data-icon="arcticons:xiaoyuan-search"></span>
+                    <span
+                        class="iconify fs-18"
+                        :class="{
+                            'text-nv-dark' : !Dark.isActive
+                        }"
+                        data-icon="arcticons:xiaoyuan-search"></span>
                 </template>
                 </q-input>
             </div>
@@ -67,17 +73,20 @@
                     <div class="flex flex-inline wp-70">
                         <q-avatar
                             size="3.9em"
-                            :style="`background-color: ${Dark.isActive ? '#717A8A' : '#1d2229'};`"
+                            :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
                         >
-                            <q-icon size="1.5em" v-show="card.type === 'VISA'" name="img:icons/visa.svg" />
+                            <q-icon
+                                size="1.5em"
+                                v-show="card.type === 'VISA'"
+                                :name="`img:icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
                         </q-avatar>
 
                         <div class="ml-15">
                             <h5
-                                class="no-margin text-medium fs-17"
+                                class="no-margin text-light fs-17"
                                 :class="{
                                     'text-nv-light' : Dark.isActive,
-                                    'text-nv-dark' : !Dark.isActive
+                                    'text-nv-light-accent' : !Dark.isActive
                                 }"
                                 >
                                 {{ card.name }}
@@ -85,7 +94,7 @@
                             <p
                                 :class="{
                                     'text-nv-light-tertiary' : Dark.isActive,
-                                    'text-nv-light-secondary' : !Dark.isActive
+                                    'text-nv-light-accent' : !Dark.isActive
                                 }"
                                 class="no-margin fs-13 q-mt-xs text-light">
                                 {{ card.user }}
@@ -93,14 +102,19 @@
                         </div>
                     </div>
 
-                    <div class="wp-30 flex items-center text-light justify-end fs-17">
+                    <div
+                        :class="{
+                            'text-nv-light' : Dark.isActive,
+                            'text-nv-light-accent' : !Dark.isActive
+                        }"
+                        class="wp-30 flex items-center justify-end fs-17">
                         $ {{ card.quantity }}
                     </div>
                 </q-card-section>
             </q-card>
         </div>
 
-         <q-separator size="0.3em" color="nv-ultra-dark" class="mt-13" />
+         <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'" class="mt-13" />
 
          <div
             :class="{
@@ -111,20 +125,26 @@
                 <span class="fs-16">{{ $t('balance.wallets') }}</span>
 
                 <q-input
-                    class="ultra-dense-input--dark"
                     outlined
                     v-model="search2"
                     @focus="onFocus2 = true"
                     @blur="onFocus2 = false"
                     :class="{
                         'wp-35' : !onFocus2,
-                        'wp-50' : onFocus2
+                        'wp-50' : onFocus2,
+                        'ultra-dense-input--dark' : Dark.isActive,
+                        'ultra-dense-input--light' : !Dark.isActive
                     }"
                     color="transparent"
                     rounded
                 >
                 <template v-slot:prepend>
-                    <span class="iconify fs-18" data-icon="arcticons:xiaoyuan-search"></span>
+                    <span
+                        :class="{
+                            'text-nv-dark' : !Dark.isActive
+                        }"
+                        class="iconify fs-18"
+                        data-icon="arcticons:xiaoyuan-search"></span>
                 </template>
                 </q-input>
             </div>
@@ -141,9 +161,11 @@
                     <div class="flex flex-inline wp-70">
                         <q-avatar
                             size="3.9em"
-                            :style="`background-color: ${Dark.isActive ? '#717A8A' : '#1d2229'};`"
+                            :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
                         >
-                            <span class="fs-15">
+                            <span
+                                :class="{ 'text-nv-light-accent' : !Dark.isActive }"
+                                class="fs-15">
                                 {{ currency.acronym }}
                             </span>
                         </q-avatar>
@@ -161,7 +183,7 @@
                             <p
                                 :class="{
                                     'text-nv-light-tertiary' : Dark.isActive,
-                                    'text-nv-light-secondary' : !Dark.isActive
+                                    'text-nv-light-accent' : !Dark.isActive
                                 }"
                                 class="no-margin fs-13 q-mt-xs text-light">
                                 {{ currency.name }}
@@ -169,12 +191,18 @@
                         </div>
                     </div>
 
-                    <div class="wp-30 flex items-center text-light justify-end fs-17">
+                    <div
+                        :class="{
+                            'text-nv-light' : Dark.isActive,
+                            'text-nv-light-accent' : !Dark.isActive
+                        }"
+                        class="wp-30 flex items-center justify-end fs-17">
                         $ {{ currency.quantity }}
                     </div>
                 </q-card-section>
             </q-card>
         </div>
+
     </q-page>
 </template>
 
@@ -188,6 +216,7 @@ const search = ref<string>('');
 const search2 = ref<string>('');
 const onFocus = ref<boolean>(false);
 const onFocus2 = ref<boolean>(false);
+const morphGroupModel = ref('btn');
 
 const cards = [
     {

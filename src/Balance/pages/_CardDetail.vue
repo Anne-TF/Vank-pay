@@ -56,7 +56,7 @@
         </div>
         </div>
 
-        <q-separator size="0.3em" color="nv-ultra-dark" class="mt-30" />
+        <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'"  class="mt-30" />
 
         <div class="mt-20 q-px-lg" style="height: 52.6vh;">
             <TransactionHistory

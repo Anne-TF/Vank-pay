@@ -12,10 +12,14 @@
             </h5>
 
             <q-input
-                    class="ultra-dense-input--dark wp-30 cursor-pointer"
+                    class="wp-30 cursor-pointer"
                     outlined
                     :model-value="getFilterLabel"
                     readonly
+                    :class="{
+                        'ultra-dense-input--dark' : Dark.isActive,
+                        'ultra-dense-input--light' : !Dark.isActive
+                    }"
                     @click="filterDialog = true"
                     color="transparent"
                     rounded
@@ -61,13 +65,21 @@
                     <q-item-section avatar>
                         <q-avatar :style="`background-color:${Dark.isActive ? '#2C343D' : '#F5F5F5'}`">
                             <span
-                                class="iconify text-nv-light-tertiary fs-23"
+                                class="iconify fs-23"
+                                :class="{
+                                    'text-nv-light-tertiary' : Dark.isActive,
+                                    'text-nv-light-accent' : !Dark.isActive
+                                }"
                                 :data-icon="register.action === 'withdrawal' ? 'ant-design:upload-outlined' : 'ant-design:download-outlined'" />
                         </q-avatar>
                     </q-item-section>
 
                     <q-item-section>
-                        <q-item-label class="fs-17 text-light">
+                        <q-item-label
+                            :class="{
+                                'text-nv-ultra-dark' : Dark.isActive
+                            }"
+                            class="fs-17 text-light">
                             {{ $t(`transactionHistory.${register.action}`) }}
                         </q-item-label>
                         <q-item-label class="fs-11 q-pt-xs text-nv-light-tertiary" caption>
@@ -140,7 +152,7 @@
                     :active="item.value === filter"
                     :active-class="`text-nv-${GetSuffix('accent')}`"
                     @click="setFilter(item)"
-                    :class="{'text-white' : Dark.isActive, 'text-nv-dark' : !Dark.isActive }"
+                    :class="{'text-white' : Dark.isActive, 'text-nv-light-tertiary' : !Dark.isActive }"
                     class="cursor-pointer fs-16"
                 >
                 <q-item-section class="text-center">
