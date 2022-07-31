@@ -77,7 +77,7 @@
                     <q-item-section>
                         <q-item-label
                             :class="{
-                                'text-nv-ultra-dark' : Dark.isActive
+                                'text-nv-dark' : !Dark.isActive
                             }"
                             class="fs-17 text-light">
                             {{ $t(`transactionHistory.${register.action}`) }}
