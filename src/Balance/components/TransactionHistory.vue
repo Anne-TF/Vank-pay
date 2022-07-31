@@ -27,6 +27,7 @@
                 <template v-slot:append>
                     <q-icon
                         size="21px"
+                        @click="filterDialog = true"
                         :name="!filterDialog? 'expand_more' : 'expand_less'"
                     />
                 </template>

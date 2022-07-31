@@ -78,7 +78,7 @@
                     'bg-nv-dark' : Dark.isActive,
                     'bg-nv-light' : !Dark.isActive
                 }"
-                class="fixed-bottom flex flex-inline justify-between q-mx-lg q-pb-md">
+                class="fixed-bottom flex flex-inline justify-between q-mx-lg q-py-sm">
                 <q-btn
                     no-caps
                     unelevated
