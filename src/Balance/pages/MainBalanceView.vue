@@ -132,7 +132,8 @@
                 v-for="(currency, index) in wallets"
                 :key="index"
                 flat
-                class="mb-10 br-20 py-5"
+                @click="$router.push(`/currency/${currency.acronym}`)"
+                class="mb-10 br-20 py-5 cursor-pointer"
                 :class="`bg-nv-${GetSuffix('tertiary')}-opacity`"
             >
                 <q-card-section class="flex flex-inline" style="opacity: 1 !important;">

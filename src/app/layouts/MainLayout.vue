@@ -43,7 +43,7 @@
             :duration='{ enter: 200, leave: 200 }'
             leave-active-class="animated fadeOutDown">
             <div
-                v-show="isMobile && showMobileMenu"
+                v-show="(isMobile && showMobileMenu) && (!getRouteMeta?.hideMobileMenu ?? true)"
                 :style="`background-color: ${dark.isActive ? '#1D2229' : '#F5F5F5'}; height: 60px;`"
                 class="fixed-bottom mb-30 mx-35 br-18 q-py-sm q-px-lg flex flex-inline items-center justify-between"
             >
@@ -158,5 +158,6 @@ const handleScroll = (info: any) =>
 };
 
 const getRoute = computed(() => $router.currentRoute.value.path);
+const getRouteMeta = computed(() => $router.currentRoute.value.meta);
 const isMobile = computed(() => screen.lt.md);
 </script>

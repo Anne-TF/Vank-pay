@@ -11,6 +11,8 @@ import passwordReset from './passwordReset';
 import codeValidation from './codeValidation';
 import accountCreated from './accountCreated';
 import balance from './balance';
+import transactionHistory from './transactionHistory';
+import dates from './dates';
 
 export default {
     login: {
@@ -45,5 +47,11 @@ export default {
     },
     balance: {
         ...balance
+    },
+    transactionHistory: {
+        ...transactionHistory
+    },
+    dates: {
+        ...dates
     }
 };

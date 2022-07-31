@@ -104,6 +104,17 @@ const routes: RouteRecordRaw[] = [
         ],
         meta: { fullAuth: true }
     },
+    {
+        path: '/currency',
+        component: () => import('../app/layouts/MainLayout.vue'),
+        children: [
+            { path: ':currency', component: () => import('../Balance/pages/_CurrencyDetail.vue') }
+        ],
+        meta: {
+            fullAuth: true,
+            hideMobileMenu: true
+        }
+    },
 
     // Always leave this as last one,
     // but you can also remove it
