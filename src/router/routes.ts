@@ -102,7 +102,11 @@ const routes: RouteRecordRaw[] = [
         children: [
             { path: '', component: () => import('../Balance/pages/MainBalanceView.vue') }
         ],
-        meta: { fullAuth: true }
+        meta: {
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft',
+            fullAuth: true
+        }
     },
     {
         path: '/currency',
@@ -112,7 +116,9 @@ const routes: RouteRecordRaw[] = [
         ],
         meta: {
             fullAuth: true,
-            hideMobileMenu: true
+            hideMobileMenu: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
         }
     },
     {
@@ -123,7 +129,9 @@ const routes: RouteRecordRaw[] = [
         ],
         meta: {
             fullAuth: true,
-            hideMobileMenu: true
+            hideMobileMenu: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
         }
     },
 
