@@ -9,6 +9,9 @@
       "resize": "body",
       "style": "DARK",
       "resizeOnFullScreen": true
+    },
+    "SplashScreen": {
+      "androidScaleType": "CENTER_CROP"
     }
   }
 }
