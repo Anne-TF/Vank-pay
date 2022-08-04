@@ -63,6 +63,10 @@
             <div
                 style="z-index: 4;"
                 v-show="(isMobile && showMobileMenu) && (!getRouteMeta?.hideMobileMenu ?? true)"
+                :class="{
+                    'mb-30' : floatingMenu,
+                    'mb-0' : !floatingMenu
+                }"
                 class="fixed-bottom mb-0">
                 <div
                     :style="`
@@ -70,13 +74,18 @@
                         border: 1px solid ${dark.isActive ? '#303640' : '#939BA6'};
                         contain: content;
                         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-                        border-radius: 18px 18px 0px 0px;
+                        ${showMenu && !floatingMenu ?
+                            'border-radius: 18px 18px 0px 0px'
+                            : (floatingMenu ? '18px' : '0px')
+                        };
                     `"
                     :class="{
                         'enter--menu' : showMenu,
-                        'leave--menu items-end' : !showMenu
+                        'leave--menu items-end' : !showMenu,
+                        'wp-88 q-mx-auto br-18' : floatingMenu,
+                        'wp-100' : !floatingMenu
                     }"
-                    class="wp-100 q-py-sm q-px-lg menu flex"
+                    class=" q-py-sm q-px-lg menu flex"
                 >
                     <!-- PAY OPTIONS -->
 
@@ -309,6 +318,7 @@ const getRoute = computed(() => $router.currentRoute.value.path);
 const getRouteMeta = computed(() => $router.currentRoute.value.meta);
 const isMobile = computed(() => screen.lt.md);
 const getIconSuffix = computed(() => dark.isActive ? 'dark' : 'light');
+const floatingMenu = computed(() => process.env.FLOATING_MENU === 'true');
 </script>
 
 <style lang="scss" scoped>

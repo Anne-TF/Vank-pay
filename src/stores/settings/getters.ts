@@ -16,6 +16,10 @@ const getters: PiniaGetters = {
     Counter2FAPhone(state): Counters
     {
         return state.counter2FAPhone;
+    },
+    ViewBalance(state): boolean
+    {
+        return state.viewBalance;
     }
 };
 

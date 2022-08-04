@@ -12,7 +12,8 @@ const state = (): State =>
         counter2FAEmail: {
             counter: 60,
             active: false
-        }
+        },
+        viewBalance: true
     };
 };
 

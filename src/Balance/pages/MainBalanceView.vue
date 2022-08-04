@@ -10,20 +10,20 @@
             }"
         >
             {{ $t('balance.totalBalance') }}
-            <div  @click="unwatch">
-                <span
-                    class="iconify fs-20 q-ml-sm cursor-pointer"
-                    :data-icon="watchBalance ? 'codicon:eye' : 'codicon:eye-closed'" />
-            </div>
-                <h4
-                    class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
-                    :class="{
-                        'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive
-                    }"
-                    >
-                    {{ watchBalance ? '$'.concat(getBalance) : '****' }}
-                </h4>
+            <q-icon
+                @click="changeViewBalance()"
+                class="fs-20 ml-5 mb-8"
+                :name="`img:icons/${getIcon}.svg`"
+            />
+            <h4
+                class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
+                :class="{
+                    'text-nv-light' : Dark.isActive,
+                    'text-nv-dark' : !Dark.isActive
+                }"
+            >
+                {{ HideText(viewBalance, '$'.concat(getBalance)) }}
+            </h4>
         </div>
 
         <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'" class="mt-30" />
@@ -108,7 +108,7 @@
                             'text-nv-light-accent' : !Dark.isActive
                         }"
                         class="wp-30 flex items-center justify-end fs-17">
-                        $ {{ card.quantity }}
+                        {{ HideText(viewBalance, '$'.concat(card.quantity)) }}
                     </div>
                 </q-card-section>
             </q-card>
@@ -197,7 +197,7 @@
                             'text-nv-light-accent' : !Dark.isActive
                         }"
                         class="wp-30 flex items-center justify-end fs-17">
-                        $ {{ currency.quantity }}
+                        {{ HideText(viewBalance, '$'.concat(currency.quantity)) }}
                     </div>
                 </q-card-section>
             </q-card>
@@ -210,8 +210,12 @@
 import { Screen, Dark } from 'quasar';
 import { computed, ref } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
+import { useSettingsStore } from 'stores/settings';
+import HideText from '../../app/shared/helpers/HideText';
 
-const watchBalance = ref<boolean>(true);
+// CONSTANTS AND REFERENCES
+const settingsStore = useSettingsStore();
+
 const search = ref<string>('');
 const search2 = ref<string>('');
 const onFocus = ref<boolean>(false);
@@ -261,11 +265,21 @@ const wallets = [
     }
 ];
 
+
+// COMPUTEDS
+
 const isMobile = computed(() => Screen.lt.md);
 const getBalance = computed(() => '80.60');
-
-const unwatch = () =>
+const viewBalance = computed(() => settingsStore.ViewBalance);
+const getIcon = computed(() =>
 {
-    watchBalance.value = !watchBalance.value;
+    return viewBalance.value ? `eye-${Dark.isActive ? 'dark' : 'light'}` : `eye-closed-${Dark.isActive ? 'dark' : 'light'}`;
+});
+
+// FUNCTIONS
+
+const changeViewBalance = () =>
+{
+    settingsStore.setBalance(!viewBalance.value);
 };
 </script>

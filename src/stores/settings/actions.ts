@@ -33,6 +33,10 @@ const actions: PiniaActions = {
             this[counter].active = false;
             this[counter].counter = timer;
         }
+    },
+    setBalance(value: boolean): void
+    {
+        this.viewBalance = value;
     }
 };
 
