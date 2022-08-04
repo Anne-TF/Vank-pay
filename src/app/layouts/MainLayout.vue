@@ -63,19 +63,20 @@
             <div
                 style="z-index: 4;"
                 v-show="(isMobile && showMobileMenu) && (!getRouteMeta?.hideMobileMenu ?? true)"
-                class="fixed-bottom flex justify-center mb-30">
+                class="fixed-bottom mb-0">
                 <div
                     :style="`
                         background-color: ${dark.isActive ? '#1D2229' : '#FFF'};
                         border: 1px solid ${dark.isActive ? '#303640' : '#939BA6'};
                         contain: content;
                         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                        border-radius: 18px 18px 0px 0px;
                     `"
                     :class="{
                         'enter--menu' : showMenu,
                         'leave--menu items-end' : !showMenu
                     }"
-                    class="wp-88 br-18 q-py-sm q-px-lg menu flex"
+                    class="wp-100 q-py-sm q-px-lg menu flex"
                 >
                     <!-- PAY OPTIONS -->
 

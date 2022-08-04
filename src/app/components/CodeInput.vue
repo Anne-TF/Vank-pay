@@ -34,6 +34,7 @@
             }"
         />
 
+        <!-- TODO: SHAKE BUTTON IF IT WAS NOT PRESSED -->
         <p
             v-if="props.mode && settingsStore[props.mode]?.active"
             v-show="showSendCode"
