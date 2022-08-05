@@ -12,6 +12,7 @@ export type State = {
     counter2FAEmail: Counters;
     counter2FAPhone: Counters;
     viewBalance: boolean;
+    viewPersonalInfo: boolean;
 }
 
 export type Getters = {
@@ -20,12 +21,14 @@ export type Getters = {
     ViewBalance: boolean;
     Counter2FAEmail: Counters;
     Counter2FAPhone: Counters;
+    PersonalInfo: boolean;
 };
 
 export type Actions = {
     setLang: (lang: string) => void;
     setBalance: (value: boolean) => void;
     setDarkMode: (dark: boolean) => void;
+    setViewPersonalInfo: (value: boolean) => void;
     ActiveCounter2FA: (counter: 'counter2FAPhone' | 'counter2FAEmail', timer: number) => void;
 };
 

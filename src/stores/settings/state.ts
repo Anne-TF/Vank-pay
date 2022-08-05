@@ -13,7 +13,8 @@ const state = (): State =>
             counter: 60,
             active: false
         },
-        viewBalance: true
+        viewBalance: true,
+        viewPersonalInfo: true
     };
 };
 

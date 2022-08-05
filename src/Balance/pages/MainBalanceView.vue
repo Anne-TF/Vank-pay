@@ -273,7 +273,7 @@ const getBalance = computed(() => '80.60');
 const viewBalance = computed(() => settingsStore.ViewBalance);
 const getIcon = computed(() =>
 {
-    return viewBalance.value ? `eye-${Dark.isActive ? 'dark' : 'light'}` : `eye-closed-${Dark.isActive ? 'dark' : 'light'}`;
+    return !viewBalance.value ? `eye-${Dark.isActive ? 'dark' : 'light'}` : `eye-closed-${Dark.isActive ? 'dark' : 'light'}`;
 });
 
 // FUNCTIONS

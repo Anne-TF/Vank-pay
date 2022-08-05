@@ -14,6 +14,7 @@ import accountCreated from './accountCreated';
 import balance from './balance';
 import transactionHistory from './transactionHistory';
 import dates from './dates';
+import settings from './settings';
 
 export default {
     login: {
@@ -54,5 +55,8 @@ export default {
     },
     dates: {
         ...dates
+    },
+    settings: {
+        ...settings
     }
 };

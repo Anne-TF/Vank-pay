@@ -134,6 +134,20 @@ const routes: RouteRecordRaw[] = [
             leaveAnimation: 'animated slideOutLeft'
         }
     },
+    {
+        path: '/settings',
+        component: () => import('../app/layouts/MainLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Settings/pages/SettingsOptions.vue') },
+            { path: 'profile', component: () => import('../Settings/pages/MyProfile.vue') }
+        ],
+        meta: {
+            fullAuth: true,
+            hideMobileMenu: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
 
     // Always leave this as last one,
     // but you can also remove it

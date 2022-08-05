@@ -20,6 +20,10 @@ const getters: PiniaGetters = {
     ViewBalance(state): boolean
     {
         return state.viewBalance;
+    },
+    PersonalInfo(state):boolean
+    {
+        return state.viewPersonalInfo;
     }
 };
 

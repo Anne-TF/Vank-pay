@@ -312,6 +312,10 @@ const openMenu = (link: string) =>
     {
         showMenu.value = true;
     }
+    else
+    {
+        $router.push(link);
+    }
 };
 
 const getRoute = computed(() => $router.currentRoute.value.path);
