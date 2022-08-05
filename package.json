@@ -16,8 +16,8 @@
         "devices": "adb devices",
         "apk:key": "keytool -genkey -v -keystore qoripayrelease.keystore -alias qoripay-release-key -keyalg RSA -keysize 2048 -validity 20000",
         "apk:build": "set BUILD_ANDROID=true && quasar build -m capacitor -T android",
-        "apk:optimize": "$ANDROID_HOME/build-tools/31.0.0/zipalign -f -v 4 dist/capacitor/android/apk/release/app-release-unsigned.apk dist/capacitor/android/apk/release/qori-pay.apk",
-        "apk:release": "$ANDROID_HOME/build-tools/31.0.0/apksigner sign --ks ./qoripayrelease.keystore --ks-key-alias qoripay-release-key dist/capacitor/android/apk/release/qori-pay.apk",
+        "apk:optimize": "$ANDROID_HOME/build-tools/$ANDROID_SDK_VERSION/zipalign -f -v 4 dist/capacitor/android/apk/release/app-release-unsigned.apk dist/capacitor/android/apk/release/qori-pay.apk",
+        "apk:release": "$ANDROID_HOME/build-tools/$ANDROID_SDK_VERSION/apksigner sign --ks ./qoripayrelease.keystore --ks-key-alias qoripay-release-key dist/capacitor/android/apk/release/qori-pay.apk",
         "apk": "yarn apk:build && yarn apk:optimize && yarn apk:release"
     },
     "dependencies": {

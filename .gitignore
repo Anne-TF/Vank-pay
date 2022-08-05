@@ -38,3 +38,5 @@ yarn-error.log*
 /qoripayrelease.keystore
 /qori-pay.apk
 /qoripayrelease.jks
+
+.env
