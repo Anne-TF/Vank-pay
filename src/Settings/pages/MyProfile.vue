@@ -51,7 +51,12 @@
                     }"
                 >
                     {{ getUserName }}
-                    <q-icon class="ml-20" style="color:  #939BA6;" name="fa-solid fa-pen-to-square" />
+                    <q-icon
+                        @click="editName = true"
+                        class="ml-20 cursor-pointer"
+                        style="color:  #939BA6;"
+                        name="fa-solid fa-pen-to-square"
+                    />
                 </h5>
             </div>
 
@@ -105,12 +110,63 @@
                 </div>
             </div>
         </div>
+
+        <q-dialog
+            v-model="editName"
+            :position="isMobile ? 'bottom' : 'standard'"
+        >
+            <q-card
+                class="q-pa-sm no-scroll"
+                :class="{
+                    'br-40': !isMobile,
+                    'bg-nv-dark' : Dark.isActive,
+                    'bg-nv-light': !Dark.isActive
+                }"
+                :style="`${
+                    isMobile
+                    ? 'border-radius: 40px 40px 0px 0px !important; height: 25vh; width: 100%;'
+                    : 'height: 400px; width: 400px;'
+                }`"
+            >
+                <q-card-section class="flex column justify-between items-center q-pt-lg hp-100">
+                    <div class="wp-90">
+                        <p
+                            class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between"
+                        >
+                            {{ $t('settings.username') }}
+                        </p>
+                        <q-input
+                            outlined
+                            rounded
+                            v-model="input"
+                            :color="`transparent`"
+                            class="wp-100 ls-2 text-medium"
+                            :class="{
+                                'fs-15' : isMobile,
+                                'rounded--dark-input--withAlert--space': Dark.isActive,
+                                'rounded--light-input--withAlert--space text-nv-light-accent': !Dark.isActive
+                            }"
+                        />
+                    </div>
+                    <q-btn
+                        :color="`nv-${GetSuffix('primary')}`"
+                        class="wp-90 q-py-sm fs-16"
+                        rounded
+                        @click="editName = false"
+                        unelevated
+                        no-caps
+                    >
+                       {{ $t('buttons.done') }}
+                    </q-btn>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
     </q-page>
  </template>
 
 <script lang="ts" setup>
 import { Screen, Dark } from 'quasar';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import  GetSuffix from '../../app/shared/helpers/GetSuffix';
 import EncodeText from '../../app/shared/helpers/EncodeText';
 import { useAuthStore } from 'stores/auth';
@@ -119,13 +175,14 @@ import { useSettingsStore } from 'stores/settings';
 // CONSTANTS
 const authStore = useAuthStore();
 const settingsStore = useSettingsStore();
+const editName = ref<boolean>(false);
 
 // COMPUTEDS
 
 const isMobile = computed(() => Screen.lt.md);
-const getUserName = computed(() => authStore.UserName);
-const getUserPhone = computed(() => authStore.Phone);
-const getUserEmail = computed(() => authStore.Email);
+const getUserName = computed(() => authStore.UserName ?? '');
+const getUserPhone = computed(() => authStore.Phone ?? '');
+const getUserEmail = computed(() => authStore.Email ?? '');
 const getUserId = computed(() => '213338989');
 const viewPersonalInfo = computed(() => settingsStore.PersonalInfo);
 const getIcon = computed(() =>
@@ -139,4 +196,7 @@ const changePersonalInfo = () =>
 {
     settingsStore.setPersonalInfo(!viewPersonalInfo.value);
 };
+
+const input = ref<string>(getUserName.value);
+
 </script>

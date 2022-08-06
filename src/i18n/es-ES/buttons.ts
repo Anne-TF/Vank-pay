@@ -16,5 +16,6 @@ export default {
     sendMoney: {
         title: 'Envío P2P',
         caption: 'Envía dinero a otro usuario'
-    }
+    },
+    done: 'Listo'
 };

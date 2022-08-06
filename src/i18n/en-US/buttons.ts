@@ -16,5 +16,6 @@ export default {
     sendMoney: {
         title: 'P2P send',
         caption: 'Send money to another user'
-    }
+    },
+    done: 'Done'
 };

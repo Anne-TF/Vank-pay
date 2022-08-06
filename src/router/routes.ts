@@ -139,7 +139,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../app/layouts/MainLayout.vue'),
         children: [
             { path: '', component: () => import('../Settings/pages/SettingsOptions.vue') },
-            { path: 'profile', component: () => import('../Settings/pages/MyProfile.vue') }
+            { path: 'profile', component: () => import('../Settings/pages/MyProfile.vue') },
+            { path: 'security', component: () => import('../Settings/pages/SecuritySettings.vue') },
+            { path: 'security/change-password', component: () => import('../Settings/pages/ChangePassword.vue') }
         ],
         meta: {
             fullAuth: true,
