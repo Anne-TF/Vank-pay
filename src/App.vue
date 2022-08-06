@@ -70,7 +70,7 @@ onMounted(() =>
 
     settingsStore.setDarkMode(<boolean> settingsStore.DarkMode ?? 'auto');
 
-    const deviceLang = availableLocales.find(l => l === $q.lang.getLocale());
+    const deviceLang = <string> availableLocales.find(l => l === $q.lang.getLocale());
 
     const defaultLang =  settingsStore.Lang ?? 'es-ES';
 
