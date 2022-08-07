@@ -141,7 +141,8 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../Settings/pages/SettingsOptions.vue') },
             { path: 'profile', component: () => import('../Settings/pages/MyProfile.vue') },
             { path: 'security', component: () => import('../Settings/pages/SecuritySettings.vue') },
-            { path: 'security/change-password', component: () => import('../Settings/pages/ChangePassword.vue') }
+            { path: 'security/change-password', component: () => import('../Settings/pages/ChangePassword.vue') },
+            { path: 'security/sms-auth', component: () => import('../Settings/pages/SMSAuthentication.vue') }
         ],
         meta: {
             fullAuth: true,

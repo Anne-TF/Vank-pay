@@ -15,7 +15,14 @@ export default {
         authenticationMethod: '',
         text: 'Mensaje de texto',
         email: 'Correo',
-        authy: 'Authy'
+        authy: 'Authy',
+        smsAuth: {
+            title: 'Autenticación por SMS',
+            caption1: 'La autenticación por medio de',
+            sms: 'SMS',
+            caption2: 'le agrega otra capa de seguridad tanto a sus retiros como a su cuenta.',
+            changeTheAuthentication: 'Cambiar la autenticación por SMS'
+        }
     },
     support: {
         title: 'Soporte y ayuda'

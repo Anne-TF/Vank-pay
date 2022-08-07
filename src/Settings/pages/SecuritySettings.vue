@@ -63,6 +63,7 @@
                         background-color: ${Dark.isActive ? '#353E49' : '#EEEEEE'};
                         height: 92px;
                     `"
+                    @click="$router.push('/settings/security/sms-auth')"
                     class="flex flex-inline justify-between items-center br-17 px-14 wp-93"
                 >
                     <q-icon size="2.6em" :name="`img:icons/message-${Dark.isActive ? 'dark' : 'light'}.svg`" />

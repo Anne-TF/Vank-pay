@@ -15,7 +15,14 @@ export default {
         autheticationMethod: 'authentication method.',
         text: 'Text message',
         email: 'Email',
-        authy: 'Authy'
+        authy: 'Authy',
+        smsAuth: {
+            title: 'SMS Authentication',
+            caption1: 'The authentication throught',
+            sms: 'SMS',
+            caption2: 'adds another layer of security to your withdrawals and your account.',
+            changeTheAuthentication: 'Change the SMS authentication'
+        }
     },
     support: {
         title: 'Support and help'
