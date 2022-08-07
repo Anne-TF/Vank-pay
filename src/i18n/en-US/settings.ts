@@ -29,6 +29,11 @@ export default {
             email: 'email',
             caption2: 'adds another layer of security to your withdrawals and your account.',
             changeTheAuthentication: 'Change the email authentication'
+        },
+        authyAuth: {
+            title: 'Authentication with Authy',
+            caption1: 'The authenticator application protects your withdrawals and your accounts',
+            changeTheAuthentication: 'Change the authentication'
         }
     },
     support: {

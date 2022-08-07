@@ -105,11 +105,12 @@
                 }"
                 class="col-12 col-sm-6 col-md-4 flex justify-center">
                 <div
+                    @click="$router.push('/settings/security/authy-auth')"
                     :style="`
                         background-color: ${Dark.isActive ? '#353E49' : '#EEEEEE'};
                         height: 92px;
                     `"
-                    class="flex flex-inline justify-between items-center br-17 px-14 wp-50"
+                    class="flex flex-inline justify-between items-center br-17 px-14 wp-50 cursor-pointer"
                 >
                     <q-icon size="2.6em" :name="`img:icons/authy-${Dark.isActive ? 'dark' : 'light'}.svg`" />
                     <span

@@ -29,6 +29,11 @@ export default {
             email: 'correo',
             caption2: 'le agrega otra capa de seguridad tanto a sus retiros como a su cuenta.',
             changeTheAuthentication: 'Cambiar la autenticación por correo'
+        },
+        authyAuth: {
+            title: 'Autenticación con Authy',
+            caption1: 'La aplicación del autenticador protege los retiros y tu cuenta',
+            changeTheAuthentication: 'Cambiar la autenticación'
         }
     },
     support: {
