@@ -18,7 +18,7 @@
                         'text-nv-dark' : !Dark.isActive,
                         'fs-18' : isMobile
                     }">
-                    {{ $t('settings.security.smsAuth.title') }}
+                    {{ $t('settings.security.emailAuth.title') }}
                 </h5>
             </div>
         </div>
@@ -34,11 +34,11 @@
                 }"
                 class="q-mt-sm"
             >
-                {{ $t('settings.security.smsAuth.caption1') }}
+                {{ $t('settings.security.emailAuth.caption1') }}
                 <span :class="`text-nv-${GetSuffix('accent')}`">
-                    {{ $t('settings.security.smsAuth.sms') }}
+                    {{ $t('settings.security.emailAuth.email') }}
                 </span>
-                {{ $t('settings.security.smsAuth.caption2') }}
+                {{ $t('settings.security.emailAuth.caption2') }}
             </p>
         </div>
 
@@ -50,19 +50,19 @@
             }"
             class="mt-70 flex flex-inline justify-between items-center">
             <p class="no-margin fs-14">
-                {{ $t('settings.security.smsAuth.title') }}
+                {{ $t('settings.security.emailAuth.title') }}
             </p>
 
             <q-toggle
                 :class="{
-                    'nv-switch--active--dark' : smsAuth && Dark.isActive,
-                    'nv-switch--inactive--dark' : !smsAuth && Dark.isActive,
-                    'nv-switch--active--light' : smsAuth && Dark.isActive,
-                    'nv-switch--inactive--light' : !smsAuth && Dark.isActive,
+                    'nv-switch--active--dark' : emailAuth && Dark.isActive,
+                    'nv-switch--inactive--dark' : !emailAuth && Dark.isActive,
+                    'nv-switch--active--light' : emailAuth && Dark.isActive,
+                    'nv-switch--inactive--light' : !emailAuth && Dark.isActive,
                 }"
                 class="mr-9 mb-10"
-                @update:model-value="setPhone"
-                :model-value="smsAuth"
+                @update:model-value="setEmail"
+                :model-value="emailAuth"
             />
         </div>
 
@@ -76,7 +76,7 @@
                     class="no-padding q-mb-sm"
                 >
                     <q-item-section class="q-py-md q-pl-lg">
-                        {{ $t('settings.security.smsAuth.changeTheAuthentication') }}
+                        {{ $t('settings.security.emailAuth.changeTheAuthentication') }}
                     </q-item-section>
 
                     <q-item-section side class="flex items-center q-mr-lg">
@@ -100,15 +100,15 @@ const authStore = useAuthStore();
 // COMPUTEDS
 
 const isMobile = computed(() => Screen.lt.md);
-const smsAuth = computed(() => authStore.Active2FA.telefono);
+const emailAuth = computed(() => authStore.Active2FA.correo);
 
 // FUNCTIONS
 
-const setPhone = () =>
+const setEmail = () =>
 {
     authStore.setActive2FA({
-        telefono: !smsAuth.value,
-        correo: authStore.Active2FA.correo,
+        telefono: authStore.Active2FA.telefono,
+        correo: !emailAuth.value,
         authy: authStore.Active2FA.authy
     });
 };

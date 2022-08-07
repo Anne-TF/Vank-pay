@@ -22,6 +22,13 @@ export default {
             sms: 'SMS',
             caption2: 'adds another layer of security to your withdrawals and your account.',
             changeTheAuthentication: 'Change the SMS authentication'
+        },
+        emailAuth: {
+            title: 'Email authentication',
+            caption1: 'The authentication throught',
+            email: 'email',
+            caption2: 'adds another layer of security to your withdrawals and your account.',
+            changeTheAuthentication: 'Change the email authentication'
         }
     },
     support: {

@@ -22,6 +22,13 @@ export default {
             sms: 'SMS',
             caption2: 'le agrega otra capa de seguridad tanto a sus retiros como a su cuenta.',
             changeTheAuthentication: 'Cambiar la autenticación por SMS'
+        },
+        emailAuth: {
+            title: 'Autenticación por correo',
+            caption1: 'La autenticación por medio de',
+            email: 'correo',
+            caption2: 'le agrega otra capa de seguridad tanto a sus retiros como a su cuenta.',
+            changeTheAuthentication: 'Cambiar la autenticación por correo'
         }
     },
     support: {
