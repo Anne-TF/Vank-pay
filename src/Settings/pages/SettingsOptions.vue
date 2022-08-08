@@ -95,7 +95,7 @@
                     <q-item
                         clickable
                         v-ripple
-                        @click="$router.push('/settings/security')"
+                        @click="$router.push(link.to)"
                         class="no-padding q-mb-sm text-nv-light-tertiary"
                         v-for="(link, index) in options"
                         :key="index">

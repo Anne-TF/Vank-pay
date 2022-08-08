@@ -124,7 +124,7 @@
                 }"
                 :style="`${
                     isMobile
-                    ? 'border-radius: 40px 40px 0px 0px !important; height: 25vh; width: 100%;'
+                    ? 'border-radius: 40px 40px 0px 0px !important; height: 35vh; width: 100%;'
                     : 'height: 400px; width: 400px;'
                 }`"
             >
