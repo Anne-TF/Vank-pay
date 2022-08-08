@@ -173,13 +173,15 @@
                                 {{ EncodeText(getEncode, tab) }}
                             </span>
                         </p>
-                        <CodeInput class="wp-100"
-                                   :disable="loading"
-                                   :code="codePhone.smsCode"
-                                   mode="counter2FAPhone"
-                                   @addCode="setCodePhone"
-                                   @removeCode="setCodePhone"
-                                   @sendCode="sendCode('EnviarSms', (data) => codePhone.smsHash = data.hash)" />
+                        <CodeInput
+                            class="wp-100"
+                            :disable="loading"
+                            :code="codePhone.smsCode"
+                            mode="counter2FAPhone"
+                            @addCode="setCodePhone"
+                            @removeCode="setCodePhone"
+                            @sendCode="sendCode('EnviarSms', (data) => codePhone.smsHash = data.hash)"
+                        />
                     </q-tab-panel>
 
                     <q-tab-panel

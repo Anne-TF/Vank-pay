@@ -21,7 +21,9 @@ export default {
             caption1: 'La autenticación por medio de',
             sms: 'SMS',
             caption2: 'le agrega otra capa de seguridad tanto a sus retiros como a su cuenta.',
-            changeTheAuthentication: 'Cambiar la autenticación por SMS'
+            changeTheAuthentication: 'Cambiar la autenticación por SMS',
+            verification: 'Verificación',
+            phoneVerification: 'Ingrese el código de verificación telefónica'
         },
         emailAuth: {
             title: 'Autenticación por correo',

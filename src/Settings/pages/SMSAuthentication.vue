@@ -72,6 +72,7 @@
                 dense>
                  <q-item
                     clickable
+                    @click="$router.push('/settings/security/sms-auth/change-phone')"
                     v-ripple
                     class="no-padding q-mb-sm"
                 >

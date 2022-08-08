@@ -21,7 +21,9 @@ export default {
             caption1: 'The authentication throught',
             sms: 'SMS',
             caption2: 'adds another layer of security to your withdrawals and your account.',
-            changeTheAuthentication: 'Change the SMS authentication'
+            changeTheAuthentication: 'Change the SMS authentication',
+            verification: 'Verification',
+            phoneVerification: 'Enter phone verification code'
         },
         emailAuth: {
             title: 'Email authentication',

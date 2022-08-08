@@ -78,7 +78,7 @@ const props = defineProps({
     },
     code: String,
     mode: {
-        type: String as PropType<'counter2FAPhone' | 'counter2FAEmail'>,
+        type: String as PropType<'counter2FAPhone' | 'counter2FAEmail' | 'counterChangePhoneNew' | 'counterChangePhoneOld' | 'counterChangePhoneEmail'>,
         default: null
     },
     disable: {

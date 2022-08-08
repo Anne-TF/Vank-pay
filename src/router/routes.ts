@@ -143,6 +143,7 @@ const routes: RouteRecordRaw[] = [
             { path: 'security', component: () => import('../Settings/pages/SecuritySettings.vue') },
             { path: 'security/change-password', component: () => import('../Settings/pages/ChangePassword.vue') },
             { path: 'security/sms-auth', component: () => import('../Settings/pages/SMSAuthentication.vue') },
+            { path: 'security/sms-auth/change-phone', component: () => import('../Settings/pages/ChangePhoneVerification.vue') },
             { path: 'security/email-auth', component: () => import('../Settings/pages/EmailAuthentication.vue') },
             { path: 'security/authy-auth', component: () => import('../Settings/pages/AuthyAuthentication.vue') }
         ],

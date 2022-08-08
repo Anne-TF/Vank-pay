@@ -11,6 +11,9 @@ export type State = {
     darkMode: boolean | null;
     counter2FAEmail: Counters;
     counter2FAPhone: Counters;
+    counterChangePhoneNew: Counters;
+    counterChangePhoneOld: Counters;
+    counterChangePhoneEmail: Counters;
     viewBalance: boolean;
     viewPersonalInfo: boolean;
 }
