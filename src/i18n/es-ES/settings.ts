@@ -30,7 +30,8 @@ export default {
             caption1: 'La autenticación por medio de',
             email: 'correo',
             caption2: 'le agrega otra capa de seguridad tanto a sus retiros como a su cuenta.',
-            changeTheAuthentication: 'Cambiar la autenticación por correo'
+            changeTheAuthentication: 'Cambiar la autenticación por correo',
+            emailVerification: 'Ingrese el código de verificación vía email'
         },
         authyAuth: {
             title: 'Autenticación con Authy',

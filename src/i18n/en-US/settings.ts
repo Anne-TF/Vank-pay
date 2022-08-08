@@ -30,7 +30,8 @@ export default {
             caption1: 'The authentication throught',
             email: 'email',
             caption2: 'adds another layer of security to your withdrawals and your account.',
-            changeTheAuthentication: 'Change the email authentication'
+            changeTheAuthentication: 'Change the email authentication',
+            emailVerification: 'Enter the verification code via email'
         },
         authyAuth: {
             title: 'Authentication with Authy',

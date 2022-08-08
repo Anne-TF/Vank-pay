@@ -25,6 +25,18 @@ const state = (): State =>
             counter: 60,
             active: false
         },
+        counterChangeEmailNew: {
+            counter: 60,
+            active: false
+        },
+        counterChangeEmailOld: {
+            counter: 60,
+            active: false
+        },
+        counterChangeEmailPhone: {
+            counter: 60,
+            active: false
+        },
         viewBalance: true,
         viewPersonalInfo: true
     };

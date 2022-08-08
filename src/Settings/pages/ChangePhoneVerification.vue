@@ -196,8 +196,8 @@
                     class="wp-100 mt-25"
                     :disable="loading"
                     :code="codeOldPhone.smsCode"
-                    @addCode="setCodePhone"
-                    @removeCode="setCodePhone"
+                    @addCode="setCodeOldPhone"
+                    @removeCode="setCodeOldPhone"
                     mode="counterChangePhoneOld"
                 />
             </div>
@@ -340,6 +340,12 @@ const setCodePhone = (value: string) =>
 {
     codePhone.smsCode = value;
 };
+
+const setCodeOldPhone = (value: string) =>
+{
+    codeOldPhone.smsCode = value;
+};
+
 
 const setCodeAuthy = (value: string) =>
 {

@@ -73,6 +73,7 @@
                  <q-item
                     clickable
                     v-ripple
+                    @click="$router.push('/settings/security/email-auth/change-email')"
                     class="no-padding q-mb-sm"
                 >
                     <q-item-section class="q-py-md q-pl-lg">
