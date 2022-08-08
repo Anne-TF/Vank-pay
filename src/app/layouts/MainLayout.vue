@@ -71,7 +71,7 @@
                 <div
                     :style="`
                         background-color: ${dark.isActive ? '#1D2229' : '#FFF'};
-                        border: 1px solid ${dark.isActive ? '#303640' : '#939BA6'};
+                        border: 1px solid ${floatingMenu ? (dark.isActive ? '#303640' : '#939BA6') : 'transparent'};
                         contain: content;
                         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
                         ${showMenu && !floatingMenu ?

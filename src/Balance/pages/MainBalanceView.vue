@@ -114,9 +114,9 @@
             </q-card>
         </div>
 
-         <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'" class="mt-13" />
+        <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'" class="mt-13" />
 
-         <div
+        <div
             :class="{
                 'mt-10 q-px-lg' : isMobile
             }"
