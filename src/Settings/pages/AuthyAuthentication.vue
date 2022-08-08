@@ -69,6 +69,7 @@
                  <q-item
                     clickable
                     v-ripple
+                    @click="$router.push('/settings/security/authy-auth/change-authy')"
                     class="no-padding q-mb-sm"
                 >
                     <q-item-section class="q-py-md q-pl-lg">

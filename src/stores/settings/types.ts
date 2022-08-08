@@ -17,6 +17,8 @@ export type State = {
     counterChangeEmailNew: Counters;
     counterChangeEmailOld: Counters;
     counterChangeEmailPhone: Counters;
+    counterChangeAuthyPhone: Counters;
+    counterChangeAuthyEmail: Counters;
     viewBalance: boolean;
     viewPersonalInfo: boolean;
 }

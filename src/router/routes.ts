@@ -146,7 +146,8 @@ const routes: RouteRecordRaw[] = [
             { path: 'security/sms-auth/change-phone', component: () => import('../Settings/pages/ChangePhoneVerification.vue') },
             { path: 'security/email-auth', component: () => import('../Settings/pages/EmailAuthentication.vue') },
             { path: 'security/email-auth/change-email', component: () => import('../Settings/pages/ChangeEmailVerification.vue') },
-            { path: 'security/authy-auth', component: () => import('../Settings/pages/AuthyAuthentication.vue') }
+            { path: 'security/authy-auth', component: () => import('../Settings/pages/AuthyAuthentication.vue') },
+            { path: 'security/authy-auth/change-authy', component: () => import('../Settings/pages/ChangeAuthyVerification.vue') }
         ],
         meta: {
             fullAuth: true,

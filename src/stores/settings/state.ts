@@ -37,6 +37,14 @@ const state = (): State =>
             counter: 60,
             active: false
         },
+        counterChangeAuthyPhone: {
+            counter: 60,
+            active: false
+        },
+        counterChangeAuthyEmail: {
+            counter: 60,
+            active: false
+        },
         viewBalance: true,
         viewPersonalInfo: true
     };
