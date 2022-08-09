@@ -125,6 +125,7 @@
                 :color="`nv-${GetSuffix('tertiary')}`"
                 no-caps
                 unelevated
+                @click="hasLogout"
             >
                 {{ $t('settings.logout') }}
             </q-btn>
@@ -147,6 +148,9 @@ import { Screen, Dark } from 'quasar';
 import { computed } from 'vue';
 import  GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { useAuthStore } from 'stores/auth';
+import { Router, useRouter } from 'vue-router';
+
+const $router: Router = useRouter();
 
 // CONSTANTS
 const authStore = useAuthStore();
@@ -174,8 +178,13 @@ const options = <{key: string, icon: string, to: string}[]>[
 ];
 
 // COMPUTEDS
-
 const isMobile = computed(() => Screen.lt.md);
 const getUserName = computed(() => authStore.UserName);
 const getUserId = computed(() => '213338989');
+
+const hasLogout = async() =>
+{
+    await authStore.logout();
+    await $router.push('/');
+};
 </script>

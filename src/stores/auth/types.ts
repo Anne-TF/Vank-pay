@@ -48,13 +48,14 @@ export type Actions = {
     setLoginForm: (data: LoginForm) => void;
     setSignUpForm: (data: SignUpForm) => void;
     setActive2FA: (data: Active2FA) => void
-    setToken: (value: string) => void;
+    setToken: (value: string | null) => void;
     setPreAuth: (value: boolean) => void;
     setUserName: (value: string) => void;
     setEmail: (value: string) => void;
     setPhone: (value: string) => void;
     clearLoginForm: () => void;
     clearSignUpForm: () => void;
+    logout: () => void;
 };
 
 export type PiniaStore = Store<'auth', State, Getters, Actions>;

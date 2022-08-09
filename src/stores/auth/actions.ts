@@ -1,4 +1,7 @@
 import { PiniaActions } from 'stores/auth/types';
+import { Router, useRouter } from 'vue-router';
+
+const $router: Router = useRouter();
 
 const actions: PiniaActions = {
     setUserName(value)
@@ -50,6 +53,11 @@ const actions: PiniaActions = {
             confirmPassword: null,
             acceptedTerms: false
         };
+    },
+    logout()
+    {
+        this.$reset();
+        this.token = null;
     }
 };
 

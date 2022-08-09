@@ -20,6 +20,7 @@
 import { Dark, Platform, useQuasar } from 'quasar';
 import { onMounted, ref, watchEffect } from 'vue';
 import { useSettingsStore } from 'stores/settings';
+import { useAuthStore } from 'stores/auth';
 import { useI18n } from 'vue-i18n';
 
 // Capacitor Plugins
@@ -34,6 +35,7 @@ const splashLoading = ref<boolean>(true);
 
 // STORE
 const settingsStore = useSettingsStore();
+const authStore = useAuthStore();
 
 setTimeout(() =>
 {
@@ -42,15 +44,37 @@ setTimeout(() =>
 
 watchEffect(async() =>
 {
-    if (Dark.isActive && Platform.is.android && Platform.is.capacitor)
+    if (Dark.isActive && Platform.is.android && Platform.is.capacitor && !authStore.FullAuth)
     {
+        await StatusBar.setOverlaysWebView({ overlay: true });
         await StatusBar.setStyle({ style: Style.Dark });
         await Keyboard.setStyle({ style: KeyboardStyle.Dark });
         // NavigationBar.backgroundColorByHexString('#1D2229', true);
     }
-    else if (!Dark.isActive && Platform.is.android && Platform.is.capacitor)
+    else if (!Dark.isActive && Platform.is.android && Platform.is.capacitor && !authStore.FullAuth)
     {
+        await StatusBar.setOverlaysWebView({ overlay: true });
         await StatusBar.setStyle({ style: Style.Light });
+        await Keyboard.setStyle({ style: KeyboardStyle.Light });
+        // NavigationBar.backgroundColorByHexString('#fff', false);
+    }
+});
+
+watchEffect(async() =>
+{
+    if (Dark.isActive && Platform.is.android && Platform.is.capacitor && authStore.FullAuth)
+    {
+        await StatusBar.setOverlaysWebView({ overlay: false });
+        await StatusBar.setStyle({ style: Style.Dark });
+        await StatusBar.setBackgroundColor({ color: '#1D2229' });
+        await Keyboard.setStyle({ style: KeyboardStyle.Dark });
+        // NavigationBar.backgroundColorByHexString('#1D2229', true);
+    }
+    else if (!Dark.isActive && Platform.is.android && Platform.is.capacitor && authStore.FullAuth)
+    {
+        await StatusBar.setOverlaysWebView({ overlay: false });
+        await StatusBar.setStyle({ style: Style.Light });
+        await StatusBar.setBackgroundColor({ color: '#FFFFFF' });
         await Keyboard.setStyle({ style: KeyboardStyle.Light });
         // NavigationBar.backgroundColorByHexString('#fff', false);
     }
@@ -65,7 +89,14 @@ onMounted(() =>
 {
     if (Platform.is.android && Platform.is.capacitor)
     {
-        StatusBar.setOverlaysWebView({ overlay: true });
+        if (!authStore.FullAuth)
+        {
+            StatusBar.setOverlaysWebView({ overlay: true });
+        }
+        else
+        {
+            StatusBar.setOverlaysWebView({ overlay: false });
+        }
     }
 
     settingsStore.setDarkMode(<boolean> settingsStore.DarkMode ?? 'auto');
