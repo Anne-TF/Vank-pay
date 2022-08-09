@@ -57,7 +57,6 @@
                                 <q-icon class="mb-6" style="color:  #939BA6;" name="chevron_right" />
                             </h5>
 
-                            <!-- TODO: MAKE THE COPY BUTTON WORK -->
                             <p
                                 style="color:  #939BA6;"
                                 class="q-mb-none q-mx-none ls-5 q-mt-xs text-light">
@@ -66,6 +65,7 @@
                                     size="1.6em"
                                     class="mb-4 cursor-pointer"
                                     name="img:icons/copy.svg"
+                                    @click="copy(getUserId)"
                                 />
                             </p>
                         </div>
@@ -149,13 +149,15 @@
  </template>
 
 <script lang="ts" setup>
-import { Screen, Dark } from 'quasar';
+import { Screen, Dark, useQuasar } from 'quasar';
 import { computed } from 'vue';
 import  GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { useAuthStore } from 'stores/auth';
 import { Router, useRouter } from 'vue-router';
 import { useSettingsStore } from 'stores/settings';
+import CopyClipboard from 'src/app/shared/helpers/CopyClipboard';
 
+const $q = useQuasar();
 const $router: Router = useRouter();
 
 // CONSTANTS
@@ -201,5 +203,18 @@ const hasLogout = async() =>
 const switchMode = () =>
 {
     void settingsStore.setDarkMode(!Dark.isActive);
+};
+
+const copy = async(value: string): Promise<void> =>
+{
+    await CopyClipboard(value);
+
+    $q.notify({
+        position: isMobile.value ? 'bottom' : 'top-right',
+        message: 'Copiado en el clipboard',
+        textColor: Dark.isActive ? 'nv-dark-accent' : 'nv-light-accent',
+        color: Dark.isActive ? 'nv-dark' : 'nv-light',
+        icon: 'verified'
+    });
 };
 </script>

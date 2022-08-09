@@ -60,7 +60,6 @@
                 </h5>
             </div>
 
-            <!-- TODO: MAKE THE COPY BUTTONS WORK -->
             <div
                 :class="{
                     'text-nv-light' : Dark.isActive,
@@ -76,6 +75,7 @@
                         <q-icon
                             size="1.6em"
                             class="ml-6 mb-4 cursor-pointer"
+                            @click="copy('23213232')"
                             name="img:icons/copy.svg"
                         />
                     </p>
@@ -91,6 +91,7 @@
                             size="1.6em"
                             class="ml-6 mb-4 cursor-pointer"
                             name="img:icons/copy.svg"
+                            @click="copy(getUserPhone)"
                         />
                     </p>
                 </div>
@@ -105,6 +106,7 @@
                             size="1.6em"
                             class="ml-6 mb-4 cursor-pointer"
                             name="img:icons/copy.svg"
+                            @click="copy(getUserEmail)"
                         />
                     </p>
                 </div>
@@ -165,14 +167,16 @@
  </template>
 
 <script lang="ts" setup>
-import { Screen, Dark } from 'quasar';
+import { Screen, Dark, useQuasar } from 'quasar';
 import { computed, ref } from 'vue';
 import  GetSuffix from '../../app/shared/helpers/GetSuffix';
 import EncodeText from '../../app/shared/helpers/EncodeText';
 import { useAuthStore } from 'stores/auth';
 import { useSettingsStore } from 'stores/settings';
+import CopyClipboard from 'src/app/shared/helpers/CopyClipboard';
 
 // CONSTANTS
+const $q = useQuasar();
 const authStore = useAuthStore();
 const settingsStore = useSettingsStore();
 const editName = ref<boolean>(false);
@@ -194,9 +198,22 @@ const getIcon = computed(() =>
 
 const changePersonalInfo = () =>
 {
-    settingsStore.setPersonalInfo(!viewPersonalInfo.value);
+    settingsStore.setViewPersonalInfo(!viewPersonalInfo.value);
 };
 
 const input = ref<string>(getUserName.value);
+
+const copy = async(value: string): Promise<void> =>
+{
+    await CopyClipboard(value);
+
+    $q.notify({
+        position: isMobile.value ? 'bottom' : 'top-right',
+        message: 'Copiado en el clipboard',
+        textColor: Dark.isActive ? 'nv-dark-accent' : 'nv-light-accent',
+        color: Dark.isActive ? 'nv-dark' : 'nv-light',
+        icon: 'verified'
+    });
+};
 
 </script>

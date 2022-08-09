@@ -38,7 +38,7 @@ const actions: PiniaActions = {
     {
         this.viewBalance = value;
     },
-    setPersonalInfo(value: boolean): void
+    setViewPersonalInfo(value: boolean): void
     {
         this.viewPersonalInfo = value;
     },
