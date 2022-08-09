@@ -8,7 +8,7 @@
             :class="{
                 'q-px-lg' : isMobile
             }"
-            class="flex flex-inline justify-between items-center">
+            class="flex flex-inline justify-between items-center mt-23">
             <q-icon class="cursor-pointer" @click="$router.back()" size="2em" name="arrow_back" />
             <div class="text-center">
                 <h5

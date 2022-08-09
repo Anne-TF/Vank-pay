@@ -10,7 +10,7 @@
                 :class="{
                     'q-px-lg' : isMobile
                 }"
-                class="flex flex-inline justify-between">
+                class="flex flex-inline justify-between items-center">
                 <q-icon class="cursor-pointer wp-10" @click="$router.back()" size="2em" name="arrow_back" />
                 <h5
                     class="no-margin"

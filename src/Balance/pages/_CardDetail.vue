@@ -6,7 +6,7 @@
         class="hp-100">
         <div
             :class="{
-                'mt-20 q-px-lg' : isMobile
+                'mt-25 q-px-lg' : isMobile
             }"
         >
             <q-icon class="cursor-pointer" @click="$router.back()" size="2em" name="arrow_back" />
