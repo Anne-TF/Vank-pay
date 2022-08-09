@@ -46,7 +46,8 @@ const state = (): State =>
             active: false
         },
         viewBalance: true,
-        viewPersonalInfo: true
+        viewPersonalInfo: true,
+        showMobileMenu: true
     };
 };
 

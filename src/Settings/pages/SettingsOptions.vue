@@ -5,25 +5,30 @@
         }"
         style="height: 100vh;"
         class="flex column justify-between">
-        <div>
+        <div class="mt-20">
             <div
                 :class="{
                     'q-px-lg' : isMobile
                 }"
-                class="flex flex-inline">
+                class="flex flex-inline justify-between">
                 <q-icon class="cursor-pointer wp-10" @click="$router.back()" size="2em" name="arrow_back" />
-                <div class="wp-85 text-center">
-                    <h5
-                        class="no-margin"
-                        :class="{
-                            'text-nv-light' : Dark.isActive,
-                            'text-nv-dark' : !Dark.isActive,
-                            'fs-18' : isMobile
-                        }"
-                    >
-                        {{ $t('settings.settings') }}
-                    </h5>
-                </div>
+                <h5
+                    class="no-margin"
+                    :class="{
+                        'text-nv-light' : Dark.isActive,
+                        'text-nv-dark' : !Dark.isActive,
+                        'fs-18' : isMobile
+                    }"
+                >
+                    {{ $t('settings.settings') }}
+                </h5>
+                <q-btn
+                    @click="switchMode()"
+                    flat
+                    round
+                    color="nv-light-tertiary"
+                    :icon="Dark.isActive ? 'light_mode' : 'dark_mode'"
+                />
             </div>
 
             <div
@@ -68,14 +73,14 @@
 
                     <div class="flex items-center">
                         <div
-                            style="
-                                background-color: #353E49;
+                            :style="`
+                                background-color: ${Dark.isActive ? '#353E49' : 'rgba(238, 238, 238, 0.9);'};
                                 width: 99px;
                                 right: 0;
                                 position:absolute;
                                 border-radius: 50px 0px 0px 50px;
                                 height: 32px;
-                            "
+                            `"
                             class="flex flex-inline items-center pl-10"
                         >
                             <q-icon
@@ -149,11 +154,13 @@ import { computed } from 'vue';
 import  GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { useAuthStore } from 'stores/auth';
 import { Router, useRouter } from 'vue-router';
+import { useSettingsStore } from 'stores/settings';
 
 const $router: Router = useRouter();
 
 // CONSTANTS
 const authStore = useAuthStore();
+const settingsStore = useSettingsStore();
 const options = <{key: string, icon: string, to: string}[]>[
     {
         key: 'settings.paymentMethods.title',
@@ -182,9 +189,17 @@ const isMobile = computed(() => Screen.lt.md);
 const getUserName = computed(() => authStore.UserName);
 const getUserId = computed(() => '213338989');
 
+
+// FUNCTIONS
+
 const hasLogout = async() =>
 {
     await authStore.logout();
     await $router.push('/');
+};
+
+const switchMode = () =>
+{
+    void settingsStore.setDarkMode(!Dark.isActive);
 };
 </script>

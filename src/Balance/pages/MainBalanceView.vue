@@ -6,7 +6,7 @@
         class="hp-100">
         <div
             :class="{
-                'mt-40 flex items-center q-px-lg' : isMobile
+                'mt-20 flex items-center q-px-lg' : isMobile
             }"
         >
             {{ $t('balance.totalBalance') }}
@@ -33,7 +33,7 @@
                 'mt-15 q-px-lg' : isMobile
             }"
         >
-            <div class="flex justify-between mb-20">
+            <div class="flex justify-between mb-10">
                 <div class="flex flex-inline justify-start">
                     <div
                         :class="`
@@ -103,7 +103,7 @@
                 </q-input>
             </div>
 
-            <div v-show="tab === 'cards'" style="height: 68vh !important;">
+            <div v-show="tab === 'cards'" style="height: 75.3vh !important;">
                 <q-scroll-area
                     :thumb-style="{
                         right: '0px',
@@ -180,7 +180,7 @@
                 </q-scroll-area>
             </div>
 
-            <div v-show="tab === 'wallets'" style="height: 68vh !important;">
+            <div v-show="tab === 'wallets'" style="height: 75.3vh !important;">
                 <q-scroll-area
                     :thumb-style="{
                         right: '0px',
@@ -362,21 +362,24 @@ const changeView = (view: string) =>
             tab: view
         }
     });
+    if (!settingsStore.showMobileMenu)
+    {
+        settingsStore.setShowMobileMenu(true);
+    }
 };
 
 const onScroll = (info: any) =>
 {
-    // eslint-disable-next-line no-console
-    console.log('scroll');
-    /* if (info.direction === 'down')
+    if (info.direction === 'down')
     {
-        $router.currentRoute.value.meta.hideMobileMenu = true;
+        settingsStore.setShowMobileMenu(false);
     }
     else
     {
-        $router.currentRoute.value.meta.hideMobileMenu = false;
-    } */
+        settingsStore.setShowMobileMenu(true);
+    }
 };
+
 
 // LIFECYCLE HOOKS
 if ($router.currentRoute.value.query.tab)
@@ -389,4 +392,5 @@ if ($router.currentRoute.value.query.tab)
     });
 }
 
+settingsStore.setShowMobileMenu(true);
 </script>

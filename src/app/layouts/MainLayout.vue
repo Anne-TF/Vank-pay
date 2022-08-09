@@ -62,7 +62,7 @@
             leave-active-class="animated fadeOutDown">
             <div
                 style="z-index: 4;"
-                v-show="(isMobile && showMobileMenu) && (!getRouteMeta?.hideMobileMenu ?? true)"
+                v-show="(isMobile && showMobileMenu) && (!getRouteMeta?.hideMobileMenu ?? true) && settingsStore.showMobileMenu"
                 :class="{
                     'mb-30' : floatingMenu,
                     'mb-0' : !floatingMenu
@@ -234,11 +234,13 @@ import EssentialLink from '../components/EssentialLink.vue';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import GetSuffix from '../shared/helpers/GetSuffix';
+import { useSettingsStore } from 'stores/settings';
 
 const { version } = useQuasar();
 const { dark } = useQuasar();
 const { screen } = useQuasar();
 const $router = useRouter();
+const settingsStore = useSettingsStore();
 
 const linksList = [
     {

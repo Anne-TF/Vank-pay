@@ -6,7 +6,7 @@
         class="hp-100">
         <div
             :class="{
-                'mt-30 q-px-lg' : isMobile
+                'mt-20 q-px-lg' : isMobile
             }"
         >
             <q-icon class="cursor-pointer" @click="$router.back()" size="2em" name="arrow_back" />
@@ -46,7 +46,7 @@
 
         <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'"  class="mt-30" />
 
-        <div class="mt-20 q-px-lg" style="height: 62vh;">
+        <div class="mt-20 q-px-lg" style="height: 64vh;">
             <TransactionHistory
                 @handle-scroll="handleScroll"
                 :filter-options="[

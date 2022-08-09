@@ -41,6 +41,10 @@ const actions: PiniaActions = {
     setPersonalInfo(value: boolean): void
     {
         this.viewPersonalInfo = value;
+    },
+    setShowMobileMenu(value: boolean): void
+    {
+        this.showMobileMenu = value;
     }
 };
 

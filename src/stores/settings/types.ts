@@ -21,6 +21,7 @@ export type State = {
     counterChangeAuthyEmail: Counters;
     viewBalance: boolean;
     viewPersonalInfo: boolean;
+    showMobileMenu: boolean;
 }
 
 export type Getters = {
@@ -38,6 +39,7 @@ export type Actions = {
     setDarkMode: (dark: boolean) => void;
     setViewPersonalInfo: (value: boolean) => void;
     ActiveCounter2FA: (counter: 'counter2FAPhone' | 'counter2FAEmail', timer: number) => void;
+    setShowMobileMenu: (value: boolean) => void;
 };
 
 export type PiniaStore = Store<'settings', State, Getters, Actions>;
