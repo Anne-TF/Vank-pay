@@ -105,7 +105,8 @@ const routes: RouteRecordRaw[] = [
         meta: {
             enterAnimation: 'animated slideInRight',
             leaveAnimation: 'animated slideOutLeft',
-            fullAuth: true
+            fullAuth: true,
+            hideMobileMenu: false
         }
     },
     {
