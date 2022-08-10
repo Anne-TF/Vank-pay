@@ -104,7 +104,7 @@
                         class="no-padding q-mb-sm text-nv-light-tertiary"
                         v-for="(link, index) in options"
                         :key="index">
-                        <q-item-section class="q-py-md q-pl-lg" style="flex-direction: row !important; justify-content: start !important;">
+                        <q-item-section class="q-py-md q-pl-lg" style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
                             <span
                                 class="iconify fs-25 mr-10"
                                 :data-icon="link.icon"
