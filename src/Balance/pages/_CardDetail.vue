@@ -51,7 +51,7 @@
                         'text-nv-dark' : !Dark.isActive
                     }"
                     >
-                    {{ '$'.concat(getBalance) }}
+                    {{ HideText(viewBalance, '$'.concat(getBalance)) }}
                 </h4>
         </div>
         </div>
@@ -119,14 +119,26 @@ import { Screen, Dark } from 'quasar';
 import { computed, ref } from 'vue';
 import TransactionHistory from '../components/TransactionHistory.vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
+import { useSettingsStore } from 'stores/settings';
+import HideText from '../../app/shared/helpers/HideText';
+
+// STORES
+const settingsStore = useSettingsStore();
+
+// REFERENCES
 
 const showBtns = ref<boolean>(true);
 const showBackCard = ref<boolean>(false);
+
+// COMPUTEDS
 
 const isMobile = computed(() => Screen.lt.md);
 const getFrontCard = computed(() => new URL('../../assets/images/card-front.png', import.meta.url).href);
 const getBackCard = computed(() => new URL('../../assets/images/card-back.png', import.meta.url).href);
 const getBalance = computed(() => '80.60');
+const viewBalance = computed(() => settingsStore.ViewBalance);
+
+// FUNCTIONS
 
 const handleScroll = (info: any) =>
 {

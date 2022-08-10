@@ -57,7 +57,6 @@
 
             <div
                 :class="{
-                    'q-px-lg' : isMobile,
                     'hp-82' : !isMobile
                 }"
                 :style="`${
@@ -67,7 +66,11 @@
 
                 class="no-margin"
             >
-                <div class="flex justify-between mb-10">
+                <div
+                    :class="{
+                        'q-px-lg' : isMobile
+                    }"
+                    class="flex justify-between mb-10">
                     <div class="flex flex-inline justify-start">
                         <div
                             :class="`
@@ -147,6 +150,9 @@
                     <q-tab-panel
                         class="no-margin pb-30 q-px-none no-scroll hp-100"
                         name="cards"
+                        :class="{
+                            'q-px-lg' : isMobile
+                        }"
                     >
                         <q-scroll-area
                             :thumb-style="{
@@ -180,7 +186,7 @@
                                     v-for="(card, index) in cards"
                                     :key="index"
                                     flat
-                                    class="mb-10 mt-8 br-20 py-5 cursor-pointer"
+                                    class="mb-10 br-20 py-5 cursor-pointer"
                                     @click="$router.push(`/cards/${card.name.replace(' ', '-')}`)"
                                     :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.md ? 'wp-35' : 'wp-45') : '' }`"
                                 >
@@ -241,6 +247,9 @@
                     <q-tab-panel
                         class="no-margin pb-30 q-px-none no-scroll hp-100"
                         name="wallets"
+                        :class="{
+                            'q-px-lg' : isMobile
+                        }"
                     >
                         <q-scroll-area
                             :thumb-style="{
@@ -491,4 +500,9 @@ onUnmounted(() =>
 });
 
 settingsStore.setShowMobileMenu(true);
+
+if ($router.currentRoute.value.query.tab)
+{
+    tab.value = $router.currentRoute.value.query.tab;
+}
 </script>

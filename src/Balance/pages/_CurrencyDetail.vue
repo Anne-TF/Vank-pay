@@ -31,13 +31,13 @@
                     <h5
                         class="no-margin q-pt-xs wp-100 text-center text-semi-bold fs-15 text-nv-dark-primary"
                     >
-                        1.00
+                        {{ HideText(viewBalance, '1.00') }}
                     </h5>
 
                     <h5
                         class="no-margin wp-100 text-center text-medium fs-13 text-nv-dark-primary"
                     >
-                        = $27000.00
+                        = {{ HideText(viewBalance, '$27000.00') }}
                     </h5>
                 </div>
             </div>
@@ -108,13 +108,25 @@ import { computed, ref } from 'vue';
 import { Router, useRouter } from 'vue-router';
 import TransactionHistory from '../components/TransactionHistory.vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
+import { useSettingsStore } from 'stores/settings';
+import HideText from '../../app/shared/helpers/HideText';
+
+// STORES
+const settingsStore = useSettingsStore();
+
+// REFERENCES
 
 const $router: Router = useRouter();
 const showBtns = ref<boolean>(true);
 
+// COMPUTEDS
+
 const isMobile = computed(() => Screen.lt.md);
 const getCard = computed(() => new URL('../../assets/images/currency-card.png', import.meta.url).href);
 const getAcronym = computed(() => $router.currentRoute.value.params.currency);
+const viewBalance = computed(() => settingsStore.ViewBalance);
+
+// FUNCTIONS
 
 const handleScroll = (info: any) =>
 {
