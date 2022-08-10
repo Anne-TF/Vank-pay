@@ -3,35 +3,40 @@
         :class="{
             'q-py-md' : isMobile
         }"
-        class="hp-100">
-        <div
-            :class="{
-                'mt-20 flex items-center q-px-lg' : isMobile
-            }"
-        >
-            {{ $t('balance.totalBalance') }}
-            <q-icon
-                @click="changeViewBalance()"
-                class="fs-20 ml-5 mb-8"
-                :name="`img:icons/${getIcon}.svg`"
-            />
-            <h4
-                class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
+        style="height: 100vh;"
+        class="flex column justify-between">
+        <div style="height: 15vh;">
+            <div
                 :class="{
-                    'text-nv-light' : Dark.isActive,
-                    'text-nv-dark' : !Dark.isActive
+                    'pt-20 flex items-center q-px-lg' : isMobile,
                 }"
             >
-                {{ HideText(viewBalance, '$'.concat(getBalance)) }}
-            </h4>
-        </div>
+                {{ $t('balance.totalBalance') }}
+                <q-icon
+                    @click="changeViewBalance()"
+                    class="fs-20 ml-5 mb-8"
+                    :name="`img:icons/${getIcon}.svg`"
+                />
+                <h4
+                    class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
+                    :class="{
+                        'text-nv-light' : Dark.isActive,
+                        'text-nv-dark' : !Dark.isActive
+                    }"
+                >
+                    {{ HideText(viewBalance, '$'.concat(getBalance)) }}
+                </h4>
+            </div>
 
-        <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'" class="mt-30" />
+            <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'" class="mt-20" />
+        </div>
 
         <div
             :class="{
-                'mt-15 q-px-lg' : isMobile
+                'q-px-lg' : isMobile
             }"
+            class="no-margin"
+            :style="`height: ${isMobile && screenSize.height > 667 ? (isMobile && screenSize.height > 760 ? '80' : '79') : '75'}vh; contain: content;`"
         >
             <div class="flex justify-between mb-10">
                 <div class="flex flex-inline justify-start">
@@ -103,84 +108,97 @@
                 </q-input>
             </div>
 
-            <div v-show="tab === 'cards'" style="height: 75.3vh !important;">
-                <q-scroll-area
-                    :thumb-style="{
-                        right: '0px',
-                        borderRadius: '9px',
-                        backgroundColor: `${
-                            Screen.lt.md ? 'transparent' : (Dark.isActive ? '#016608' : '#52B301')
-                        }`,
-                        width: '3px',
-                        opacity: '0.7'
-                    }"
-                    :barStyle="{
-                        right: '0px',
-                        borderRadius: '5px',
-                        backgroundColor: `
-                            ${ Screen.lt.md ? 'transparent' : '#C4C4C4' }
-                        `,
-                        width: '3px',
-                        opacity: '0.4'
-                    }"
-                    class="q-mb-none q-mx-none q-mt-md hp-100"
+            <q-tab-panels
+                :class="`bg-nv-${Dark.isActive ? 'dark' : 'light'} text-nv-light-tertiary`"
+                v-model="tab"
+                swipeable
+                class="hp-100 no-margin no-padding"
+                animated>
+
+                <q-tab-panel
+                    class="no-margin pb-30 q-px-none no-scroll hp-100"
+                    name="cards"
                 >
-                    <q-scroll-observer @scroll="onScroll" />
-                    <q-card
-                        v-for="(card, index) in cards"
-                        :key="index"
-                        flat
-                        class="mb-10 mt-8 br-20 py-5 cursor-pointer"
-                        @click="$router.push(`/cards/${card.name.replace(' ', '-')}`)"
-                        :class="`bg-nv-${GetSuffix('tertiary')}-opacity`"
+                    <q-scroll-area
+                        :thumb-style="{
+                            right: '0px',
+                            borderRadius: '9px',
+                            backgroundColor: `${
+                                Screen.lt.md ? 'transparent' : (Dark.isActive ? '#016608' : '#52B301')
+                            }`,
+                            width: '3px',
+                            opacity: '0.7'
+                        }"
+                        :barStyle="{
+                            right: '0px',
+                            borderRadius: '5px',
+                            backgroundColor: `
+                                ${ Screen.lt.md ? 'transparent' : '#C4C4C4' }
+                            `,
+                            width: '3px',
+                            opacity: '0.4'
+                        }"
+                        class="no-margin no-padding hp-100"
                     >
-                        <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
-                            <div class="flex flex-inline wp-70">
-                                <q-avatar
-                                    size="3.9em"
-                                    :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
-                                >
-                                    <q-icon
-                                        size="1.5em"
-                                        v-show="card.type === 'VISA'"
-                                        :name="`img:icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
-                                </q-avatar>
+                        <q-scroll-observer @scroll="onScroll" />
+                        <q-card
+                            v-for="(card, index) in cards"
+                            :key="index"
+                            flat
+                            class="mb-10 mt-8 br-20 py-5 cursor-pointer"
+                            @click="$router.push(`/cards/${card.name.replace(' ', '-')}`)"
+                            :class="`bg-nv-${GetSuffix('tertiary')}-opacity`"
+                        >
+                            <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
+                                <div class="flex flex-inline wp-70">
+                                    <q-avatar
+                                        size="3.9em"
+                                        :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
+                                    >
+                                        <q-icon
+                                            size="1.5em"
+                                            v-show="card.type === 'VISA'"
+                                            :name="`img:icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
+                                    </q-avatar>
 
-                                <div class="ml-15">
-                                    <h5
-                                        class="no-margin text-light fs-17"
-                                        :class="{
-                                            'text-nv-light' : Dark.isActive,
-                                            'text-nv-light-accent' : !Dark.isActive
-                                        }"
-                                        >
-                                        {{ card.name }}
-                                    </h5>
-                                    <p
-                                        :class="{
-                                            'text-nv-light-tertiary' : Dark.isActive,
-                                            'text-nv-light-accent' : !Dark.isActive
-                                        }"
-                                        class="no-margin fs-13 q-mt-xs text-light">
-                                        {{ card.user }}
-                                    </p>
+                                    <div class="ml-15">
+                                        <h5
+                                            class="no-margin text-light fs-17"
+                                            :class="{
+                                                'text-nv-light' : Dark.isActive,
+                                                'text-nv-light-accent' : !Dark.isActive
+                                            }"
+                                            >
+                                            {{ card.name }}
+                                        </h5>
+                                        <p
+                                            :class="{
+                                                'text-nv-light-tertiary' : Dark.isActive,
+                                                'text-nv-light-accent' : !Dark.isActive
+                                            }"
+                                            class="no-margin fs-13 q-mt-xs text-light">
+                                            {{ card.user }}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div
-                                :class="{
-                                    'text-nv-light' : Dark.isActive,
-                                    'text-nv-light-accent' : !Dark.isActive
-                                }"
-                                class="wp-30 flex items-center justify-end fs-17">
-                                {{ HideText(viewBalance, '$'.concat(card.quantity)) }}
-                            </div>
-                        </q-card-section>
-                    </q-card>
-                </q-scroll-area>
-            </div>
+                                <div
+                                    :class="{
+                                        'text-nv-light' : Dark.isActive,
+                                        'text-nv-light-accent' : !Dark.isActive
+                                    }"
+                                    class="wp-30 flex items-center justify-end fs-17">
+                                    {{ HideText(viewBalance, '$'.concat(card.quantity)) }}
+                                </div>
+                            </q-card-section>
+                        </q-card>
+                    </q-scroll-area>
+                </q-tab-panel>
 
-            <div v-show="tab === 'wallets'" style="height: 75.3vh !important;">
+                <q-tab-panel
+                    class="no-margin pb-30 q-px-none no-scroll hp-100"
+                    name="wallets"
+                >
                 <q-scroll-area
                     :thumb-style="{
                         right: '0px',
@@ -200,7 +218,7 @@
                         width: '3px',
                         opacity: '0.4'
                     }"
-                    class="q-mb-none q-mx-none q-mt-md hp-100"
+                    class="no-margin no-padding hp-100"
                 >
                     <q-scroll-observer @scroll="onScroll" />
                     <q-card
@@ -208,7 +226,7 @@
                         :key="index"
                         flat
                         @click="$router.push(`/currency/${currency.acronym}`)"
-                        class="mb-10 mt-8 br-20 py-5 cursor-pointer"
+                        class="mb-10 br-20 py-5 cursor-pointer"
                         :class="`bg-nv-${GetSuffix('tertiary')}-opacity`"
                     >
                         <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
@@ -256,14 +274,15 @@
                         </q-card-section>
                     </q-card>
                 </q-scroll-area>
-            </div>
+                </q-tab-panel>
+            </q-tab-panels>
         </div>
     </q-page>
 </template>
 
 <script lang="ts" setup>
 import { Screen, Dark } from 'quasar';
-import { computed, ref } from 'vue';
+import { computed, ref, reactive, onUnmounted } from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { useSettingsStore } from 'stores/settings';
 import HideText from '../../app/shared/helpers/HideText';
@@ -274,6 +293,10 @@ const settingsStore = useSettingsStore();
 const $router: Router = useRouter();
 
 const search = ref<string>('');
+const screenSize = reactive({
+    height: 0,
+    width: 0
+});
 const onFocus = ref<boolean>(false);
 const tab = ref<string>('cards');
 
@@ -380,6 +403,12 @@ const onScroll = (info: any) =>
     }
 };
 
+const onResize = (): void =>
+{
+    screenSize.height = window.innerHeight;
+    screenSize.width = window.innerWidth;
+};
+
 
 // LIFECYCLE HOOKS
 if ($router.currentRoute.value.query.tab)
@@ -391,6 +420,17 @@ if ($router.currentRoute.value.query.tab)
         }
     });
 }
+
+onResize();
+window.addEventListener('resize', onResize, { passive: true });
+
+onUnmounted(() =>
+{
+    if (typeof window !== 'undefined')
+    {
+        window.removeEventListener('resize', onResize, true);
+    }
+});
 
 settingsStore.setShowMobileMenu(true);
 </script>
