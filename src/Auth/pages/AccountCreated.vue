@@ -8,24 +8,24 @@
         }"
     >
     <q-scroll-area
-                    :thumb-style="{
-                        right: '0px',
-                        borderRadius: '9px',
-                        backgroundColor: `${
-                            Dark.isActive ? '#016608' : '#52B301'
-                        }`,
-                        width: '3px',
-                        opacity: '0.7'
-                    }"
-                    :barStyle="{
-                        right: '0px',
-                        borderRadius: '5px',
-                        backgroundColor: '#C4C4C4',
-                        width: '3px',
-                        opacity: '0.4'
-                    }"
-                    class="no-margin hp-100"
-                >
+       :thumb-style="{
+            right: '0px',
+            borderRadius: '9px',
+            backgroundColor: `${
+                Dark.isActive ? '#016608' : '#52B301'
+            }`,
+            width: '3px',
+            opacity: '0.7'
+        }"
+        :barStyle="{
+            right: '0px',
+            borderRadius: '5px',
+            backgroundColor: '#C4C4C4',
+            width: '3px',
+            opacity: '0.4'
+        }"
+        class="no-margin hp-100"
+    >
         <div
             :class="{
                 'wp-40' : !isMobile

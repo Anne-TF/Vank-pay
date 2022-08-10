@@ -174,12 +174,14 @@ import EncodeText from '../../app/shared/helpers/EncodeText';
 import { useAuthStore } from 'stores/auth';
 import { useSettingsStore } from 'stores/settings';
 import CopyClipboard from 'src/app/shared/helpers/CopyClipboard';
+import { useI18n } from 'vue-i18n';
 
 // CONSTANTS
 const $q = useQuasar();
 const authStore = useAuthStore();
 const settingsStore = useSettingsStore();
 const editName = ref<boolean>(false);
+const { t } = useI18n({ useScope: 'global' });
 
 // COMPUTEDS
 
@@ -209,7 +211,7 @@ const copy = async(value: string): Promise<void> =>
 
     $q.notify({
         position: isMobile.value ? 'bottom' : 'top-right',
-        message: 'Copiado en el clipboard',
+        message: t('settings.copiedToClipboard'),
         textColor: Dark.isActive ? 'nv-dark-accent' : 'nv-light-accent',
         color: Dark.isActive ? 'nv-dark' : 'nv-light',
         icon: 'verified'

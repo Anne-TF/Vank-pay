@@ -156,9 +156,11 @@ import { useAuthStore } from 'stores/auth';
 import { Router, useRouter } from 'vue-router';
 import { useSettingsStore } from 'stores/settings';
 import CopyClipboard from 'src/app/shared/helpers/CopyClipboard';
+import { useI18n } from 'vue-i18n';
 
 const $q = useQuasar();
 const $router: Router = useRouter();
+const { t } = useI18n({ useScope: 'global' });
 
 // CONSTANTS
 const authStore = useAuthStore();
@@ -211,7 +213,7 @@ const copy = async(value: string): Promise<void> =>
 
     $q.notify({
         position: isMobile.value ? 'bottom' : 'top-right',
-        message: 'Copiado en el clipboard',
+        message: t('settings.copiedToClipboard'),
         textColor: Dark.isActive ? 'nv-dark-accent' : 'nv-light-accent',
         color: Dark.isActive ? 'nv-dark' : 'nv-light',
         icon: 'verified'

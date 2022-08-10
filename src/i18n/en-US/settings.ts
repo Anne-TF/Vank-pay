@@ -55,5 +55,6 @@ export default {
         currPass: 'Current password'
     },
     logout: 'Log out',
-    dontShareYourAccount: 'Do not share your Google Authenticator or SMS code with anyone, including Qoripay customer support staff.'
+    dontShareYourAccount: 'Do not share your Google Authenticator or SMS code with anyone, including Qoripay customer support staff.',
+    copiedToClipboard: 'Copied to clipboard.'
 };
