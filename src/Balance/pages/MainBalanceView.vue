@@ -1,49 +1,99 @@
 <template>
     <q-page
         :class="{
-            'q-py-md' : isMobile
+            'q-py-md' : isMobile,
+            'bg-nv-ultra-dark flex flex-center' : !isMobile
         }"
         style="height: 100vh;"
-        class="flex column justify-between">
-        <div style="height: 15vh;">
-            <div
-                :class="{
-                    'pt-20 flex items-center q-px-lg' : isMobile,
-                }"
-            >
-                {{ $t('balance.totalBalance') }}
-                <q-icon
-                    @click="changeViewBalance()"
-                    class="fs-20 ml-5 mb-8"
-                    :name="`img:icons/${getIcon}.svg`"
-                />
-                <h4
-                    class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
+        >
+
+        <q-card
+            :class="{
+                'no-padding flex column justify-between' : isMobile,
+                'bg-nv-dark' : Dark.isActive,
+                'bg-nv-light' : !Dark.isActive,
+                'br-18 q-pa-xl' : !isMobile,
+                'wp-55' : Screen.gt.md,
+                'wp-60' : Screen.md,
+                'wp-100' : isMobile
+            }"
+            :style="`${ !isMobile ? 'height: 80vh !important;' : '' }`"
+            flat
+            class="no-margin  hp-100">
+            <div :style="`${ isMobile ? 'height: 15vh;' : '' }`">
+                <div
                     :class="{
-                        'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive
+                        'pt-20 flex items-center q-px-lg' : isMobile,
+                        'flex justify-end' : !isMobile
                     }"
                 >
-                    {{ HideText(viewBalance, '$'.concat(getBalance)) }}
-                </h4>
+                    {{ $t('balance.totalBalance') }}
+                    <q-icon
+                        @click="changeViewBalance()"
+                        class="fs-20 ml-5 mb-8"
+                        :name="`img:icons/${getIcon}.svg`"
+                    />
+                    <h4
+                        class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
+                        :class="{
+                            'text-nv-light' : Dark.isActive,
+                            'text-nv-dark' : !Dark.isActive,
+                            'text-right' : !isMobile
+                        }"
+                    >
+                        {{ HideText(viewBalance, '$'.concat(getBalance)) }}
+                    </h4>
+                </div>
+
+                <q-separator
+                    size="0.3em"
+                    :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'"
+                    class="mt-20"
+                    :class="{
+                        'mb-20' : !isMobile
+                    }"
+                />
             </div>
 
-            <q-separator size="0.3em" :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'" class="mt-20" />
-        </div>
+            <div
+                :class="{
+                    'q-px-lg' : isMobile,
+                    'hp-82' : !isMobile
+                }"
+                :style="`${
+                    isMobile ? `height: ${isMobile && screenSize.height > 667 ? (isMobile && screenSize.height > 760 ? '80' : '79') : '75'}vh; contain: content;`
+                    : ''
+                }`"
 
-        <div
-            :class="{
-                'q-px-lg' : isMobile
-            }"
-            class="no-margin"
-            :style="`height: ${isMobile && screenSize.height > 667 ? (isMobile && screenSize.height > 760 ? '80' : '79') : '75'}vh; contain: content;`"
-        >
-            <div class="flex justify-between mb-10">
-                <div class="flex flex-inline justify-start">
-                    <div
-                        :class="`
+                class="no-margin"
+            >
+                <div class="flex justify-between mb-10">
+                    <div class="flex flex-inline justify-start">
+                        <div
+                            :class="`
+                                ${
+                                    tab === 'cards'
+                                    ? `bg-nv-${GetSuffix('secondary')}
+                                    ${!Dark.isActive ? 'text-nv-light-accent' : 'text-white'}`
+                                    : `text-nv-${GetSuffix(
+                                        `${
+                                            !Dark.isActive
+                                            ? 'tertiary'
+                                            : 'secondary'
+                                        }`
+                                    )}`
+                                }
+                            `"
+                            class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
+                            @click="changeView('cards')"
+                        >
+                            {{ $t('balance.cards') }}
+                        </div>
+
+                        <div
+                            :class="`
                             ${
-                                tab === 'cards'
+                                tab === 'wallets'
                                 ? `bg-nv-${GetSuffix('secondary')}
                                 ${!Dark.isActive ? 'text-nv-light-accent' : 'text-white'}`
                                 : `text-nv-${GetSuffix(
@@ -55,228 +105,236 @@
                                 )}`
                             }
                         `"
-                        class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
-                        @click="changeView('cards')"
-                    >
-                        {{ $t('balance.cards') }}
+                            class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
+                            @click="changeView('wallets')"
+                        >
+                                    {{ $t('balance.wallets') }}
+                        </div>
                     </div>
 
-                    <div
-                        :class="`
-                        ${
-                            tab === 'wallets'
-                            ? `bg-nv-${GetSuffix('secondary')}
-                            ${!Dark.isActive ? 'text-nv-light-accent' : 'text-white'}`
-                            : `text-nv-${GetSuffix(
-                                `${
-                                    !Dark.isActive
-                                    ? 'tertiary'
-                                    : 'secondary'
-                                }`
-                            )}`
-                        }
-                    `"
-                        class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
-                        @click="changeView('wallets')"
-                     >
-                                {{ $t('balance.wallets') }}
-                    </div>
+                    <q-input
+                        outlined
+                        v-model="search"
+                        @focus="onFocus = true"
+                        @blur="onFocus = false"
+                        :class="{
+                            'wp-35' : !onFocus,
+                            'wp-40' : onFocus,
+                            'ultra-dense-input--dark' : Dark.isActive,
+                            'ultra-dense-input--light' : !Dark.isActive
+                        }"
+                        color="transparent"
+                        rounded
+                    >
+                    <template v-slot:prepend>
+                        <span
+                            class="iconify fs-18"
+                            :class="{
+                                'text-nv-dark' : !Dark.isActive
+                            }"
+                            data-icon="arcticons:xiaoyuan-search"></span>
+                    </template>
+                    </q-input>
                 </div>
 
-                <q-input
-                    outlined
-                    v-model="search"
-                    @focus="onFocus = true"
-                    @blur="onFocus = false"
-                    :class="{
-                        'wp-35' : !onFocus,
-                        'wp-40' : onFocus,
-                        'ultra-dense-input--dark' : Dark.isActive,
-                        'ultra-dense-input--light' : !Dark.isActive
-                    }"
-                    color="transparent"
-                    rounded
-                >
-                <template v-slot:prepend>
-                    <span
-                        class="iconify fs-18"
-                        :class="{
-                            'text-nv-dark' : !Dark.isActive
-                        }"
-                        data-icon="arcticons:xiaoyuan-search"></span>
-                </template>
-                </q-input>
-            </div>
+                <q-tab-panels
+                    :class="`bg-nv-${Dark.isActive ? 'dark' : 'light'} text-nv-light-tertiary`"
+                    v-model="tab"
+                    swipeable
+                    class="hp-100 no-margin no-padding"
+                    animated>
 
-            <q-tab-panels
-                :class="`bg-nv-${Dark.isActive ? 'dark' : 'light'} text-nv-light-tertiary`"
-                v-model="tab"
-                swipeable
-                class="hp-100 no-margin no-padding"
-                animated>
-
-                <q-tab-panel
-                    class="no-margin pb-30 q-px-none no-scroll hp-100"
-                    name="cards"
-                >
-                    <q-scroll-area
-                        :thumb-style="{
-                            right: '0px',
-                            borderRadius: '9px',
-                            backgroundColor: `${
-                                Screen.lt.md ? 'transparent' : (Dark.isActive ? '#016608' : '#52B301')
-                            }`,
-                            width: '3px',
-                            opacity: '0.7'
-                        }"
-                        :barStyle="{
-                            right: '0px',
-                            borderRadius: '5px',
-                            backgroundColor: `
-                                ${ Screen.lt.md ? 'transparent' : '#C4C4C4' }
-                            `,
-                            width: '3px',
-                            opacity: '0.4'
-                        }"
-                        class="no-margin no-padding hp-100"
+                    <q-tab-panel
+                        class="no-margin pb-30 q-px-none no-scroll hp-100"
+                        name="cards"
                     >
-                        <q-scroll-observer @scroll="onScroll" />
-                        <q-card
-                            v-for="(card, index) in cards"
-                            :key="index"
-                            flat
-                            class="mb-10 mt-8 br-20 py-5 cursor-pointer"
-                            @click="$router.push(`/cards/${card.name.replace(' ', '-')}`)"
-                            :class="`bg-nv-${GetSuffix('tertiary')}-opacity`"
+                        <q-scroll-area
+                            :thumb-style="{
+                                right: '0px',
+                                borderRadius: '9px',
+                                backgroundColor: `${
+                                    Screen.lt.md ? 'transparent' : (Dark.isActive ? '#016608' : '#52B301')
+                                }`,
+                                width: '3px',
+                                opacity: '0.7'
+                            }"
+                            :barStyle="{
+                                right: '0px',
+                                borderRadius: '5px',
+                                backgroundColor: `
+                                    ${ Screen.lt.md ? 'transparent' : '#C4C4C4' }
+                                `,
+                                width: '3px',
+                                opacity: '0.4'
+                            }"
+                            class="no-margin no-padding hp-100"
                         >
-                            <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
-                                <div class="flex flex-inline wp-70">
-                                    <q-avatar
-                                        size="3.9em"
-                                        :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
-                                    >
-                                        <q-icon
-                                            size="1.5em"
-                                            v-show="card.type === 'VISA'"
-                                            :name="`img:icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
-                                    </q-avatar>
-
-                                    <div class="ml-15">
-                                        <h5
-                                            class="no-margin text-light fs-17"
-                                            :class="{
-                                                'text-nv-light' : Dark.isActive,
-                                                'text-nv-light-accent' : !Dark.isActive
-                                            }"
-                                            >
-                                            {{ card.name }}
-                                        </h5>
-                                        <p
-                                            :class="{
-                                                'text-nv-light-tertiary' : Dark.isActive,
-                                                'text-nv-light-accent' : !Dark.isActive
-                                            }"
-                                            class="no-margin fs-13 q-mt-xs text-light">
-                                            {{ card.user }}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div
-                                    :class="{
-                                        'text-nv-light' : Dark.isActive,
-                                        'text-nv-light-accent' : !Dark.isActive
-                                    }"
-                                    class="wp-30 flex items-center justify-end fs-17">
-                                    {{ HideText(viewBalance, '$'.concat(card.quantity)) }}
-                                </div>
-                            </q-card-section>
-                        </q-card>
-                    </q-scroll-area>
-                </q-tab-panel>
-
-                <q-tab-panel
-                    class="no-margin pb-30 q-px-none no-scroll hp-100"
-                    name="wallets"
-                >
-                <q-scroll-area
-                    :thumb-style="{
-                        right: '0px',
-                        borderRadius: '9px',
-                        backgroundColor: `${
-                            Screen.lt.md ? 'transparent' : (Dark.isActive ? '#016608' : '#52B301')
-                        }`,
-                        width: '3px',
-                        opacity: '0.7'
-                    }"
-                    :barStyle="{
-                        right: '0px',
-                        borderRadius: '5px',
-                        backgroundColor: `
-                            ${ Screen.lt.md ? 'transparent' : '#C4C4C4' }
-                        `,
-                        width: '3px',
-                        opacity: '0.4'
-                    }"
-                    class="no-margin no-padding hp-100"
-                >
-                    <q-scroll-observer @scroll="onScroll" />
-                    <q-card
-                        v-for="(currency, index) in wallets"
-                        :key="index"
-                        flat
-                        @click="$router.push(`/currency/${currency.acronym}`)"
-                        class="mb-10 br-20 py-5 cursor-pointer"
-                        :class="`bg-nv-${GetSuffix('tertiary')}-opacity`"
-                    >
-                        <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
-                            <div class="flex flex-inline wp-70">
-                                <q-avatar
-                                    size="3.9em"
-                                    :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
-                                >
-                                    <span
-                                        :class="{ 'text-nv-light-accent' : !Dark.isActive }"
-                                        class="fs-15">
-                                        {{ currency.acronym }}
-                                    </span>
-                                </q-avatar>
-
-                                <div class="ml-15">
-                                    <h5
-                                        class="no-margin text-medium fs-17"
-                                        :class="{
-                                            'text-nv-light' : Dark.isActive,
-                                            'text-nv-dark' : !Dark.isActive
-                                        }"
-                                        >
-                                        {{ currency.acronym }}
-                                    </h5>
-                                    <p
-                                        :class="{
-                                            'text-nv-light-tertiary' : Dark.isActive,
-                                            'text-nv-light-accent' : !Dark.isActive
-                                        }"
-                                        class="no-margin fs-13 q-mt-xs text-light">
-                                        {{ currency.name }}
-                                    </p>
-                                </div>
-                            </div>
-
+                            <q-scroll-observer @scroll="onScroll" />
                             <div
                                 :class="{
-                                    'text-nv-light' : Dark.isActive,
-                                    'text-nv-light-accent' : !Dark.isActive
+                                    'flex flex-inline q-gutter-x-md' : !isMobile,
+                                    'justify-between' : Screen.md
                                 }"
-                                class="wp-30 flex items-center justify-end fs-17">
-                                {{ HideText(viewBalance, '$'.concat(currency.quantity)) }}
+                            >
+                                <q-card
+                                    v-for="(card, index) in cards"
+                                    :key="index"
+                                    flat
+                                    class="mb-10 mt-8 br-20 py-5 cursor-pointer"
+                                    @click="$router.push(`/cards/${card.name.replace(' ', '-')}`)"
+                                    :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.md ? 'wp-35' : 'wp-45') : '' }`"
+                                >
+                                    <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
+                                        <div
+                                            :class="{
+                                                'wp-100' : !isMobile,
+                                                'wp-70' : isMobile
+                                            }"
+                                            class="flex flex-inline">
+                                            <q-avatar
+                                                size="3.9em"
+                                                :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
+                                            >
+                                                <q-icon
+                                                    size="1.5em"
+                                                    v-show="card.type === 'VISA'"
+                                                    :name="`img:icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
+                                            </q-avatar>
+
+                                            <div class="ml-15">
+                                                <h5
+                                                    class="no-margin text-light fs-17"
+                                                    :class="{
+                                                        'text-nv-light' : Dark.isActive,
+                                                        'text-nv-light-accent' : !Dark.isActive
+                                                    }"
+                                                    >
+                                                    {{ card.name }}
+                                                </h5>
+                                                <p
+                                                    :class="{
+                                                        'text-nv-light-tertiary' : Dark.isActive,
+                                                        'text-nv-light-accent' : !Dark.isActive
+                                                    }"
+                                                    class="no-margin fs-13 q-mt-xs text-light">
+                                                    {{ card.user }}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            :class="{
+                                                'text-nv-light' : Dark.isActive,
+                                                'text-nv-light-accent' : !Dark.isActive,
+                                                'wp-30 flex items-center justify-end' : isMobile,
+                                                'wp-100 text-right mt-40' : !isMobile
+                                            }"
+                                            class="fs-17">
+                                            {{ HideText(viewBalance, '$'.concat(card.quantity)) }}
+                                        </div>
+                                    </q-card-section>
+                                </q-card>
                             </div>
-                        </q-card-section>
-                    </q-card>
-                </q-scroll-area>
-                </q-tab-panel>
-            </q-tab-panels>
-        </div>
+                        </q-scroll-area>
+                    </q-tab-panel>
+
+                    <q-tab-panel
+                        class="no-margin pb-30 q-px-none no-scroll hp-100"
+                        name="wallets"
+                    >
+                        <q-scroll-area
+                            :thumb-style="{
+                                right: '0px',
+                                borderRadius: '9px',
+                                backgroundColor: `${
+                                    Screen.lt.md ? 'transparent' : (Dark.isActive ? '#016608' : '#52B301')
+                                }`,
+                                width: '3px',
+                                opacity: '0.7'
+                            }"
+                            :barStyle="{
+                                right: '0px',
+                                borderRadius: '5px',
+                                backgroundColor: `
+                                    ${ Screen.lt.md ? 'transparent' : '#C4C4C4' }
+                                `,
+                                width: '3px',
+                                opacity: '0.4'
+                            }"
+                            class="no-margin no-padding hp-100"
+                        >
+                            <q-scroll-observer @scroll="onScroll" />
+                            <div
+                                :class="{
+                                    'flex flex-inline q-gutter-x-md justify-around' : !isMobile,
+                                    'justify-between' : Screen.md
+                                }"
+                            >
+                                <q-card
+                                    v-for="(currency, index) in wallets"
+                                    :key="index"
+                                    flat
+                                    @click="$router.push(`/currency/${currency.acronym}`)"
+                                    class="mb-10 br-20 py-5 cursor-pointer"
+                                    :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.md ? 'wp-31' : 'wp-45') : '' }`"
+                                >
+                                    <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
+                                        <div
+                                            :class="{
+                                                'wp-100' : !isMobile,
+                                                'wp-70' : isMobile
+                                            }"
+                                            class="flex flex-inline">
+                                            <q-avatar
+                                                size="3.9em"
+                                                :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
+                                            >
+                                                <span
+                                                    :class="{ 'text-nv-light-accent' : !Dark.isActive }"
+                                                    class="fs-15">
+                                                    {{ currency.acronym }}
+                                                </span>
+                                            </q-avatar>
+
+                                            <div class="ml-15">
+                                                <h5
+                                                    class="no-margin text-medium fs-17"
+                                                    :class="{
+                                                        'text-nv-light' : Dark.isActive,
+                                                        'text-nv-dark' : !Dark.isActive
+                                                    }"
+                                                    >
+                                                    {{ currency.acronym }}
+                                                </h5>
+                                                <p
+                                                    :class="{
+                                                        'text-nv-light-tertiary' : Dark.isActive,
+                                                        'text-nv-light-accent' : !Dark.isActive
+                                                    }"
+                                                    class="no-margin fs-13 q-mt-xs text-light">
+                                                    {{ currency.name }}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            :class="{
+                                                'text-nv-light' : Dark.isActive,
+                                                'text-nv-light-accent' : !Dark.isActive,
+                                                'wp-30 flex items-center justify-end' : isMobile,
+                                                'wp-100 text-right mt-40' : !isMobile
+                                            }"
+                                            class="fs-17">
+                                            {{ HideText(viewBalance, '$'.concat(currency.quantity)) }}
+                                        </div>
+                                    </q-card-section>
+                                </q-card>
+                            </div>
+                        </q-scroll-area>
+                    </q-tab-panel>
+                </q-tab-panels>
+            </div>
+        </q-card>
     </q-page>
 </template>
 
