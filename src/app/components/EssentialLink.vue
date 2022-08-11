@@ -91,11 +91,13 @@ import { Dark, Screen, useQuasar } from 'quasar';
 import { useAuthStore } from 'stores/auth';
 import { computed } from 'vue';
 import CopyClipboard from '../shared/helpers/CopyClipboard';
+import { useI18n } from 'vue-i18n';
 
 // STORES
 const authStore = useAuthStore();
 
 // CONSTANTS
+const { t } = useI18n({ useScope: 'global' });
 const options = <{key: string, icon: string, to: string}[]>[
     {
         key: 'settings.paymentMethods.title',
@@ -136,7 +138,8 @@ const copy = async(value: string): Promise<void> =>
         message: t('settings.copiedToClipboard'),
         textColor: Dark.isActive ? 'nv-dark-accent' : 'nv-light-accent',
         color: Dark.isActive ? 'nv-dark' : 'nv-light',
-        icon: 'verified'
+        icon: 'verified',
+        progress: true
     });
 };
 </script>

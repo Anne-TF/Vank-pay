@@ -216,7 +216,8 @@ const copy = async(value: string): Promise<void> =>
         message: t('settings.copiedToClipboard'),
         textColor: Dark.isActive ? 'nv-dark-accent' : 'nv-light-accent',
         color: Dark.isActive ? 'nv-dark' : 'nv-light',
-        icon: 'verified'
+        icon: 'verified',
+        progress: true
     });
 };
 </script>
