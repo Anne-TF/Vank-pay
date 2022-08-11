@@ -12,19 +12,19 @@
                 'no-padding flex column justify-between' : isMobile,
                 'bg-nv-dark' : Dark.isActive,
                 'bg-nv-light' : !Dark.isActive,
-                'br-18 q-pa-xl' : !isMobile,
+                'br-18' : !isMobile,
                 'wp-55' : Screen.gt.md,
                 'wp-60' : Screen.md,
                 'wp-100' : isMobile
             }"
-            :style="`${ !isMobile ? 'height: 80vh !important;' : '' }`"
+            :style="`${ !isMobile ? 'height: 80vh !important; contain: content;' : '' }`"
             flat
             class="no-margin  hp-100">
             <div :style="`${ isMobile ? 'height: 15vh;' : '' }`">
                 <div
                     :class="{
                         'pt-20 flex items-center q-px-lg' : isMobile,
-                        'flex justify-end' : !isMobile
+                        'flex justify-end q-px-xl q-pt-xl' : !isMobile
                     }"
                 >
                     {{ $t('balance.totalBalance') }}
@@ -57,13 +57,13 @@
 
             <div
                 :class="{
-                    'hp-82' : !isMobile
+                    'hp-82 q-px-xl pb-90' : !isMobile
                 }"
                 :style="`${
-                    isMobile ? `height: ${isMobile && screenSize.height > 667 ? (isMobile && screenSize.height > 760 ? '80' : '79') : '75'}vh; contain: content;`
+                    isMobile ? `height: ${isMobile && screenSize.height > 667 ? (isMobile && screenSize.height > 760 ? '80' : '79') : '74'}vh;`
                     : ''
                 }`"
-
+                style="contain: content !important;"
                 class="no-margin"
             >
                 <div

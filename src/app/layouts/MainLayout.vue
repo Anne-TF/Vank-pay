@@ -1,36 +1,155 @@
 <template>
     <q-layout view="lHh Lpr lFf">
-        <!-- <q-header elevated>
-            <q-toolbar>
+        <q-header
+            v-if="!isMobile"
+            :class="{
+                'bg-nv-dark' : dark.isActive,
+                'bg-nv-light' : !dark.isActive
+            }"
+        >
+            <q-toolbar class="q-py-xs">
                 <q-btn
                     flat
                     dense
                     round
-                    icon="menu"
+                    size="3vh"
+                    :icon="`img:icons/menu-${dark.isActive ? 'dark' : 'light'}.svg`"
                     aria-label="Menu"
                     @click="toggleLeftDrawer"
                 />
+                <q-space />
+                <div
+                    style="min-height: 42px; max-height: 42px; width: 42px;"
+                    class="flex items-center no-padding justify-center br-8 q-mr-md"
+                    :style="`
+                        ${
+                            getRoute === '/' && dark.isActive ?
+                            'background-color: #29313C' : (getRoute === '/' ? 'background-color: #EBECF0' : '')
+                        }`"
+                    >
+                     <q-icon
+                        size="1.8em"
+                        name="fa-solid fa-wallet"
+                        :class="{
+                            'text-white' : getRoute === '/' && dark.isActive,
+                            'text-nv-dark' : getRoute === '/' && !dark.isActive,
+                        }"
+                    />
+                </div>
 
-                <q-toolbar-title> Quasar App </q-toolbar-title>
-
-                <div>Quasar v{{ version }}</div>
                 <div>
-                    <q-toggle :model-value="dark.isActive" @update:model-value="switchMode" />
+                    <q-icon
+                        class="cursor-pointer"
+                        v-show="!showDesktopMenu"
+                        :name="`img:icons/transfer-${getIconSuffix}.svg`"
+                        size="4em"
+                    />
+
+                    <q-icon
+                        v-show="showDesktopMenu"
+                        size="4em"
+                        :name="`img:icons/close-${getIconSuffix}.svg`"
+                    />
+
+                    <q-menu v-model="showDesktopMenu" :offset="[0, 15]" style="border-radius: 10px !important;">
+                        <q-card
+                            :class="{
+                                'bg-nv-dark' : dark.isActive,
+                                'bg-nv-light' : !dark.isActive
+                            }"
+                            class="q-pa-lg br-10 wp-100"
+                            style="
+                                height: 20em !important;
+                            "
+                        >
+                            <div class="flex flex-inline items-center q-mb-sm">
+                                <q-icon size="3em" :name="`img:icons/deposit-${getIconSuffix}.svg`" />
+                                <div class="q-ml-md">
+                                    <h5
+                                        :class="{
+                                            'text-white' : dark.isActive,
+                                            'text-nv-light-accent' : !dark.isActive
+                                        }"
+                                        style="letter-spacing: 2px;"
+                                        class="no-margin fs-18">
+                                        {{ $t('buttons.deposit.title') }}
+                                    </h5>
+                                    <p
+                                        :class="{
+                                            'text-white' : dark.isActive,
+                                            'text-nv-light-accent' : !dark.isActive
+                                        }"
+                                        class="q-mt-sm fs-12 text-light q-mb-none">
+                                        {{ $t('buttons.deposit.caption') }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                                <q-icon size="3em" :name="`img:icons/withdraw-${getIconSuffix}.svg`" />
+                                <div class="q-ml-md">
+                                    <h5
+                                        :class="{
+                                            'text-white' : dark.isActive,
+                                            'text-nv-light-accent' : !dark.isActive
+                                        }"
+                                        style="letter-spacing: 2px;"
+                                        class="no-margin fs-18">
+                                        {{ $t('buttons.withdraw.title') }}
+                                    </h5>
+                                    <p
+                                        :class="{
+                                            'text-white' : dark.isActive,
+                                            'text-nv-light-accent' : !dark.isActive
+                                        }"
+                                        class="q-mt-sm text-light fs-12 no-margin">
+                                        {{ $t('buttons.withdraw.caption') }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                                <q-icon size="3em" :name="`img:icons/p2p-${getIconSuffix}.svg`" />
+                                    <div class="q-ml-md">
+                                        <h5
+                                            :class="{
+                                                'text-white' : dark.isActive,
+                                                'text-nv-light-accent' : !dark.isActive
+                                            }"
+                                            style="letter-spacing: 2px;"
+                                            class="no-margin fs-18">
+                                            {{ $t('buttons.sendMoney.title') }}
+                                        </h5>
+                                        <p
+                                            :class="{
+                                                'text-white' : dark.isActive,
+                                                'text-nv-light-accent' : !dark.isActive
+                                            }"
+                                            class="q-mt-sm text-light fs-12 no-margin">
+                                            {{ $t('buttons.sendMoney.caption') }}
+                                        </p>
+                                    </div>
+                            </div>
+                        </q-card>
+                    </q-menu>
                 </div>
             </q-toolbar>
         </q-header>
 
-        <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-            <q-list>
-                <q-item-label header> Essential Links </q-item-label>
-
-                <EssentialLink
-                    v-for="link in linksList"
-                    :key="link.title"
-                    v-bind="link"
-                />
+        <q-drawer
+            :class="{
+                'bg-nv-dark' : dark.isActive,
+                'bg-nv-light' : !dark.isActive
+            }"
+            v-model="leftDrawerOpen"
+            :width="400"
+            show-if-above>
+            <div class="flex justify-center q-py-md">
+                <Logo :size="'8vh'" />
+            </div>
+            <q-list class="q-mt-sm">
+                <EssentialLink />
             </q-list>
-        </q-drawer> -->
+        </q-drawer>
 
         <q-page-container>
             <q-scroll-observer @scroll="handleScroll" />
@@ -88,7 +207,6 @@
                     class=" q-py-sm q-px-lg menu flex"
                 >
                     <!-- PAY OPTIONS -->
-
                     <div v-show="showMenu">
                         <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
                             <q-icon size="3.5em" :name="`img:icons/deposit-${getIconSuffix}.svg`" />
@@ -235,6 +353,7 @@ import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import GetSuffix from '../shared/helpers/GetSuffix';
 import { useSettingsStore } from 'stores/settings';
+import Logo from '../components/Logo.vue';
 
 const { version } = useQuasar();
 const { dark } = useQuasar();
@@ -279,6 +398,7 @@ const leftDrawerOpen = ref<boolean>(false);
 const showMobileMenu = ref<boolean>(true);
 const morphGroupModel = ref('menu');
 const showMenu = ref(false);
+const showDesktopMenu = ref(false);
 
 const toggleLeftDrawer = () =>
 {
@@ -385,5 +505,18 @@ const floatingMenu = computed(() => process.env.FLOATING_MENU === 'true');
 
 .enter--menu {
     height: 40vh;
+}
+
+.enter--menu-desktop {
+    height: 28em;
+}
+
+.leave--menu-desktop {
+    height: 0em;
+}
+
+.menu-desktop {
+    height: 0em;
+    transition: height 0.8s linear;
 }
 </style>
