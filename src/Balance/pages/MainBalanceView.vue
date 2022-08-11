@@ -13,7 +13,7 @@
                 'bg-nv-dark' : Dark.isActive,
                 'bg-nv-light' : !Dark.isActive,
                 'br-18' : !isMobile,
-                'wp-55' : Screen.gt.md,
+                'wp-59' : Screen.gt.md,
                 'wp-60' : Screen.md,
                 'wp-100' : isMobile
             }"
@@ -188,7 +188,7 @@
                                     flat
                                     class="mb-10 br-20 py-5 cursor-pointer"
                                     @click="$router.push(`/cards/${card.name.replace(' ', '-')}`)"
-                                    :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.md ? 'wp-35' : 'wp-45') : '' }`"
+                                    :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.lg ? 'wp-30' : 'wp-45') : '' }`"
                                 >
                                     <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
                                         <div
@@ -198,7 +198,7 @@
                                             }"
                                             class="flex flex-inline">
                                             <q-avatar
-                                                size="3.9em"
+                                                :size="Screen.gt.sm ? '3em' : '3.9em'"
                                                 :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
                                             >
                                                 <q-icon
@@ -209,10 +209,12 @@
 
                                             <div class="ml-15">
                                                 <h5
-                                                    class="no-margin text-light fs-17"
+                                                    class="no-margin text-light"
                                                     :class="{
                                                         'text-nv-light' : Dark.isActive,
-                                                        'text-nv-light-accent' : !Dark.isActive
+                                                        'text-nv-light-accent' : !Dark.isActive,
+                                                        'fs-16' : Screen.gt.sm,
+                                                        'fs-17' : Screen.lt.md
                                                     }"
                                                     >
                                                     {{ card.name }}
@@ -220,9 +222,11 @@
                                                 <p
                                                     :class="{
                                                         'text-nv-light-tertiary' : Dark.isActive,
-                                                        'text-nv-light-accent' : !Dark.isActive
+                                                        'text-nv-light-accent' : !Dark.isActive,
+                                                        'fs-12' : Screen.gt.sm,
+                                                        'fs-13' : Screen.lt.md
                                                     }"
-                                                    class="no-margin fs-13 q-mt-xs text-light">
+                                                    class="no-margin q-mt-xs text-light">
                                                     {{ card.user }}
                                                 </p>
                                             </div>
@@ -285,7 +289,7 @@
                                     flat
                                     @click="$router.push(`/currency/${currency.acronym}`)"
                                     class="mb-10 br-20 py-5 cursor-pointer"
-                                    :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.md ? 'wp-31' : 'wp-45') : '' }`"
+                                    :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.md ? 'wp-30' : 'wp-45') : '' }`"
                                 >
                                     <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
                                         <div
@@ -295,7 +299,7 @@
                                             }"
                                             class="flex flex-inline">
                                             <q-avatar
-                                                size="3.9em"
+                                                :size="Screen.gt.sm ? '3em' : '3.9em'"
                                                 :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
                                             >
                                                 <span
@@ -307,10 +311,12 @@
 
                                             <div class="ml-15">
                                                 <h5
-                                                    class="no-margin text-medium fs-17"
+                                                    class="no-margin text-medium"
                                                     :class="{
                                                         'text-nv-light' : Dark.isActive,
-                                                        'text-nv-dark' : !Dark.isActive
+                                                        'text-nv-dark' : !Dark.isActive,
+                                                        'fs-16' : Screen.gt.sm,
+                                                        'fs-17' : Screen.lt.md
                                                     }"
                                                     >
                                                     {{ currency.acronym }}
@@ -318,9 +324,11 @@
                                                 <p
                                                     :class="{
                                                         'text-nv-light-tertiary' : Dark.isActive,
-                                                        'text-nv-light-accent' : !Dark.isActive
+                                                        'text-nv-light-accent' : !Dark.isActive,
+                                                        'fs-12' : Screen.gt.sm,
+                                                        'fs-13' : Screen.lt.md
                                                     }"
-                                                    class="no-margin fs-13 q-mt-xs text-light">
+                                                    class="no-margin q-mt-xs text-light">
                                                     {{ currency.name }}
                                                 </p>
                                             </div>
