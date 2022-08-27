@@ -1,22 +1,35 @@
  <template>
-    <q-page
-        :class="{
-            'q-py-md' : isMobile
-        }"
-        style="height: 100vh;">
+    <div
+        class="q-py-md"
+        style="height: 100%;">
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg mt-25' : isMobile,
+                'mt-5 q-px-md' : !isMobile
             }"
-            class="flex flex-inline mt-25 items-center">
-            <q-icon class="cursor-pointer wp-10" @click="$router.back()" size="2em" name="arrow_back" />
+            class="flex flex-inline items-center">
+            <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
+                <q-icon
+                    color="nv-light-tertiary"
+                    @click="$router.push('/')"
+                    class="cursor-pointer"
+                    size="2em"
+                    name="cancel"
+                />
+            </div>
+            <q-icon
+                class="cursor-pointer wp-10"
+                @click="$router.back()"
+                size="2em"
+                name="arrow_back"
+            />
+
             <div class="wp-85 text-center">
                 <h5
-                    class="no-margin"
+                    class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
                         'text-nv-dark' : !Dark.isActive,
-                        'fs-18' : isMobile
                     }">
                     {{ $t('settings.security.smsAuth.verification') }}
                 </h5>
@@ -25,14 +38,15 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
             class="q-mt-lg">
             <p
-            class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between"
-        >
-            {{ $t('fields.phoneNumber') }}
-        </p>
+                class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between"
+            >
+                {{ $t('fields.phoneNumber') }}
+            </p>
             <q-input
                 rounded
                 outlined
@@ -91,7 +105,7 @@
                                     v-model="filter"
                                     :color="`nv-${GetSuffix('primary')}`"
                                     @update:model-value="onFilter"
-                                    class="wp-85 ls-2 text-regular"
+                                    class="wp-85 ls-2 text-medium"
                                    :class="{
                                         'fs-13' : isMobile,
                                         'rounded--dark-input--withAlert--space': Dark.isActive,
@@ -168,9 +182,10 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile,
+                'q-px-lg mt-40' : isMobile,
+                'mt-30 q-px-md' : !isMobile
             }"
-            class="mt-40">
+        >
             <p class="no-margin fs-14">
                 {{ $t('settings.security.smsAuth.phoneVerification') }}
             </p>
@@ -185,7 +200,12 @@
             />
 
             <div v-if="getActiveMethods.telefono">
-                <p class="mt-30 q-mb-none fs-14">
+                <p
+                    :class="{
+                        'mt-30' : isMobile,
+                        'mt-20' : !isMobile
+                    }"
+                    class="q-mb-none fs-14">
                     {{ $t('codeValidation.sendTo') }}
                     <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
                         {{ EncodeText('+'.concat(getPhone), 'phone') }}
@@ -203,7 +223,12 @@
             </div>
 
             <div v-if="getActiveMethods.correo">
-                <p class="mt-30 q-mb-none fs-14 lh-25">
+                <p
+                    :class="{
+                        'mt-30' : isMobile,
+                        'mt-20' : !isMobile
+                    }"
+                    class="q-mb-none fs-14 lh-25">
                     {{ $t('codeValidation.sendTo') }}
                     <span :class="`text-nv-${GetSuffix('accent')} q-mx-xs`">
                         {{ EncodeText(getEmail, 'email') }}
@@ -248,7 +273,7 @@
                 {{ $t('buttons.continue') }}
             </q-btn>
         </div>
-    </q-page>
+    </div>
  </template>
 
 <script lang="ts" setup>

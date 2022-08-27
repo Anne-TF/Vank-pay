@@ -1,22 +1,34 @@
  <template>
-    <q-page
-        :class="{
-            'q-py-md' : isMobile
-        }"
-        style="height: 100vh;">
+    <div
+        class="q-py-md"
+        style="height: 100% !important;">
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg mt-25' : isMobile,
+                'mt-5 q-px-md' : !isMobile
             }"
-            class="flex flex-inline mt-25 items-center">
-            <q-icon class="cursor-pointer wp-10" @click="$router.back()" size="2em" name="arrow_back" />
+            class="flex flex-inline items-center">
+            <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
+                <q-icon
+                    color="nv-light-tertiary"
+                    @click="$router.push('/')"
+                    class="cursor-pointer"
+                    size="2em"
+                    name="cancel"
+                />
+            </div>
+            <q-icon
+                class="cursor-pointer wp-10"
+                @click="$router.back()"
+                size="2em"
+                name="arrow_back"
+            />
             <div class="wp-85 text-center">
                 <h5
-                    class="no-margin"
+                    class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
                         'text-nv-dark' : !Dark.isActive,
-                        'fs-18' : isMobile
                     }">
                     {{ $t('settings.security.smsAuth.verification') }}
                 </h5>
@@ -26,6 +38,7 @@
         <div
             :class="{
                 'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
             class="mt-20">
 
@@ -93,7 +106,7 @@
                 {{ $t('buttons.continue') }}
             </q-btn>
         </div>
-    </q-page>
+    </div>
  </template>
 
 <script lang="ts" setup>

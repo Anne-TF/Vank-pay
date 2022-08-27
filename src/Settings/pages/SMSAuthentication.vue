@@ -1,22 +1,34 @@
  <template>
     <q-page
-        :class="{
-            'q-py-md' : isMobile
-        }"
+        class="q-py-md"
         style="height: 100vh;">
-        <div
+       <div
             :class="{
-                'q-px-lg' : isMobile
+                'mt-25 q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
-            class="flex flex-inline mt-25 items-center">
-            <q-icon class="cursor-pointer wp-10" @click="$router.back()" size="2em" name="arrow_back" />
+            class="flex flex-inline items-center">
+            <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
+                <q-icon
+                    color="nv-light-tertiary"
+                    @click="$router.push('/')"
+                    class="cursor-pointer"
+                    size="2em"
+                    name="cancel"
+                />
+            </div>
+            <q-icon
+                class="cursor-pointer wp-10"
+                @click="$router.back()"
+                size="2em"
+                name="arrow_back"
+            />
             <div class="wp-85 text-center">
                 <h5
-                    class="no-margin"
+                    class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
                         'text-nv-dark' : !Dark.isActive,
-                        'fs-18' : isMobile
                     }">
                     {{ $t('settings.security.smsAuth.title') }}
                 </h5>
@@ -25,14 +37,12 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
             class="q-mt-lg">
             <p
-                :class="{
-                    'fs-12 lh-20' : isMobile
-                }"
-                class="q-mt-sm"
+                class="q-mt-sm fs-12 lh-20"
             >
                 {{ $t('settings.security.smsAuth.caption1') }}
                 <span :class="`text-nv-${GetSuffix('accent')}`">
@@ -44,9 +54,10 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile,
                 'text-nv-light' : Dark.isActive,
-                'text-nv-dark' : !Dark.isActive
+                'text-nv-dark' : !Dark.isActive,
+                'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
             class="mt-70 flex flex-inline justify-between items-center">
             <p class="no-margin fs-14">
@@ -76,11 +87,22 @@
                     v-ripple
                     class="no-padding q-mb-sm"
                 >
-                    <q-item-section class="q-py-md q-pl-lg">
+                    <q-item-section
+                        :class="{
+                            'q-pl-lg' : isMobile,
+                            'q-pl-md' : !isMobile
+                        }"
+                        class="q-py-md">
                         {{ $t('settings.security.smsAuth.changeTheAuthentication') }}
                     </q-item-section>
 
-                    <q-item-section side class="flex items-center q-mr-lg">
+                    <q-item-section
+                        side
+                        :class="{
+                            'q-mr-lg' : isMobile,
+                            'q-mr-md' : !isMobile
+                        }"
+                        class="flex items-center">
                         <q-icon name="chevron_right" />
                     </q-item-section>
                 </q-item>

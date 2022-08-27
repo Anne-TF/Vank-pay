@@ -5,12 +5,13 @@
             <div class="flex items-center">
                 <q-icon
                     :size="`${Screen.lt.md ? '50px' : '3.4em'}`"
-                    name="fa-solid fa-circle-user"
+                    name="fa-solid fa-circle-user cursor-pointer"
+                    @click="$router.push('/settings/profile')"
                     style="color: #939BA6 !important;"
                 />
                 <div class="q-ml-md">
                     <h5
-                        class="no-margin"
+                        class="no-margin cursor-pointer"
                         @click="$router.push('/settings/profile')"
                         :class="{
                             'text-nv-light' : Dark.isActive,
@@ -89,37 +90,22 @@
 <script lang="ts" setup>
 import { Dark, Screen, useQuasar } from 'quasar';
 import { useAuthStore } from 'stores/auth';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import CopyClipboard from '../shared/helpers/CopyClipboard';
 import { useI18n } from 'vue-i18n';
+
+defineProps({
+    options: {
+        type: Array,
+        default: () => []
+    }
+});
 
 // STORES
 const authStore = useAuthStore();
 
 // CONSTANTS
 const { t } = useI18n({ useScope: 'global' });
-const options = <{key: string, icon: string, to: string}[]>[
-    {
-        key: 'settings.paymentMethods.title',
-        icon: 'ri:money-dollar-circle-fill',
-        to: 'payment-methods'
-    },
-    {
-        key: 'settings.security.title',
-        icon: 'ant-design:security-scan-filled',
-        to: 'security'
-    },
-    {
-        key: 'settings.support.title',
-        icon: 'ic:round-contact-support',
-        to: 'support'
-    },
-    {
-        key: 'settings.share.title',
-        icon: 'ci:share',
-        to: 'share'
-    }
-];
 const $q = useQuasar();
 
 // COMPUTEDS

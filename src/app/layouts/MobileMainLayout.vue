@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="lHh Lpr lFf">
+    <q-layout :view="screen.gt.md ? 'lHh Lpr lFf' : 'hHh Lpr lff'">
         <q-header
             v-if="!isMobile"
             :class="{
@@ -140,15 +140,46 @@
                 'bg-nv-dark' : dark.isActive,
                 'bg-nv-light' : !dark.isActive
             }"
-            v-model="leftDrawerOpen"
             :width="400"
+            :mini-width="90"
+            style="height: 100%;"
+            :mini-to-overlay="screen.md || screen.lt.md"
+            :mini="leftDrawerOpen"
+            v-if="!isMobile"
             show-if-above>
             <div class="flex justify-center q-py-md">
                 <Logo :size="'8vh'" />
             </div>
             <q-list class="q-mt-sm">
-                <EssentialLink />
+                <EssentialLink :options="options" />
             </q-list>
+
+            <template v-slot:mini>
+                <div class="fit mini-slot cursor-pointer">
+                    <div class="flex column items-center q-py-md">
+                        <Logo :size="'5vh'" />
+
+                        <q-icon
+                            size="2.3em"
+                            name="fa-solid fa-circle-user q-mt-xl"
+                            style="color: #939BA6 !important;"
+                        />
+                    </div>
+                    <div
+                        v-for="(link, index) in options"
+                        :key="index"
+                        :class="{
+                            'mt-25' : index > 0,
+                            'mt-8' : index < 1
+                        }"
+                        class="column items-center text-nv-light-tertiary">
+                        <span
+                            class="iconify fs-30"
+                            :data-icon="link.icon"
+                        />
+                    </div>
+                </div>
+            </template>
         </q-drawer>
 
         <q-page-container>
@@ -347,7 +378,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import EssentialLink from '../components/EssentialLink.vue';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
@@ -393,6 +424,28 @@ const linksList = [
         library: 'fa'
     }
 ];
+const options = ref<{key: string, icon: string, to: string}[]>([
+    {
+        key: 'settings.paymentMethods.title',
+        icon: 'ri:money-dollar-circle-fill',
+        to: 'payment-methods'
+    },
+    {
+        key: 'settings.security.title',
+        icon: 'ant-design:security-scan-filled',
+        to: 'security'
+    },
+    {
+        key: 'settings.support.title',
+        icon: 'ic:round-contact-support',
+        to: 'support'
+    },
+    {
+        key: 'settings.share.title',
+        icon: 'ci:share',
+        to: 'share'
+    }
+]);
 
 const leftDrawerOpen = ref<boolean>(false);
 const showMobileMenu = ref<boolean>(true);
@@ -403,6 +456,10 @@ const showDesktopMenu = ref(false);
 const toggleLeftDrawer = () =>
 {
     leftDrawerOpen.value = !leftDrawerOpen.value;
+    if (screen.md || screen.lt.md)
+    {
+        showMenu.value = !showMenu.value;
+    }
 };
 
 const switchMode = () =>
@@ -445,6 +502,19 @@ const getRouteMeta = computed(() => $router.currentRoute.value.meta);
 const isMobile = computed(() => screen.lt.md);
 const getIconSuffix = computed(() => dark.isActive ? 'dark' : 'light');
 const floatingMenu = computed(() => process.env.FLOATING_MENU === 'true');
+
+watchEffect(() =>
+{
+    if (screen.lt.lg)
+    {
+        leftDrawerOpen.value = true;
+    }
+
+    if (screen.lt.md)
+    {
+        showMenu.value = false;
+    }
+});
 </script>
 
 <style lang="scss" scoped>

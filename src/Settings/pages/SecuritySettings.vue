@@ -1,22 +1,40 @@
  <template>
     <q-page
-        :class="{
-            'q-py-md' : isMobile
-        }"
+        class="q-py-md"
         style="height: 100vh;">
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'mt-25 q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
-            class="flex flex-inline mt-25 items-center">
-            <q-icon class="cursor-pointer wp-10" @click="$router.back()" size="2em" name="arrow_back" />
-            <div class="wp-85 text-center">
+            class="flex flex-inline items-center">
+            <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
+                <q-icon
+                    color="nv-light-tertiary"
+                    @click="$router.push('/')"
+                    class="cursor-pointer"
+                    size="2em"
+                    name="cancel"
+                />
+            </div>
+            <q-icon
+                v-if="isMobile"
+                class="cursor-pointer wp-10"
+                @click="$router.back()"
+                size="2em"
+                name="arrow_back"
+            />
+            <div
+                :class="{
+                    'wp-85' : isMobile,
+                    'wp-100' : !isMobile
+                }"
+                class="text-center">
                 <h5
-                    class="no-margin"
+                    class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
                         'text-nv-dark' : !Dark.isActive,
-                        'fs-18' : isMobile
                     }">
                     {{ $t('settings.security.title') }}
                 </h5>
@@ -25,24 +43,21 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
             class="q-mt-xl">
             <h5
-                class="no-margin"
+                class="no-margin fs-16"
                 :class="{
                     'text-nv-light' : Dark.isActive,
                     'text-nv-dark' : !Dark.isActive,
-                    'fs-16' : isMobile
                 }">
                 {{ $t('settings.security.twoFactorAuth') }}
             </h5>
 
             <p
-                :class="{
-                    'fs-12 lh-20' : isMobile
-                }"
-                class="q-mt-sm"
+                class="q-mt-sm fs-12 lh-20 text-nv-light-tertiary"
             >
                 {{ $t('settings.security.caption') }}
                 <span :class="`text-nv-${GetSuffix('accent')}`">
@@ -54,10 +69,11 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
-            class="q-mt-lg row q-mb-none q-mx-none">
-            <div class="col-6 col-sm-6 col-md-4">
+            class="q-mt-lg row q-mb-none q-mx-none text-nv-light-tertiary">
+            <div class="col-6 col-sm-6">
                 <div
                     :style="`
                         background-color: ${Dark.isActive ? '#353E49' : '#EEEEEE'};
@@ -68,17 +84,14 @@
                 >
                     <q-icon size="2.6em" :name="`img:icons/message-${Dark.isActive ? 'dark' : 'light'}.svg`" />
                     <span
-                        :class="{
-                            'fs-13 lh-18' : Screen.lt.sm
-                        }"
-                        class="mx-1 wp-40">
+                        class="mx-1 wp-40 fs-13 lh-18">
                         {{ $t('settings.security.text') }}
                     </span>
                     <q-icon size="1.8em" name="chevron_right" />
                 </div>
             </div>
 
-            <div class="col-6 col-sm-6 col-md-4 flex justify-end">
+            <div class="col-6 col-sm-6 flex justify-end">
                 <div
                     @click="$router.push('/settings/security/email-auth')"
                     :style="`
@@ -89,10 +102,7 @@
                 >
                     <q-icon size="2.6em" :name="`img:icons/email-${Dark.isActive ? 'dark' : 'light'}.svg`" />
                     <span
-                        :class="{
-                            'fs-13 lh-18' : Screen.lt.sm
-                        }"
-                        class="mx-1 wp-40">
+                        class="mx-1 wp-40 fs-13 lh-18">
                         {{ $t('settings.security.email') }}
                     </span>
                     <q-icon size="1.8em" name="chevron_right" />
@@ -100,10 +110,7 @@
             </div>
 
             <div
-                :class="{
-                    'q-mt-lg' : Screen.lt.md
-                }"
-                class="col-12 col-sm-6 col-md-4 flex justify-center">
+                class="col-12 flex justify-center q-mt-lg">
                 <div
                     @click="$router.push('/settings/security/authy-auth')"
                     :style="`
@@ -114,10 +121,7 @@
                 >
                     <q-icon size="2.6em" :name="`img:icons/authy-${Dark.isActive ? 'dark' : 'light'}.svg`" />
                     <span
-                        :class="{
-                            'fs-13 lh-18' : Screen.lt.sm
-                        }"
-                        class="mx-1 wp-40">
+                        class="mx-1 wp-40 fs-13 lh-18">
                         {{ $t('settings.security.authy') }}
                     </span>
                     <q-icon size="1.8em" name="chevron_right" />
@@ -134,11 +138,22 @@
                     v-ripple
                     @click="$router.push('/settings/security/change-password')"
                     class="no-padding q-mb-sm text-nv-light-tertiary">
-                    <q-item-section class="q-py-md q-pl-lg">
+                    <q-item-section
+                        :class="{
+                            'q-pl-lg' : isMobile,
+                            'q-pl-md' : !isMobile
+                        }"
+                        class="q-py-md">
                         {{ $t('fields.password') }}
                     </q-item-section>
 
-                    <q-item-section side class="flex items-center q-mr-lg">
+                    <q-item-section
+                        side
+                        :class="{
+                            'q-mr-lg' : isMobile,
+                            'q-mr-md' : !isMobile
+                        }"
+                        class="flex items-center">
                         <q-icon name="chevron_right" />
                     </q-item-section>
                 </q-item>
@@ -149,13 +164,13 @@
 
 <script lang="ts" setup>
 import { Screen, Dark } from 'quasar';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import  GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { useAuthStore } from 'stores/auth';
 
 // CONSTANTS
 const authStore = useAuthStore();
-const options = <{key: string, icon: string, to: string}[]>[
+const options = ref<{key: string, icon: string, to: string}[]>([
     {
         key: 'settings.paymentMethods.title',
         icon: 'ri:money-dollar-circle-fill',
@@ -176,7 +191,7 @@ const options = <{key: string, icon: string, to: string}[]>[
         icon: 'ci:share',
         to: '/settings/share'
     }
-];
+]);
 
 // COMPUTEDS
 

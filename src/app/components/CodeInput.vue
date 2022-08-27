@@ -7,7 +7,7 @@
         }"
         class="flex flex-inline justify-between"
     >
-    <p :class="{ 'fs-14' : isMobile, 'fs-16' : !isMobile }" class="wp-100 q-mt-none q-mb-sm">
+    <p class="wp-100 q-mt-none q-mb-sm fs-14">
         {{ $t('codeValidation.typeDigits') }}
     </p>
         <q-input

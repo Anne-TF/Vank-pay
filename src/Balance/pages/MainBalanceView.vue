@@ -6,15 +6,13 @@
         }"
         style="height: 100vh;"
         >
-
         <q-card
             :class="{
                 'no-padding flex column justify-between' : isMobile,
                 'bg-nv-dark' : Dark.isActive,
                 'bg-nv-light' : !Dark.isActive,
                 'br-18' : !isMobile,
-                'wp-59' : Screen.gt.md,
-                'wp-60' : Screen.md,
+                'wp-90' : Screen.gt.sm,
                 'wp-100' : isMobile
             }"
             :style="`${ !isMobile ? 'height: 80vh !important; contain: content;' : '' }`"
@@ -362,6 +360,7 @@ import GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { useSettingsStore } from 'stores/settings';
 import HideText from '../../app/shared/helpers/HideText';
 import { Router, useRouter } from 'vue-router';
+import SecuritySettings from '../../Settings/pages/SecuritySettings.vue';
 
 // CONSTANTS AND REFERENCES
 const settingsStore = useSettingsStore();

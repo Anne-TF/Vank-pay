@@ -16,10 +16,10 @@
                 }`"
                 >
                 {{
-                        loginForm.mode === 'email'
-                            ? $t('fields.phoneNumber')
-                            : $t('fields.email')
-                    }}
+                    loginForm.mode === 'email'
+                    ? $t('fields.phoneNumber')
+                    : $t('fields.email')
+                }}
             </span>
                 <q-icon
                     size="1.6em"

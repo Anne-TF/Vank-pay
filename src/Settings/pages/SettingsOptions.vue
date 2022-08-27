@@ -150,7 +150,7 @@
 
 <script lang="ts" setup>
 import { Screen, Dark, useQuasar } from 'quasar';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import  GetSuffix from '../../app/shared/helpers/GetSuffix';
 import { useAuthStore } from 'stores/auth';
 import { Router, useRouter } from 'vue-router';
@@ -165,7 +165,7 @@ const { t } = useI18n({ useScope: 'global' });
 // CONSTANTS
 const authStore = useAuthStore();
 const settingsStore = useSettingsStore();
-const options = <{key: string, icon: string, to: string}[]>[
+const options = ref<{key: string, icon: string, to: string}[]>([
     {
         key: 'settings.paymentMethods.title',
         icon: 'ri:money-dollar-circle-fill',
@@ -186,7 +186,7 @@ const options = <{key: string, icon: string, to: string}[]>[
         icon: 'ci:share',
         to: '/settings/share'
     }
-];
+]);
 
 // COMPUTEDS
 const isMobile = computed(() => Screen.lt.md);

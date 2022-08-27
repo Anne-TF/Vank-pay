@@ -1,22 +1,26 @@
  <template>
-    <q-page
-        :class="{
-            'q-py-md' : isMobile
-        }"
-        style="height: 100vh;">
+    <div
+        class="q-py-md"
+        style="height: 100%;">
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg mt-25' : isMobile,
+                'mt-5 q-px-md' : !isMobile
             }"
             class="flex flex-inline justify-between items-center mt-23">
-            <q-icon class="cursor-pointer" @click="$router.back()" size="2em" name="arrow_back" />
+            <q-icon
+                color="nv-light-tertiary"
+                @click="$router.push('/')"
+                class="cursor-pointer"
+                size="2em"
+                name="cancel"
+            />
             <div class="text-center">
                 <h5
-                    class="no-margin"
+                    class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
                         'text-nv-dark' : !Dark.isActive,
-                        'fs-18' : isMobile
                     }"
                 >
                     {{ $t('settings.profile.accountInfo') }}
@@ -31,7 +35,8 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
             class="q-mt-xl">
             <q-icon
@@ -43,11 +48,10 @@
 
             <div class="text-center mt-20">
                 <h5
-                   class="no-margin"
+                   class="no-margin fs-26"
                     :class="{
                         'text-nv-light' : Dark.isActive,
                         'text-nv-dark' : !Dark.isActive,
-                        'fs-26' : isMobile
                     }"
                 >
                     {{ getUserName }}
@@ -65,7 +69,7 @@
                     'text-nv-light' : Dark.isActive,
                     'text-nv-dark' : !Dark.isActive,
                 }"
-                class="row q-mx-none q-mb-none q-mt-lg">
+                class="row q-mx-none q-mb-none q-mt-lg fs-14">
                 <div class="col-12 flex flex-inline justify-between">
                     <p class="no-margin">
                         UUID
@@ -163,7 +167,7 @@
                 </q-card-section>
             </q-card>
         </q-dialog>
-    </q-page>
+    </div>
  </template>
 
 <script lang="ts" setup>

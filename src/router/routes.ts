@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
-
+import { Screen } from 'quasar';
 
 const routes: RouteRecordRaw[] = [
     {
@@ -98,8 +98,8 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/',
-        component: () => import('../app/layouts/MainLayout.vue'),
-        children: [
+        component: () => import(`../app/layouts/AppLayout.vue`),
+        children: Screen.gt.md ? [] : [
             { path: '', component: () => import('../Balance/pages/MainBalanceView.vue') }
         ],
         meta: {
@@ -111,7 +111,7 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/currency',
-        component: () => import('../app/layouts/MainLayout.vue'),
+        component: () => import('../app/layouts/MobileMainLayout.vue'),
         children: [
             { path: ':currency', component: () => import('../Balance/pages/_CurrencyDetail.vue') }
         ],
@@ -124,7 +124,7 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/cards',
-        component: () => import('../app/layouts/MainLayout.vue'),
+        component: () => import('../app/layouts/MobileMainLayout.vue'),
         children: [
             { path: ':card', component: () => import('../Balance/pages/_CardDetail.vue') }
         ],
@@ -137,7 +137,7 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/settings',
-        component: () => import('../app/layouts/MainLayout.vue'),
+        component: () => import('../app/layouts/DesktopMainLayout.vue'),
         children: [
             { path: '', component: () => import('../Settings/pages/SettingsOptions.vue') },
             { path: 'profile', component: () => import('../Settings/pages/MyProfile.vue') },

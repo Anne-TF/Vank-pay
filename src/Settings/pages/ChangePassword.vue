@@ -1,22 +1,36 @@
  <template>
-    <q-page
+    <div
         :class="{
             'q-py-md' : isMobile
         }"
-        style="height: 100vh;">
+        style="height: 100%;">
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg mt-25' : isMobile,
+                'mt-5' : !isMobile
             }"
-            class="flex flex-inline mt-25 items-center">
-            <q-icon class="cursor-pointer wp-10" @click="$router.back()" size="2em" name="arrow_back" />
+            class="flex flex-inline items-center">
+            <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
+                <q-icon
+                    color="nv-light-tertiary"
+                    @click="$router.push('/')"
+                    class="cursor-pointer"
+                    size="2em"
+                    name="cancel"
+                />
+            </div>
+            <q-icon
+                class="cursor-pointer wp-10"
+                @click="$router.back()"
+                size="2em"
+                name="arrow_back"
+            />
             <div class="wp-85 text-center">
                 <h5
-                    class="no-margin"
+                    class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
                         'text-nv-dark' : !Dark.isActive,
-                        'fs-18' : isMobile
                     }">
                     {{ $t('settings.changePassword.title') }}
                 </h5>
@@ -29,10 +43,7 @@
             }"
             class="q-mt-lg">
             <p
-                :class="{
-                    'fs-12 lh-20' : isMobile
-                }"
-                class="q-mt-sm"
+                class="q-mt-sm fs-12 lh-20"
             >
                 {{ $t('settings.changePassword.toConfirm') }}
                 <span :class="`text-nv-${GetSuffix('accent')}`">
@@ -156,7 +167,7 @@
                 {{ $t('buttons.continue') }}
             </q-btn>
         </div>
-    </q-page>
+    </div>
  </template>
 
 <script lang="ts" setup>
@@ -175,7 +186,7 @@ const data = reactive({
 const isPwd = ref<boolean>(true);
 const isPwd2 = ref<boolean>(true);
 const isPwd3 = ref<boolean>(true);
-const options = <{key: string, icon: string, to: string}[]>[
+const options = ref<{key: string, icon: string, to: string}[]>([
     {
         key: 'settings.paymentMethods.title',
         icon: 'ri:money-dollar-circle-fill',
@@ -196,7 +207,7 @@ const options = <{key: string, icon: string, to: string}[]>[
         icon: 'ci:share',
         to: '/settings/share'
     }
-];
+]);
 
 // COMPUTEDS
 
