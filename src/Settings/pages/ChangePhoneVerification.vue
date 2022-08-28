@@ -11,7 +11,7 @@
             <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
                 <q-icon
                     color="nv-light-tertiary"
-                    @click="$router.push('/')"
+                    @click="$emit('close')"
                     class="cursor-pointer"
                     size="2em"
                     name="cancel"
@@ -268,6 +268,9 @@
                 :color="`nv-${GetSuffix('primary')}`"
                 class="full-width br-20 py-12 mt-30 fs-16"
                 unelevated
+                :class="{
+                    'mb-40' : !isMobile
+                }"
                 no-caps
             >
                 {{ $t('buttons.continue') }}

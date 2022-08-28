@@ -11,7 +11,7 @@
             <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
                 <q-icon
                     color="nv-light-tertiary"
-                    @click="$router.push('/')"
+                    @click="$emit('close')"
                     class="cursor-pointer"
                     size="2em"
                     name="cancel"

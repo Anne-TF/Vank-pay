@@ -142,11 +142,12 @@
             }"
             :width="400"
             :mini-width="90"
+            show-if-above
             style="height: 100%;"
-            :mini-to-overlay="screen.md || screen.lt.md"
-            :mini="leftDrawerOpen"
-            v-if="!isMobile"
-            show-if-above>
+            :mini="mini"
+            :behavior="screen.md ? 'mobile' : 'desktop'"
+            v-model="leftDrawerOpen"
+            v-if="!isMobile">
             <div class="flex justify-center q-py-md">
                 <Logo :size="'8vh'" />
             </div>
@@ -168,13 +169,16 @@
                     <div
                         v-for="(link, index) in options"
                         :key="index"
+                        @click="$router.push(link.to)"
                         :class="{
                             'mt-25' : index > 0,
-                            'mt-8' : index < 1
+                            'mt-8' : index < 1,
+                            'text-nv-light-tertiary' : !$router.currentRoute.value.path.includes(link.to)
                         }"
-                        class="column items-center text-nv-light-tertiary">
+                        class="column items-center">
                         <span
                             class="iconify fs-30"
+                            :class="`${ $router.currentRoute.value.path.includes(link.to) ? `text-nv-${GetSuffix('accent')}` : ''}`"
                             :data-icon="link.icon"
                         />
                     </div>
@@ -183,58 +187,53 @@
         </q-drawer>
 
         <q-page-container>
-            <!-- <q-scroll-observer @scroll="handleScroll" />
-            <Transition
-                enter-active-class="enter-overlay"
-                leave-active-class="leave-overlay"
-            >
-                <div v-show="showMenu" class="overlay" />
-            </Transition>
-            <router-view v-slot="{ Component, route }" >
-            <Transition
-                :appear-active-class="route.meta.enterAnimation"
-                :leave-active-class="route.meta.leaveAnimation"
-                :duration="{
-                  enter: 100,
-                  leave: 200
-                }"
-                appear
-              >
-              <component style="height: 100% !important;" :is="Component" />
-            </Transition>
-            </router-view> -->
             <q-page
                 :class="{
-                    'flex items-center justify-center q-px-lg' : !isMobile,
-                    'bg-nv-ultra-dark' : dark.isActive
+                    'flex items-center q-px-lg' : screen.gt.sm,
+                    'justify-end' : screen.lt.lg && $router.currentRoute.value.path !== '/',
+                    'justify-center' : screen.gt.md || screen.md && $router.currentRoute.value.path === '/',
+                    'bg-nv-ultra-dark' : dark.isActive,
                 }"
                 style="height: 50vh;">
-                <q-card
-                    :class="{
-                        'bg-nv-dark' : dark.isActive,
-                        'wp-29' : screen.gt.md,
-                        'wp-40' : screen.md
+                <Transition
+                    appear
+                    appear-active-class="animated slideInLeft"
+                    leave-active-class="animated slideOutLeft"
+                    :duration="{
+                        enter: 300,
+                        leave: 400
                     }"
-                    flat
-                    v-if="$router.currentRoute.value.path !== '/'"
-                    class="q-pa-md br-20 hide-scrollbar"
-                    :style="`
-                        height: ${screen.gt.sm ? '80' : '100'}vh; overflow-y: auto;
-                    `">
-                    <router-view v-slot="{ Component, route }" >
-                        <Transition
-                            :appear-active-class="route.meta.enterAnimation"
-                            :leave-active-class="route.meta.leaveAnimation"
-                            :duration="{
-                            enter: 100,
-                            leave: 200
-                            }"
-                            appear
-                        >
-                            <component style="height: 100% !important;" :is="Component" />
-                        </Transition>
-                    </router-view>
-                </q-card>
+                >
+                    <q-card
+                        :class="{
+                            'bg-nv-dark' : dark.isActive,
+                            'wp-29' : screen.gt.md,
+                            'wp-35' : screen.md
+                        }"
+                        flat
+                        v-show="show"
+                        class="q-pa-md br-20 hide-scrollbar"
+                        :style="`
+                            height: ${screen.gt.sm ? '80' : '100'}vh; overflow-y: auto;
+                        `">
+                        <router-view v-slot="{ Component, route }" >
+                            <Transition
+                                :appear-active-class="route.meta.enterAnimation"
+                                :leave-active-class="route.meta.leaveAnimation"
+                                :duration="{
+                                    enter: 100,
+                                    leave: 200
+                                }"
+                            >
+                                <component
+                                    style="height: 100% !important;"
+                                    @close="closeMenu"
+                                    :is="Component"
+                                />
+                            </Transition>
+                        </router-view>
+                    </q-card>
+                </Transition>
                 <div
                     style="contain: content;"
                     v-if="screen.gt.sm"
@@ -323,16 +322,27 @@ const options = ref<{key: string, icon: string, to: string}[]>([
 
 const leftDrawerOpen = ref<boolean>(false);
 const showMobileMenu = ref<boolean>(true);
-const morphGroupModel = ref('menu');
-const showMenu = ref(false);
-const showDesktopMenu = ref(false);
+const morphGroupModel = ref<string>('menu');
+const showMenu = ref<boolean>(false);
+const show = ref<boolean>(false);
+const mini = ref<boolean>(false);
+const showDesktopMenu = ref<boolean>(false);
 
 const toggleLeftDrawer = () =>
 {
-    leftDrawerOpen.value = !leftDrawerOpen.value;
     if (screen.md || screen.lt.md)
     {
         showMenu.value = !showMenu.value;
+    }
+
+    if (screen.gt.md)
+    {
+        mini.value = !mini.value;
+    }
+    else
+    {
+        mini.value = false;
+        leftDrawerOpen.value = !leftDrawerOpen.value;
     }
 };
 
@@ -371,6 +381,15 @@ const openMenu = (link: string) =>
     }
 };
 
+const closeMenu = () =>
+{
+    show.value = false;
+    setTimeout(() =>
+    {
+        $router.replace('/');
+    }, 198);
+};
+
 const getRoute = computed(() => $router.currentRoute.value.path);
 const getRouteMeta = computed(() => $router.currentRoute.value.meta);
 const isMobile = computed(() => screen.lt.md);
@@ -379,14 +398,9 @@ const floatingMenu = computed(() => process.env.FLOATING_MENU === 'true');
 
 watchEffect(() =>
 {
-    if (screen.lt.lg)
+    if ($router.currentRoute.value.path !== '/')
     {
-        leftDrawerOpen.value = true;
-    }
-
-    if (screen.lt.md)
-    {
-        showMenu.value = false;
+        show.value = true;
     }
 });
 </script>
@@ -429,38 +443,5 @@ watchEffect(() =>
   to {
     opacity: 0;
   }
-}
-
-.enter-icons {
-    animation: fade 1s both;
-}
-.leave-icons {
-    animation: fade1 0.2s both;
-}
-
-.menu {
-    height: 60px;
-    transition: height 0.5s linear;
-}
-
-.leave--menu {
-    height: 60px;
-}
-
-.enter--menu {
-    height: 40vh;
-}
-
-.enter--menu-desktop {
-    height: 28em;
-}
-
-.leave--menu-desktop {
-    height: 0em;
-}
-
-.menu-desktop {
-    height: 0em;
-    transition: height 0.8s linear;
 }
 </style>

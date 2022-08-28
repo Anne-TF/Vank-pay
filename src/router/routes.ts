@@ -98,7 +98,7 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/',
-        component: () => import(`../app/layouts/AppLayout.vue`),
+        component: () => import('../app/layouts/AppLayout.vue'),
         children: Screen.gt.md ? [] : [
             { path: '', component: () => import('../Balance/pages/MainBalanceView.vue') }
         ],

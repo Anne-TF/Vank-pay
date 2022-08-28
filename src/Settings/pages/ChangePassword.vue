@@ -1,19 +1,17 @@
  <template>
     <div
-        :class="{
-            'q-py-md' : isMobile
-        }"
+        class="q-py-md"
         style="height: 100%;">
         <div
             :class="{
                 'q-px-lg mt-25' : isMobile,
-                'mt-5' : !isMobile
+                'mt-5 q-px-md' : !isMobile
             }"
             class="flex flex-inline items-center">
             <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
                 <q-icon
                     color="nv-light-tertiary"
-                    @click="$router.push('/')"
+                    @click="$emit('close')"
                     class="cursor-pointer"
                     size="2em"
                     name="cancel"
@@ -39,7 +37,8 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
             class="q-mt-lg">
             <p
@@ -59,7 +58,8 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-lg' : isMobile,
+                'q-px-md' : !isMobile
             }"
             class="q-mt-lg">
             <p class="text-nv-light-tertiary q-mt-none q-mb-sm fs-14">

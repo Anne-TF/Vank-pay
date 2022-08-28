@@ -10,7 +10,7 @@
             class="flex flex-inline justify-between items-center mt-23">
             <q-icon
                 color="nv-light-tertiary"
-                @click="$router.push('/')"
+                @click="$emit('close')"
                 class="cursor-pointer"
                 size="2em"
                 name="cancel"

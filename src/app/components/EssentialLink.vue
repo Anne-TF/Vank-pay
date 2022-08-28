@@ -69,7 +69,14 @@
             clickable
             v-ripple
             @click="$router.push(link.to)"
-            class="no-padding q-mb-sm text-nv-light-tertiary"
+            :active="
+                $router.currentRoute.value.path.includes(link.to)
+            "
+            :class="{
+                'text-nv-light-tertiary' : !$router.currentRoute.value.path.includes(link.to)
+            }"
+            :active-class="`text-nv-${GetSuffix('accent')}`"
+            class="no-padding q-mb-sm"
             v-for="(link, index) in options"
             :key="index">
             <q-item-section class="q-py-md q-pl-lg" style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
@@ -93,6 +100,7 @@ import { useAuthStore } from 'stores/auth';
 import { computed, ref } from 'vue';
 import CopyClipboard from '../shared/helpers/CopyClipboard';
 import { useI18n } from 'vue-i18n';
+import GetSuffix from '../shared/helpers/GetSuffix';
 
 defineProps({
     options: {

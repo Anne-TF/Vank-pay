@@ -577,16 +577,4 @@ watchEffect(() =>
     height: 40vh;
 }
 
-.enter--menu-desktop {
-    height: 28em;
-}
-
-.leave--menu-desktop {
-    height: 0em;
-}
-
-.menu-desktop {
-    height: 0em;
-    transition: height 0.8s linear;
-}
 </style>
