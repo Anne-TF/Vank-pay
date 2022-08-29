@@ -69,11 +69,12 @@
         </div>
 
         <div
+            class="q-px-md"
             :class="{
                 'mt-30' : isMobile,
                 'mt-20' : !isMobile
             }">
-            <p class="no-margin fs-14 q-px-md">
+            <p class="no-margin fs-14">
                 {{ $t('settings.security.emailAuth.emailVerification') }}
             </p>
 

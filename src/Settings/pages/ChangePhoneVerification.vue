@@ -181,8 +181,9 @@
                 'mt-40' : isMobile,
                 'mt-30' : !isMobile
             }"
+            class="q-px-md"
         >
-            <p class="no-margin fs-14 q-px-md">
+            <p class="no-margin fs-14">
                 {{ $t('settings.security.smsAuth.phoneVerification') }}
             </p>
 

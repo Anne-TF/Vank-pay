@@ -51,10 +51,8 @@
             :class="{
                 'text-nv-light' : Dark.isActive,
                 'text-nv-dark' : !Dark.isActive,
-                'q-px-lg' : isMobile,
-                'q-px-md' : !isMobile
             }"
-            class="mt-70 flex flex-inline justify-between items-center">
+            class="mt-70 q-px-md flex flex-inline justify-between items-center">
             <p class="no-margin fs-14">
                 {{ $t('settings.security.smsAuth.title') }}
             </p>

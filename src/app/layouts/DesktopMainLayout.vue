@@ -225,7 +225,7 @@
                     leave-active-class="animated slideOutLeft"
                     :duration="{
                         enter: 300,
-                        leave: 400
+                        leave: 200
                     }"
                 >
                     <q-card
