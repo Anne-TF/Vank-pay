@@ -10,10 +10,19 @@
             class="flex flex-inline justify-between items-center mt-23">
             <q-icon
                 color="nv-light-tertiary"
+                v-if="!isMobile"
                 @click="$emit('close')"
                 class="cursor-pointer"
-                size="2em"
+                size="1.8em"
                 name="cancel"
+            />
+            <q-icon
+                color="nv-light-tertiary"
+                v-else
+                @click="$router.back()"
+                class="cursor-pointer"
+                size="2em"
+                name="arrow_back"
             />
             <div class="text-center">
                 <h5

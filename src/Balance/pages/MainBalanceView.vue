@@ -17,8 +17,8 @@
             }"
             :style="`${ !isMobile ? 'height: 80vh !important; contain: content;' : '' }`"
             flat
-            class="no-margin  hp-100">
-            <div :style="`${ isMobile ? 'height: 15vh;' : '' }`">
+            class="no-margin hp-100">
+            <div class="mb-20">
                 <div
                     :class="{
                         'pt-20 flex items-center q-px-lg' : isMobile,
@@ -47,9 +47,6 @@
                     size="0.3em"
                     :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'"
                     class="mt-20"
-                    :class="{
-                        'mb-20' : !isMobile
-                    }"
                 />
             </div>
 

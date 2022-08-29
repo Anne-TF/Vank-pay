@@ -157,6 +157,46 @@ const routes: RouteRecordRaw[] = [
             leaveAnimation: 'animated slideOutLeft'
         }
     },
+    {
+        path: '/notifications',
+        component: () => import('../app/layouts/DesktopMainLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Notifications/pages/MainNotificationsView.vue') },
+            { path: 'manage', component: () => import('../Notifications/pages/ManageNotifications.vue') }
+        ],
+        meta: {
+            fullAuth: true,
+            hideMobileMenu: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
+    {
+        path: '/deposit',
+        component: () => import('../app/layouts/DesktopMainLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Transaction/pages/TransactionMethods.vue') }
+        ],
+        meta: {
+            fullAuth: true,
+            hideMobileMenu: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
+    {
+        path: '/withdraw',
+        component: () => import('../app/layouts/DesktopMainLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Transaction/pages/TransactionMethods.vue') }
+        ],
+        meta: {
+            fullAuth: true,
+            hideMobileMenu: true,
+            enterAnimation: 'animated slideInRight',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
 
     // Always leave this as last one,
     // but you can also remove it

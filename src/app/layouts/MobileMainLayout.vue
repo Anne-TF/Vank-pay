@@ -239,7 +239,7 @@
                 >
                     <!-- PAY OPTIONS -->
                     <div v-show="showMenu">
-                        <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                        <div @click="$router.push('/deposit')" class="flex flex-inline items-center q-pt-lg q-mb-sm">
                             <q-icon size="3.5em" :name="`img:icons/deposit-${getIconSuffix}.svg`" />
                             <div class="q-ml-md">
                                 <h5
@@ -262,7 +262,7 @@
                             </div>
                         </div>
 
-                        <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                        <div @click="$router.push('/withdraw')" class="flex flex-inline items-center q-pt-lg q-mb-sm">
                             <q-icon size="3.5em" :name="`img:icons/withdraw-${getIconSuffix}.svg`" />
                             <div class="q-ml-md">
                                 <h5
@@ -366,7 +366,7 @@
                                     v-show="link.library === 'ri'"
                                     :class="`
                                         fs-24
-                                        ${link.icon} ${getRoute === link.link && dark.isActive ?'text-white' : (getRoute === link.link && !dark.isActive ? 'text-nv-dark' : '')}`"
+                                        ${link.icon} ${getRoute === link.link && dark.isActive ? 'text-white' : (getRoute === link.link && !dark.isActive ? 'text-nv-dark' : '')}`"
                                 />
                             </div>
                         </div>

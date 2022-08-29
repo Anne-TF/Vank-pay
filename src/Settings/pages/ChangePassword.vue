@@ -4,16 +4,16 @@
         style="height: 100%;">
         <div
             :class="{
-                'q-px-lg mt-25' : isMobile,
-                'mt-5 q-px-md' : !isMobile
+                'mt-25' : isMobile,
+                'mt-5' : !isMobile
             }"
-            class="flex flex-inline items-center">
+            class="flex flex-inline items-center q-px-md">
             <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
                 <q-icon
                     color="nv-light-tertiary"
                     @click="$emit('close')"
                     class="cursor-pointer"
-                    size="2em"
+                    size="1.8em"
                     name="cancel"
                 />
             </div>
@@ -36,11 +36,7 @@
         </div>
 
         <div
-            :class="{
-                'q-px-lg' : isMobile,
-                'q-px-md' : !isMobile
-            }"
-            class="q-mt-lg">
+            class="q-mt-lg q-px-md">
             <p
                 class="q-mt-sm fs-12 lh-20"
             >
@@ -57,11 +53,7 @@
         </div>
 
         <div
-            :class="{
-                'q-px-lg' : isMobile,
-                'q-px-md' : !isMobile
-            }"
-            class="q-mt-lg">
+            class="q-mt-lg q-px-md">
             <p class="text-nv-light-tertiary q-mt-none q-mb-sm fs-14">
                 {{ $t('settings.changePassword.currPass') }}
             </p>

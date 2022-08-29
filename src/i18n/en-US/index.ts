@@ -15,6 +15,7 @@ import balance from './balance';
 import transactionHistory from './transactionHistory';
 import dates from './dates';
 import settings from './settings';
+import notifications from './notifications';
 
 export default {
     login: {
@@ -58,5 +59,8 @@ export default {
     },
     settings: {
         ...settings
+    },
+    notifications: {
+        ...notifications
     }
 };

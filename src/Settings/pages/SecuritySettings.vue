@@ -4,16 +4,15 @@
         style="height: 100vh;">
         <div
             :class="{
-                'mt-25 q-px-lg' : isMobile,
-                'q-px-md' : !isMobile
+                'mt-25' : isMobile,
             }"
-            class="flex flex-inline items-center">
+            class="flex flex-inline items-center q-px-md">
             <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
                 <q-icon
                     color="nv-light-tertiary"
                     @click="$emit('close')"
                     class="cursor-pointer"
-                    size="2em"
+                    size="1.8em"
                     name="cancel"
                 />
             </div>
@@ -42,11 +41,7 @@
         </div>
 
         <div
-            :class="{
-                'q-px-lg' : isMobile,
-                'q-px-md' : !isMobile
-            }"
-            class="q-mt-xl">
+            class="q-mt-xl q-px-md">
             <h5
                 class="no-margin fs-16"
                 :class="{
@@ -68,11 +63,7 @@
         </div>
 
         <div
-            :class="{
-                'q-px-lg' : isMobile,
-                'q-px-md' : !isMobile
-            }"
-            class="q-mt-lg row q-mb-none q-mx-none text-nv-light-tertiary">
+            class="q-mt-lg row q-mb-none q-mx-none text-nv-light-tertiary q-px-md">
             <div class="col-6 col-sm-6">
                 <div
                     :style="`
@@ -139,21 +130,13 @@
                     @click="$router.push('/settings/security/change-password')"
                     class="no-padding q-mb-sm text-nv-light-tertiary">
                     <q-item-section
-                        :class="{
-                            'q-pl-lg' : isMobile,
-                            'q-pl-md' : !isMobile
-                        }"
-                        class="q-py-md">
+                        class="q-py-md q-pl-md">
                         {{ $t('fields.password') }}
                     </q-item-section>
 
                     <q-item-section
                         side
-                        :class="{
-                            'q-mr-lg' : isMobile,
-                            'q-mr-md' : !isMobile
-                        }"
-                        class="flex items-center">
+                        class="flex items-center q-mr-md">
                         <q-icon name="chevron_right" />
                     </q-item-section>
                 </q-item>

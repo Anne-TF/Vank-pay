@@ -8,7 +8,7 @@
         <div class="mt-20">
             <div
                 :class="{
-                    'q-px-lg' : isMobile
+                    'q-px-md' : isMobile
                 }"
                 class="flex flex-inline justify-between items-center">
                 <q-icon class="cursor-pointer wp-10" @click="$router.back()" size="2em" name="arrow_back" />
@@ -33,7 +33,7 @@
 
             <div
                 :class="{
-                    'q-px-lg' : isMobile
+                    'q-px-md' : isMobile
                 }"
                 class="q-mt-xl">
                 <div class="flex flex-inline justify-between">
@@ -76,7 +76,7 @@
                             :style="`
                                 background-color: ${Dark.isActive ? '#353E49' : 'rgba(238, 238, 238, 0.9);'};
                                 width: 99px;
-                                right: 0;
+                                right: -20px;
                                 position:absolute;
                                 border-radius: 50px 0px 0px 50px;
                                 height: 32px;
@@ -104,7 +104,7 @@
                         class="no-padding q-mb-sm text-nv-light-tertiary"
                         v-for="(link, index) in options"
                         :key="index">
-                        <q-item-section class="q-py-md q-pl-lg" style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
+                        <q-item-section class="q-py-md q-pl-md" style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
                             <span
                                 class="iconify fs-25 mr-10"
                                 :data-icon="link.icon"
@@ -112,7 +112,7 @@
                             {{ $t(`${link.key}`) }}
                         </q-item-section>
 
-                        <q-item-section side class="flex items-center q-mr-lg">
+                        <q-item-section side class="flex items-center q-mr-md">
                             <q-icon name="chevron_right" />
                         </q-item-section>
                     </q-item>
@@ -122,7 +122,7 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile
+                'q-px-md' : isMobile
             }"
             class="wp-100 flex justify-center">
             <q-btn
@@ -140,7 +140,7 @@
                     'text-nv-dark-light-grey' : Dark.isActive,
                     'text-nv-light-light-grey' : !Dark.isActive
                 }"
-                class="fs-11 mt-18"
+                class="fs-11 mt-18 text-center"
             >
                 {{ $t('settings.dontShareYourAccount') }}
             </p>

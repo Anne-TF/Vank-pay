@@ -17,5 +17,7 @@ export default {
         title: 'P2P send',
         caption: 'Send money to another user'
     },
-    done: 'Done'
+    done: 'Done',
+    markAsRead: 'Mark all as read',
+    cleanAll: 'Clean all'
 };

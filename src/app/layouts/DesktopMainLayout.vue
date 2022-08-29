@@ -18,16 +18,40 @@
                     @click="toggleLeftDrawer"
                 />
                 <q-space />
+
+
+               <div
+                    style="min-height: 42px; max-height: 42px; width: 42px;"
+                    @click="$router.push('/notifications')"
+                    class="flex items-center no-padding cursor-pointer justify-center br-8 q-mr-md"
+                    :style="`
+                        ${
+                            getRoute.includes('notifications') && dark.isActive ?
+                            'background-color: #29313C' : (getRoute.includes('notifications') ? 'background-color: #EBECF0' : '')
+                        }`"
+                    >
+
+                    <i
+                        class="ri-notification-4-fill fs-28"
+                        :class="{
+                            'text-white' : getRoute.includes('notifications') && dark.isActive,
+                            'text-nv-dark' : getRoute.includes('notifications') && !dark.isActive,
+                        }"
+                    />
+                </div>
+
                 <div
                     style="min-height: 42px; max-height: 42px; width: 42px;"
-                    class="flex items-center no-padding justify-center br-8 q-mr-md"
+                    @click="closeMenu()"
+                    class="flex items-center no-padding cursor-pointer justify-center br-8 q-mr-md"
                     :style="`
                         ${
                             getRoute === '/' && dark.isActive ?
                             'background-color: #29313C' : (getRoute === '/' ? 'background-color: #EBECF0' : '')
                         }`"
                     >
-                     <q-icon
+
+                    <q-icon
                         size="1.8em"
                         name="fa-solid fa-wallet"
                         :class="{
@@ -207,12 +231,13 @@
                     <q-card
                         :class="{
                             'bg-nv-dark' : dark.isActive,
-                            'wp-29' : screen.gt.md,
-                            'wp-35' : screen.md
+                            'wp-29 br-20 q-pa-md' : screen.gt.md,
+                            'wp-35 br-20 q-pa-md' : screen.md,
+                            'no-padding' : screen.sm || screen.xs
                         }"
                         flat
                         v-show="show"
-                        class="q-pa-md br-20 hide-scrollbar"
+                        class="hide-scrollbar"
                         :style="`
                             height: ${screen.gt.sm ? '80' : '100'}vh; overflow-y: auto;
                         `">

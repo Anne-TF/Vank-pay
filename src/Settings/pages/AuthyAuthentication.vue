@@ -4,16 +4,16 @@
         style="height: 100%;">
         <div
             :class="{
-                'q-px-lg mt-25' : isMobile,
-                'mt-5 q-px-md' : !isMobile
+                'mt-25' : isMobile,
+                'mt-5' : !isMobile
             }"
-            class="flex flex-inline items-center">
+            class="flex flex-inline items-center q-px-md">
             <div class="wp-100 flex justify-end mb-20" v-if="!isMobile">
                 <q-icon
                     color="nv-light-tertiary"
                     @click="$emit('close')"
                     class="cursor-pointer"
-                    size="2em"
+                    size="1.8em"
                     name="cancel"
                 />
             </div>
@@ -36,11 +36,7 @@
         </div>
 
         <div
-            :class="{
-                'q-px-lg' : isMobile,
-                'q-px-md' : !isMobile
-            }"
-            class="q-mt-lg">
+            class="q-mt-lg q-px-md">
             <p
                 class="q-mt-sm fs-12 lh-20"
             >
@@ -50,12 +46,10 @@
 
         <div
             :class="{
-                'q-px-lg' : isMobile,
-                'q-px-md' : !isMobile,
                 'text-nv-light' : Dark.isActive,
                 'text-nv-dark' : !Dark.isActive
             }"
-            class="mt-70 flex flex-inline justify-between items-center">
+            class="mt-70 flex flex-inline justify-between items-center q-px-md">
             <p class="no-margin fs-14">
                 {{ $t('settings.security.authyAuth.title') }}
             </p>
@@ -84,21 +78,13 @@
                     class="no-padding q-mb-sm"
                 >
                     <q-item-section
-                        :class="{
-                            'q-pl-lg' : isMobile,
-                            'q-pl-md' : !isMobile
-                        }"
-                        class="q-py-md">
+                        class="q-py-md q-pl-md">
                         {{ $t('settings.security.authyAuth.changeTheAuthentication') }}
                     </q-item-section>
 
                     <q-item-section
                         side
-                        :class="{
-                            'q-mr-lg' : isMobile,
-                            'q-mr-md' : !isMobile
-                        }"
-                        class="flex items-center">
+                        class="flex items-center q-mr-md">
                         <q-icon name="chevron_right" />
                     </q-item-section>
                 </q-item>
