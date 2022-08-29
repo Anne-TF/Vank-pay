@@ -124,14 +124,14 @@
                         color="transparent"
                         rounded
                     >
-                    <template v-slot:prepend>
-                        <span
-                            class="iconify fs-18"
-                            :class="{
-                                'text-nv-dark' : !Dark.isActive
-                            }"
-                            data-icon="arcticons:xiaoyuan-search"></span>
-                    </template>
+                        <template v-slot:prepend>
+                            <span
+                                class="iconify fs-18"
+                                :class="{
+                                    'text-nv-dark' : !Dark.isActive
+                                }"
+                                data-icon="arcticons:xiaoyuan-search"></span>
+                        </template>
                     </q-input>
                 </div>
 
