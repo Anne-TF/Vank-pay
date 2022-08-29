@@ -274,12 +274,14 @@ body.body--light {
     padding: 0px 10px;
     border-radius: 12px !important;
   }
+  .q-toggle__thumb {
+    margin-top: 6px;
+    margin-left: 7px;
+    height: 18px;
+    box-shadow: none;
+  }
   .q-toggle__thumb::after {
     background: rgba($color: $nv-dark-primary, $alpha: .6) !important;
-    margin-top: 6px;
-    margin-left: 6px;
-    height: 18px;
-    width: 19px !important;
   }
 }
 
