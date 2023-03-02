@@ -1,8 +1,9 @@
 // @ts-ignore
 import { boot } from 'quasar/wrappers';
-import { AxiosFactory } from 'src/factories';
 import axios, { AxiosInstance } from 'axios';
+import QoriPayRepository from 'src/repositories/auth';
 
+// @ts-ignore
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $axios: AxiosInstance;
@@ -15,8 +16,7 @@ declare module '@vue/runtime-core' {
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = AxiosFactory.getAxiosInstance('https://api.example.com');
-
+const useQoriPayRepository = new QoriPayRepository();
 // @ts-ignore
 export default boot(({ app }) =>
 {
@@ -25,9 +25,10 @@ export default boot(({ app }) =>
     // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
     //       so you won't necessarily have to import axios in each vue file
 
-    app.config.globalProperties.$api = api;
+    app.config.globalProperties.$useQoriPayRepositori = useQoriPayRepository;
+
     // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
     //       so you can easily perform requests against your app's API
 });
 
-export { api };
+export { useQoriPayRepository };

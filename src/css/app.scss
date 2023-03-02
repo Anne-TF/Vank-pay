@@ -1,1 +1,388 @@
 // app global css in SCSS form
+
+// IMPORTS
+
+@import "_variables";
+@import "_fonts";
+@import "_spacing";
+@import "remixicon/fonts/remixicon.css";
+
+// COLORS
+
+$colors: (
+"dark-primary" : $nv-dark-primary,
+'dark-secondary' : $nv-dark-secondary,
+'dark-tertiary' : $nv-dark-tertiary,
+'dark-tertiary-opacity' : $nv-dark-tertiary-opacity,
+'dark-light-grey' : $nv-dark-light-grey,
+'dark-accent' : $nv-dark-accent,
+"light-primary" : $nv-light-primary,
+'light-secondary' : $nv-light-secondary,
+'light-tertiary' : $nv-light-tertiary,
+'light-tertiary-opacity' : $nv-light-tertiary-opacity,
+'light-light-grey' : $nv-light-light-grey,
+'light-accent' : $nv-light-accent,
+'danger' : $nv-danger,
+'light' : $nv-light,
+'dark' : $nv-dark,
+'info' : $nv-info,
+'dark-red': $nv-dark-red,
+'ultra-dark' : $nv-ultra-dark,
+'light-grey' : $nv-light-grey
+);
+
+// COLOR RELATED CLASSED
+
+@each $name, $color in $colors {
+  // classes for texts in every color
+  .text-nv-#{$name} {
+    color: $color !important;
+  }
+  // classes for backgrounds in every color
+  .bg-nv-#{$name} {
+    background-color: $color !important;
+  }
+  // classes for borders in every color
+  .border-#{$name} {
+    border-left: 1px solid $color !important;
+    border-right: 1px solid $color !important;
+    border-top: 1px solid $color !important;
+    border-bottom: 1px solid $color !important;
+  }
+  // classes for text shadows in every color
+  .ts-#{$name} {
+    text-shadow: -1px -1px 7px $color;
+  }
+}
+
+html,
+body {
+  font-family: $medium;
+}
+
+body.body--dark {
+  background: $nv-dark;
+  color: $nv-light-tertiary !important;
+}
+
+body.body--light {
+  background: $nv-light;
+  color: $nv-light-tertiary !important;
+}
+
+// CLASSES
+.q-field--error .q-field__bottom {
+  color: $nv-danger !important;
+}
+
+.text-negative {
+  color: $nv-danger !important;
+}
+
+.q-field__label {
+  font-size: 13px !important;
+}
+
+.q-field__messages {
+  font-family: $regular;
+}
+
+.no-padding-dialog {
+  .q-dialog__inner--minimized {
+    padding: 0 !important;
+  }
+}
+
+.rounded--dark-input--withAlert--space {
+  .q-field__control {
+    height: 48px !important;
+    background-color: #353E49 !important;
+    border-radius: 13px !important;
+    padding-bottom: 0 !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .q-field__marginal {
+    height: 48px !important;
+    color:rgba(255, 255, 255, 1) !important;
+  }
+
+  .q-field__after {
+    display: none !important;
+  }
+
+  .q-field--filled, .q-field__control::before {
+    border: 1px solid rgba(0, 0, 0, 0.24) !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+.rounded--light-input--withAlert--space {
+  .q-field__control {
+    height: 48px !important;
+    background-color: #F5F5F5 !important;
+    border-radius: 13px !important;
+    padding-bottom: 0 !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .q-field__marginal {
+    height: 48px !important;
+    color:rgba(0, 0, 0, 1) !important;
+  }
+
+
+  .q-field--filled, .q-field__control::before {
+    border: 1px solid #F5F5F5 !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+
+.rounded--dark-input--withAlert {
+  .q-field__control {
+    height: 48px !important;
+    background-color: #353E49 !important;
+    border-radius: 13px !important;
+    padding-bottom: 0 !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .q-field__marginal {
+    height: 48px !important;
+  }
+
+  .q-field__after, .q-field__append, .q-field__messages, .q-field__bottom {
+    display: none !important;
+  }
+
+  .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
+    text-align: center !important;
+  }
+
+  .q-field--with-bottom {
+    padding-bottom: 0 !important;
+  }
+
+  .q-field--filled, .q-field__control::before {
+    border: 1px solid rgba(0, 0, 0, 0.24) !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+.rounded--light-input--withAlert {
+  .q-field__control {
+    height: 48px !important;
+    background-color: #F5F5F5 !important;
+    border-radius: 13px !important;
+    padding-bottom: 0 !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
+    text-align: center !important;
+  }
+
+  .q-field__marginal {
+    height: 48px !important;
+  }
+
+  .q-field__after, .q-field__append, .q-field__messages, .q-field__bottom {
+    display: none !important;
+  }
+
+  .q-field--with-bottom {
+    padding-bottom: 0 !important;
+  }
+
+  .q-field--filled, .q-field__control::before {
+    border: 1px solid #F5F5F5 !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+
+.dense-select-input {
+  .q-field__control {
+    height: 35px !important;
+    min-height: 35px !important;
+    padding: 0 !important;
+  }
+
+  .q-field__marginal, .q-field__control, .q-field__native {
+    height: 35px !important;
+    min-height: 35px !important;
+  }
+
+  .q-select .q-field__input,
+  .q-field__input {
+    min-height: 25px !important;
+    max-height: 35px !important;
+    margin-top: -20px !important;
+    padding: 0 !important;
+  }
+}
+
+.ultra-dense-input--dark {
+  .q-field__control {
+    height: 28px !important;
+    background-color: #353E49 !important;
+    border-radius: 8px;
+    font-size: 12px !important;
+    font-weight: 400;
+  }
+  .q-field__marginal {
+    height: 28px !important;
+  }
+  .q-field--filled, .q-field__control::before {
+    border: 1px solid rgba(0, 0, 0, 0.24) !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+.ultra-dense-input--light {
+  .q-field__control {
+    height: 28px !important;
+    background-color: #F5F5F5 !important;
+    border-radius: 8px;
+    font-size: 12px !important;
+    font-weight: 400;
+  }
+  .q-field__marginal {
+    height: 28px !important;
+    color:rgba(0, 0, 0, 0.9) !important;
+  }
+  .q-field--filled, .q-field__control::before {
+    border: 1px solid #F5F5F5 !important;
+    transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+.q-placeholder::placeholder {
+  opacity: .3 !important;
+}
+
+.nv-switch--inactive--dark {
+  height: 28px !important;
+  margin-top: 2px !important;
+  .q-toggle__track {
+    height: 24px !important;
+    width: 55px;
+    color: #353E49 !important;
+    opacity: 1 !important;
+    border: solid 0.8px rgba($color: #353E49, $alpha: .4) !important;
+    padding: 0px 10px;
+    border-radius: 12px !important;
+  }
+  .q-toggle__thumb {
+    margin-top: 6px;
+    margin-left: 7px;
+    height: 18px;
+    box-shadow: none;
+  }
+  .q-toggle__thumb::after {
+    background: rgba($color: $nv-dark-primary, $alpha: .6) !important;
+  }
+}
+
+
+.nv-switch--active--dark {
+  height: 28px !important;
+  margin-top: 2px !important;
+  .q-toggle__track {
+    height: 24px !important;
+    width: 55px;
+    color: #353E49 !important;
+    opacity: 1 !important;
+    border: solid 0.8px #353E49 !important;
+    padding: 0px 10px;
+    border-radius: 12px !important;
+  }
+  .q-toggle__thumb {
+    color: $nv-dark-primary !important;
+    margin-top: 6px;
+    margin-left: 17px;
+    height: 18px;
+    box-shadow: none;
+  }
+}
+
+//  SCROLL CLASS STARTS
+/* Tamaño del scroll */
+.scroll::-webkit-scrollbar {
+  width: 8px;
+  margin: 80px !important;
+}
+
+/* Estilos barra (thumb) de scroll */
+.scroll::-webkit-scrollbar-thumb {
+  background: $nv-light-primary;
+  border-radius: 4px;
+  height: 19px !important;
+}
+
+.scroll::-webkit-scrollbar-thumb:active {
+  background-color: $nv-light-primary;
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: $nv-light-primary;
+  opacity: .5;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos track de scroll */
+.scroll::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+.scroll::-webkit-scrollbar-track:hover,
+.scroll::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
+// SCROLL CLASS ENDS
+
+// GENERAL SCROLLBAR STYLES STARTS
+
+::-webkit-scrollbar {
+  width: 8px;
+  margin: 80px !important;
+}
+
+/* Estilos barra (thumb) de scroll */
+::-webkit-scrollbar-thumb {
+  background: $nv-light-primary;
+  border-radius: 4px;
+  height: 19px !important;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: $nv-light-primary;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $nv-light-primary;
+  opacity: .5;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos track de scroll */
+::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track:hover,
+::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
+.prevent-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+// GENERAL SCROLLBAR STYLES ENDS

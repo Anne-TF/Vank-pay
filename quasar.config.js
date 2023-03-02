@@ -12,7 +12,7 @@ const { configure } = require('quasar/wrappers');
 const path = require('path');
 const version = require('./package.json').version;
 
-module.exports = configure(function(/* ctx */)
+module.exports = configure(function(ctx)
 {
     return {
         eslint: {
@@ -30,7 +30,7 @@ module.exports = configure(function(/* ctx */)
         // app boot file (/src/boot)
         // --> boot files are part of "main.js"
         // https://v2.quasar.dev/quasar-cli-vite/boot-files
-        boot: ['i18n', 'axios'],
+        boot: ['i18n', 'axios', 'capacitor'],
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
         css: ['app.scss'],
@@ -39,7 +39,7 @@ module.exports = configure(function(/* ctx */)
         extras: [
             // 'ionicons-v4',
             // 'mdi-v5',
-            // 'fontawesome-v6',
+            'fontawesome-v6',
             // 'eva-icons',
             // 'themify',
             // 'line-awesome',
@@ -51,6 +51,7 @@ module.exports = configure(function(/* ctx */)
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
         build: {
+            env: require('dotenv').config().parsed,
             target: {
                 browser: [
                     'es2019',
@@ -79,31 +80,48 @@ module.exports = configure(function(/* ctx */)
             // distDir
 
             // extendViteConf (viteConf) {},
-            // viteVuePluginOptions: {},
+            viteVuePluginOptions: {
+                runtimeOnly: false
+            },
 
             vitePlugins: [
                 [
                     '@intlify/vite-plugin-vue-i18n',
                     {
                         // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-                        // compositionOnly: false,
+                        compositionOnly: true,
 
                         // you need to set i18n resource including paths !
-                        include: path.resolve(__dirname, './src/i18n/**')
+                        include: path.resolve(__dirname, './src/i18n/**'),
+                        runtimeOnly: false
                     }
                 ]
-            ]
+            ],
+
+            extendViteConf(viteConf)
+            {
+                if (ctx.mode.capacitor)
+                {
+                    // do something with ViteConf
+                }
+            }
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
         devServer: {
-            // https: true
+            https: false,
+            // port: 2701,
             open: true // opens browser window automatically
         },
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
         framework: {
-            config: {},
+            config: {
+                notify: { /* look at QuasarConfOptions from the API card */ },
+                capacitor: {
+                    iosStatusBarPadding: true // add the dynamic top padding on iOS mobile devices,
+                }
+            },
 
             // iconSet: 'material-icons', // Quasar icon set
             // lang: 'en-US', // Quasar language pack
@@ -116,12 +134,14 @@ module.exports = configure(function(/* ctx */)
             // directives: [],
 
             // Quasar plugins
-            plugins: []
+            plugins: [
+                'Notify'
+            ]
         },
 
         // animations: 'all', // --- includes all animations
         // https://v2.quasar.dev/options/animations
-        animations: [],
+        animations: ['zoomIn', 'zoomOut', 'slideInRight', 'slideInLeft', 'slideOutLeft', 'slideOutRight', 'fadeInLeft', 'fadeOutDown', 'fadeInUp', 'flipOutY', 'flipInY'],
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#sourcefiles
         // sourceFiles: {
@@ -171,12 +191,18 @@ module.exports = configure(function(/* ctx */)
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-cordova-apps/configuring-cordova
         cordova: {
+            version,
+            description: 'Qori pay',
+            androidVersionCode: '10'
             // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
         capacitor: {
-            hideSplashscreen: true
+            hideSplashscreen: false,
+            appName: 'QoriPay',
+            version,
+            description: 'Qori pay app'
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron
@@ -202,7 +228,7 @@ module.exports = configure(function(/* ctx */)
             builder: {
                 // https://www.electron.build/configuration/configuration
 
-                appId: 'nova-pay'
+                appId: 'qori-pay'
             }
         },
 

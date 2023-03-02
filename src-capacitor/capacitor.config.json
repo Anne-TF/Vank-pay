@@ -1,0 +1,17 @@
+{
+  "appId": "net.qoripay.quasar.app",
+  "appName": "Qory pay",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www",
+  "plugins": {
+    "Keyboard": {
+      "resize": "body",
+      "style": "DARK",
+      "resizeOnFullScreen": true
+    },
+    "SplashScreen": {
+      "androidScaleType": "CENTER_CROP"
+    }
+  }
+}
