@@ -1,7 +1,8 @@
 <template>
      <q-page
         :class="{
-            'q-py-md' : isMobile
+            'q-py-md' : isMobile,
+            'bg-nv-light' : !Dark.isActive
         }"
         class="hp-100">
         <div
@@ -48,7 +49,7 @@
                     class="no-margin text-light fs-31 wp-100"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive
+                        'text-black' : !Dark.isActive
                     }"
                     >
                     {{ HideText(viewBalance, '$'.concat(getBalance)) }}
@@ -95,7 +96,8 @@
                     no-caps
                     unelevated
                     class="wp-48 br-20 fs-14 py-13"
-                    :color="`nv-${GetSuffix('tertiary')}`"
+                    :class="{ 'text-nv-dark-accent' : !Dark.isActive }"
+                    :color="`${Dark.isActive ? 'nv-'.concat(GetSuffix('tertiary')) : 'dark'}`"
                 >
                     {{ $t('transactionHistory.deposit') }}
                 </q-btn>
@@ -103,14 +105,13 @@
                 <q-btn
                     no-caps
                     unelevated
-                    class="wp-48 br-20 fs-15 py-15"
+                    class="wp-48 br-20 fs-15 py-15 text-black"
                     :color="`nv-${GetSuffix('primary')}`"
                 >
                     {{ $t('transactionHistory.withdraw') }}
                 </q-btn>
             </div>
         </transition>
-
     </q-page>
 </template>
 
@@ -133,8 +134,8 @@ const showBackCard = ref<boolean>(false);
 // COMPUTEDS
 
 const isMobile = computed(() => Screen.lt.md);
-const getFrontCard = computed(() => new URL('../../assets/images/card-front.png', import.meta.url).href);
-const getBackCard = computed(() => new URL('../../assets/images/card-back.png', import.meta.url).href);
+const getFrontCard = computed(() => new URL('../../assets/images/FRONT-CARD.webp', import.meta.url).href);
+const getBackCard = computed(() => new URL('../../assets/images/BACK-CARD.webp', import.meta.url).href);
 const getBalance = computed(() => '80.60');
 const viewBalance = computed(() => settingsStore.ViewBalance);
 

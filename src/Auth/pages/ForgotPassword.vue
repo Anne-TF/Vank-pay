@@ -83,7 +83,7 @@
 
                 <q-btn
                 :color="`nv-${GetSuffix('primary')}`"
-                class="full-width br-20 py-12 q-mt-sm fs-16"
+                class="full-width br-20 py-12 q-mt-sm fs-16 text-black"
                 unelevated
                 no-caps
                 @click="$router.push('/verify-email')"

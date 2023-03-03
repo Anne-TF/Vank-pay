@@ -9,6 +9,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { Dark } from "quasar";
 
 defineProps({
     size: {
@@ -19,6 +20,6 @@ defineProps({
 
 const getUrl = computed(() =>
 {
-    return new URL(`../../assets/icons/${process.env.APP_NAME}.svg`, import.meta.url).href;
+    return new URL(`../../assets/icons/${process.env.APP_NAME}-${Dark.isActive ? 'dark' : 'light'}.svg`, import.meta.url).href;
 });
 </script>

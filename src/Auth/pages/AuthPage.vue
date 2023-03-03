@@ -5,14 +5,14 @@
             :class="{
                 'hp-40 flex column items-center justify-evenly no-margin':
                     isMobile,
-                'col-7 col-lg-8 row items-center justify-center': !isMobile
+                'col-6 row items-center justify-center': !isMobile
             }"
         >
             <div
                 :class="{
                     'text-nv-light-accent': !Dark.isActive,
                     'text-white': Dark.isActive,
-                    'q-px-sm': isXS
+                    'q-px-sm': isXS,
                 }"
                 class="flex column items-center"
             >
@@ -42,7 +42,7 @@
                     screenSize.height <= 764,
                 'hp-60':
                     isMobile && button === 'login' && screenSize.height > 764,
-                'col-5 col-lg-4 flex justify-center items-center': !isMobile
+                'col-6 flex justify-center items-center': !isMobile
             }"
             :style="`${
                 (isMobile && button === 'sign-up') || screenSize.height <= 764
@@ -63,7 +63,9 @@
                 :class="{
                     'dark--card': Dark.isActive,
                     'bg-white': !Dark.isActive,
-                    'br-40 hp-80 wp-93 q-py-md': !isMobile,
+                    'br-40 hp-80 q-py-md': !isMobile,
+                    'wp-55' : $q.screen.gt.md,
+                    'wp-80' : $q.screen.lt.lg && !isMobile,
                     'hp-100 wp-100 q-py-md': isMobile
                 }"
             >
@@ -92,7 +94,7 @@
                                 :class="`
                             ${
                                 button === 'login'
-                                    ? `bg-nv-${GetSuffix('secondary')}
+                                    ? `text-semi-bold bg-nv-${GetSuffix('secondary')}
                             ${!Dark.isActive ? 'text-nv-light-accent' : ''}`
                                     : `text-nv-${GetSuffix(
                                           `${
@@ -103,7 +105,7 @@
                                       )}`
                             }
                         `"
-                                class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
+                                class="flex items-center justify-center px-17 br-30 fs-12 q-mr-sm cursor-pointer"
                                 @click="changeView('login')"
                             >
                                 {{ $t('buttons.login') }}
@@ -112,7 +114,7 @@
                                 :class="`
                             ${
                                 button === 'sign-up'
-                                    ? `bg-nv-${GetSuffix('secondary')}
+                                    ? `text-semi-bold bg-nv-${GetSuffix('secondary')}
                             ${!Dark.isActive ? 'text-nv-light-accent' : ''}`
                                     : `text-nv-${GetSuffix(
                                           `${
@@ -123,7 +125,7 @@
                                       )}`
                             }
                         `"
-                                class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
+                                class="flex items-center justify-center px-17 br-30 fs-12 cursor-pointer"
                                 @click="changeView('sign-up')"
                             >
                                 {{ $t('buttons.register') }}

@@ -152,7 +152,7 @@
 
             <q-btn
                 :color="`nv-${GetSuffix('primary')}`"
-                class="full-width br-20 py-12 q-mt-lg fs-16"
+                class="full-width br-20 py-12 q-mt-lg fs-16 text-black"
                 unelevated
                 no-caps
             >

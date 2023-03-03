@@ -4,14 +4,14 @@
             <p
                 class="text-nv-light-tertiary q-mt-none q-mb-sm flex flex-inline items-center fs-14 justify-between"
             >
-                {{ $t('fields.email') }} o
+                {{ $t('fields.email') }} {{ locale.includes('es') ? 'o' : 'or' }}
                 {{ $t('fields.phoneNumber') }}
                 <span
                     @click="changeValidate()"
                     v-show="width > 444"
                     :class="`text-nv-${GetSuffix(
                     'accent'
-                )} text-medium ls-2 cursor-pointer ${
+                )} text-medium cursor-pointer ${
                     isMobile ? 'fs-10' : 'fs-12'
                 }`"
                 >
@@ -75,6 +75,7 @@
                     >
                         <q-card
                             class="q-pa-sm no-scroll"
+                            flat
                             :class="{
                             'br-40': !isMobile,
                             'bg-nv-dark' : Dark.isActive,
@@ -94,7 +95,7 @@
                                     :disable="loading"
                                     :color="`nv-${GetSuffix('primary')}`"
                                     @update:model-value="onFilter"
-                                    class="wp-85 ls-2 text-regular"
+                                    class="wp-85 text-regular"
                                    :class="{
                                         'fs-13' : isMobile,
                                         'rounded--dark-input--withAlert--space': Dark.isActive,
@@ -117,7 +118,7 @@
                                     right: '0px',
                                     borderRadius: '9px',
                                     backgroundColor: `${
-                                        Dark.isActive ? '#016608' : '#52B301'
+                                        Dark.isActive ? '#DACB04' : '#f9eb37'
                                     }`,
                                     width: '3px',
                                     opacity: '0.7'
@@ -200,7 +201,7 @@
 
             <q-btn
                 :color="`nv-${GetSuffix('primary')}`"
-                class="full-width br-20 py-12 q-mt-lg fs-16"
+                class="full-width br-20 py-12 q-mt-lg fs-16 text-black"
                 unelevated
                 no-caps
                 :loading="loading"

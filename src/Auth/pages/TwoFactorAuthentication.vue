@@ -55,6 +55,7 @@
                     <!-- EMAIL BTN -->
                     <div
                         :class="`
+                            ${ Screen.gt.sm ? 'fs-14' : 'fs-12'}
                             ${
                                 tab === 'email'
                                     ? `bg-nv-${GetSuffix('secondary')}
@@ -72,7 +73,7 @@
                                       )}`
                             }
                         `"
-                        class="flex items-center justify-center py-10 px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
+                        class="flex items-center justify-center py-10 px-17 br-30 q-mr-sm cursor-pointer"
                         @click="changeView('email')"
                     >
                         {{ $t('fields.email') }}
@@ -80,6 +81,7 @@
                     <!-- PHONE NUMBER BTN -->
                     <div
                         :class="`
+                            ${ Screen.gt.sm ? 'fs-14' : 'fs-12'}
                             ${
                                 tab === 'phone'
                                     ? `bg-nv-${GetSuffix('secondary')}
@@ -97,7 +99,7 @@
                                       )}`
                             }
                         `"
-                        class="flex items-center justify-center px-17 py-10 br-30 fs-12 ls-2 cursor-pointer q-mx-xs"
+                        class="flex items-center justify-center px-17 py-10 br-30 cursor-pointer q-mx-xs"
                         @click="changeView('phone')"
                     >
                         {{ $t('fields.phoneNumber') }}
@@ -105,6 +107,7 @@
                     <!-- AUTHY BTN -->
                     <div
                         :class="`
+                        ${ Screen.gt.sm ? 'fs-14' : 'fs-12'}
                             ${
                                 tab === 'authy'
                                     ? `bg-nv-${GetSuffix('secondary')}
@@ -122,7 +125,7 @@
                                       )}`
                             }
                         `"
-                        class="flex items-center justify-center px-17 py-10 br-30 fs-12 ls-2 cursor-pointer"
+                        class="flex items-center justify-center px-17 py-10 br-30 cursor-pointer"
                         @click="changeView('authy')"
                     >
                         Authy
@@ -206,7 +209,7 @@
 
                 <q-btn
                     :color="`nv-${GetSuffix('primary')}`"
-                    class="full-width br-20 py-12 mt-40 fs-16"
+                    class="full-width br-20 py-12 mt-40 fs-16 text-black"
                     unelevated
                     no-caps
                     @click="handleValidation"
