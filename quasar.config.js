@@ -192,7 +192,7 @@ module.exports = configure(function(ctx)
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-cordova-apps/configuring-cordova
         cordova: {
             version,
-            description: 'Qori pay',
+            description: 'Vank pay',
             androidVersionCode: '10'
             // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
         },
@@ -200,9 +200,9 @@ module.exports = configure(function(ctx)
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
         capacitor: {
             hideSplashscreen: false,
-            appName: 'QoriPay',
+            appName: 'Vank pay',
             version,
-            description: 'Qori pay app'
+            description: 'Vank pay'
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron

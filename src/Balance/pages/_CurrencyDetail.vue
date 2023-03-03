@@ -23,19 +23,19 @@
                     <q-icon size="2.5em" name="img:icons/Vector.svg" />
 
                     <h5
-                        class="q-my-none q-mr-none text-medium fs-22 text-nv-dark-primary q-ml-xs"
+                        class="q-my-none q-mr-none text-medium fs-22 text-black q-ml-xs"
                     >
                         {{ getAcronym }}
                     </h5>
 
                     <h5
-                        class="no-margin q-pt-xs wp-100 text-center text-semi-bold fs-15 text-nv-dark-primary"
+                        class="no-margin q-pt-xs wp-100 text-center text-semi-bold fs-15 text-black"
                     >
                         {{ HideText(viewBalance, '1.00') }}
                     </h5>
 
                     <h5
-                        class="no-margin wp-100 text-center text-medium fs-13 text-nv-dark-primary"
+                        class="no-margin wp-100 text-center text-medium fs-13 text-black"
                     >
                         = {{ HideText(viewBalance, '$27000.00') }}
                     </h5>
@@ -83,7 +83,7 @@
                     no-caps
                     unelevated
                     class="wp-48 br-20 fs-14 py-13"
-                    :color="`nv-${GetSuffix('tertiary')}`"
+                    :color="`${Dark.isActive ? 'nv-'.concat(GetSuffix('tertiary')) : 'dark'}`"
                 >
                     {{ $t('transactionHistory.deposit') }}
                 </q-btn>
@@ -91,7 +91,7 @@
                 <q-btn
                     no-caps
                     unelevated
-                    class="wp-48 br-20 fs-15 py-15"
+                    class="wp-48 br-20 fs-15 py-15 text-black"
                     :color="`nv-${GetSuffix('primary')}`"
                 >
                     {{ $t('transactionHistory.withdraw') }}
@@ -122,7 +122,7 @@ const showBtns = ref<boolean>(true);
 // COMPUTEDS
 
 const isMobile = computed(() => Screen.lt.md);
-const getCard = computed(() => new URL('../../assets/images/currency-card.png', import.meta.url).href);
+const getCard = computed(() => new URL('../../assets/images/CURRENCY-CARD.webp', import.meta.url).href);
 const getAcronym = computed(() => $router.currentRoute.value.params.currency);
 const viewBalance = computed(() => settingsStore.ViewBalance);
 

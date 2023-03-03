@@ -1,49 +1,26 @@
 @font-face {
-  font-family: Poppins-ExtraLight;
-  src: url(../../assets/fonts/Poppins-ExtraLight.ttf);
+    font-family: PPObjectSans-Regular;
+    src: url(../assets/fonts/PPObjectSans-Regular.otf);
 }
 
 @font-face {
-  font-family: Poppins-Light;
-  src: url(../assets/fonts/Poppins-Light.ttf);
-}
-
-
-@font-face {
-  font-family: Poppins-Regular;
-  src: url(../assets/fonts/Poppins-Regular.ttf);
+    font-family: Mulish-SemiBold;
+    src: url(../assets/fonts/Mulish-SemiBold.ttf);
 }
 
 @font-face {
-  font-family: Poppins-Medium;
-  src: url(../assets/fonts/Poppins-Medium.ttf);
+    font-family: PPObjectSans-Bold;
+    src: url(../assets/fonts/PPObjectSans-Bold.otf);
 }
 
-@font-face {
-  font-family: Poppins-SemiBold;
-  src: url(../assets/fonts/Poppins-SemiBold.ttf);
-}
-
-
-@font-face {
-  font-family: Poppins-Bold;
-  src: url(../assets/fonts/Poppins-Bold.ttf);
-}
-
-$extra-light: "Poppins-ExtraLight";
-$light: "Poppins-Light";
-$regular: "Poppins";
-$medium: "Poppins-Medium";
-$semi-bold: "Poppins-SemiBold";
-$bold: "Poppins-Bold";
+$regular: "PPObjectSans-Regular";
+$semi-bold: "Mulish-SemiBold";
+$bold: "PPObjectSans-Bold";
 
 $fonts: (
-  "extra-light": $extra-light,
-  "light" : $light,
-  "regular": $regular,
-  "bold": $bold,
-  "medium": $medium,
-  "semi-bold": $semi-bold,
+    "regular": $regular,
+    "semi-bold": $semi-bold,
+    "bold": $bold,
 );
 
 h1,
@@ -52,28 +29,26 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $medium;
+    font-family: $bold;
+    font-weight: normal !important;
 }
 
-@for $size from 8 through 100 {
-  .fs-#{$size} {
-    font-size: #{$size}px !important;
-  }
-  .lh-#{$size} {
-    line-height: #{$size}px !important;
-  }
+@for $size from 2 through 100 {
+    .fs-#{$size} {
+        font-size: #{$size}px !important;
+    }
+    .lh-#{$size} {
+        line-height: #{$size}px !important;
+    }
+    .ls-#{$size} {
+        letter-spacing: #{$size}px !important;
+    }
 }
 
 @each $name, $font in $fonts {
-  .text-#{$name} {
-    font-family: $font !important;
-  }
-}
-
-.ls-2 {
-  letter-spacing: 0.02em !important;
-}
-
-.ls-5 {
-  letter-spacing: 0.05em !important;
+    $value: if($name == 'semi-bold',bold,normal);
+    .text-#{$name} {
+        font-family: $font !important;
+        font-weight: $value;
+    }
 }

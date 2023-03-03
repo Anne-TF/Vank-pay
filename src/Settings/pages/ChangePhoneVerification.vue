@@ -263,7 +263,7 @@
 
             <q-btn
                 :color="`nv-${GetSuffix('primary')}`"
-                class="full-width br-20 py-12 mt-30 fs-16"
+                class="full-width br-20 py-12 mt-30 fs-16 text-black"
                 unelevated
                 :class="{
                     'mb-40' : !isMobile

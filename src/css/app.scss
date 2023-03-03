@@ -57,7 +57,7 @@ $colors: (
 
 html,
 body {
-  font-family: $medium;
+  font-family: $regular;
 }
 
 body.body--dark {
@@ -66,8 +66,8 @@ body.body--dark {
 }
 
 body.body--light {
-  background: $nv-light;
-  color: $nv-light-tertiary !important;
+  background: $nv-light-tertiary;
+  color: #000 !important;
 }
 
 // CLASSES
@@ -243,7 +243,7 @@ body.body--light {
 .ultra-dense-input--light {
   .q-field__control {
     height: 28px !important;
-    background-color: #F5F5F5 !important;
+    background-color: #eaeaea !important;
     border-radius: 8px;
     font-size: 12px !important;
     font-weight: 400;
@@ -285,6 +285,9 @@ body.body--light {
   }
 }
 
+.q-btn {
+    font-family: $bold !important;
+}
 
 .nv-switch--active--dark {
   height: 28px !important;

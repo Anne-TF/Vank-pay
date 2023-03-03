@@ -48,7 +48,7 @@
                 outlined
                 v-model="email"
                 :color="'transparent'"
-                placeholder="money@qoripay.com"
+                placeholder="money@vankpay.com"
                 inputmode="text"
                 class="q-mb-md"
                 :class="{
@@ -157,7 +157,7 @@
                 :class="{
                     'mb-40' : !isMobile
                 }"
-                class="full-width br-20 py-12 mt-30 fs-16"
+                class="full-width br-20 py-12 mt-30 fs-16 text-black"
                 unelevated
                 no-caps
             >

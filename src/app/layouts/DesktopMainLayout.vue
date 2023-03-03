@@ -12,13 +12,21 @@
                     flat
                     dense
                     round
-                    size="3vh"
+                    size="1.8em"
                     :icon="`img:icons/menu-${dark.isActive ? 'dark' : 'light'}.svg`"
                     aria-label="Menu"
                     @click="toggleLeftDrawer"
                 />
                 <q-space />
 
+                <q-btn
+                    @click="switchMode()"
+                    flat
+                    round
+                    class="q-mr-sm"
+                    :color="dark.isActive ? 'white' : 'dark'"
+                    :icon="dark.isActive ? 'light_mode' : 'dark_mode'"
+                />
 
                <div
                     style="min-height: 42px; max-height: 42px; width: 42px;"
@@ -27,7 +35,7 @@
                     :style="`
                         ${
                             getRoute.includes('notifications') && dark.isActive ?
-                            'background-color: #29313C' : (getRoute.includes('notifications') ? 'background-color: #EBECF0' : '')
+                            'background-color: #29313C' : (getRoute.includes('notifications') ? 'background-color: #000' : '')
                         }`"
                     >
 
@@ -35,7 +43,8 @@
                         class="ri-notification-4-fill fs-28"
                         :class="{
                             'text-white' : getRoute.includes('notifications') && dark.isActive,
-                            'text-nv-dark' : getRoute.includes('notifications') && !dark.isActive,
+                            'text-nv-dark-accent' : getRoute.includes('notifications') && !dark.isActive,
+                            'text-black' : !dark.isActive && !getRoute.includes('notifications')
                         }"
                     />
                 </div>
@@ -47,7 +56,7 @@
                     :style="`
                         ${
                             getRoute === '/' && dark.isActive ?
-                            'background-color: #29313C' : (getRoute === '/' ? 'background-color: #EBECF0' : '')
+                            'background-color: #29313C' : (getRoute === '/' ? 'background-color: #000' : '')
                         }`"
                     >
 
@@ -56,7 +65,7 @@
                         name="fa-solid fa-wallet"
                         :class="{
                             'text-white' : getRoute === '/' && dark.isActive,
-                            'text-nv-dark' : getRoute === '/' && !dark.isActive,
+                            'text-nv-dark-accent' : getRoute === '/' && !dark.isActive,
                         }"
                     />
                 </div>
@@ -75,12 +84,13 @@
                         :name="`img:icons/close-${getIconSuffix}.svg`"
                     />
 
-                    <q-menu v-model="showDesktopMenu" :offset="[0, 15]" style="border-radius: 10px !important;">
+                    <q-menu v-model="showDesktopMenu" :offset="[0, 15]" style="border-radius: 10px !important; min-width: 285px; max-width: 300px;">
                         <q-card
                             :class="{
                                 'bg-nv-dark' : dark.isActive,
                                 'bg-nv-light' : !dark.isActive
                             }"
+                            flat
                             class="q-pa-lg br-10 wp-100"
                             style="
                                 height: 20em !important;
@@ -95,7 +105,7 @@
                                             'text-nv-light-accent' : !dark.isActive
                                         }"
                                         style="letter-spacing: 2px;"
-                                        class="no-margin fs-18">
+                                        class="no-margin fs-16">
                                         {{ $t('buttons.deposit.title') }}
                                     </h5>
                                     <p
@@ -118,7 +128,7 @@
                                             'text-nv-light-accent' : !dark.isActive
                                         }"
                                         style="letter-spacing: 2px;"
-                                        class="no-margin fs-18">
+                                        class="no-margin fs-16">
                                         {{ $t('buttons.withdraw.title') }}
                                     </h5>
                                     <p
@@ -140,7 +150,7 @@
                                                 'text-nv-light-accent' : !dark.isActive
                                             }"
                                             style="letter-spacing: 2px;"
-                                            class="no-margin fs-18">
+                                            class="no-margin fs-16">
                                             {{ $t('buttons.sendMoney.title') }}
                                         </h5>
                                         <p
@@ -179,6 +189,21 @@
                 <EssentialLink :options="options" />
             </q-list>
 
+            <q-item
+                clickable
+                v-ripple
+                @click="hasLogout"
+                class="no-padding q-mb-sm text-nv-light-tertiary absolute-bottom">
+                <q-item-section class="q-py-md q-pl-lg" style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
+                    <q-icon name="logout" size="25px" class="mr-10" />
+                    {{ $t('settings.logout') }}
+                </q-item-section>
+
+                <q-item-section side class="flex items-center q-mr-lg">
+                    <q-icon name="chevron_right" />
+                </q-item-section>
+            </q-item>
+
             <template v-slot:mini>
                 <div class="fit mini-slot cursor-pointer">
                     <div class="flex column items-center q-py-md">
@@ -206,6 +231,14 @@
                             :data-icon="link.icon"
                         />
                     </div>
+
+                    <q-btn
+                        icon="logout"
+                        unelevated
+                        @click="hasLogout"
+                        size="17px"
+                        class="text-nv-light-tertiary wp-100 absolute-bottom q-mb-md"
+                    />
                 </div>
             </template>
         </q-drawer>
@@ -217,6 +250,7 @@
                     'justify-end' : screen.lt.lg && $router.currentRoute.value.path !== '/',
                     'justify-center' : screen.gt.md || screen.md && $router.currentRoute.value.path === '/',
                     'bg-nv-ultra-dark' : dark.isActive,
+                    'bg-nv-light-secondary' : !dark.isActive
                 }"
                 style="height: 50vh;">
                 <Transition
@@ -231,8 +265,8 @@
                     <q-card
                         :class="{
                             'bg-nv-dark' : dark.isActive,
-                            'wp-29 br-20 q-pa-md' : screen.gt.md,
-                            'wp-35 br-20 q-pa-md' : screen.md,
+                            'wp-29 br-20 q-pa-md q-mr-xl' : screen.gt.md,
+                            'wp-35 br-20 q-pa-sm q-mr-md' : screen.md,
                             'no-padding' : screen.sm || screen.xs
                         }"
                         flat
@@ -263,7 +297,7 @@
                     style="contain: content;"
                     v-if="screen.gt.sm"
                     :class="{
-                        'wp-68' : screen.gt.md,
+                        'wp-62' : screen.gt.md,
                         'wp-80' : screen.md && $router.currentRoute.value.path === '/',
                         'wp-60' : screen.md && $router.currentRoute.value.path !== '/'
                     }">
@@ -283,12 +317,14 @@ import GetSuffix from '../shared/helpers/GetSuffix';
 import { useSettingsStore } from 'stores/settings';
 import Logo from '../components/Logo.vue';
 import MainBalanceView from '../../Balance/pages/MainBalanceView.vue';
+import {useAuthStore} from 'stores/auth';
 
 const { version } = useQuasar();
 const { dark } = useQuasar();
 const { screen } = useQuasar();
 const $router = useRouter();
 const settingsStore = useSettingsStore();
+const authStore = useAuthStore();
 
 const linksList = [
     {
@@ -352,6 +388,13 @@ const showMenu = ref<boolean>(false);
 const show = ref<boolean>(false);
 const mini = ref<boolean>(false);
 const showDesktopMenu = ref<boolean>(false);
+
+const hasLogout = async() =>
+{
+    await authStore.logout();
+    await $router.push('/');
+    console.log('aa')
+};
 
 const toggleLeftDrawer = () =>
 {

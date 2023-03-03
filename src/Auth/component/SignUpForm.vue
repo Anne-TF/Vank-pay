@@ -103,7 +103,7 @@
         </q-input>
 
         <div
-            class="fs-12 text-nv-light-tertiary q-py-none q-mt-md q-mb-md row q-mx-none items-start"
+            class="fs-12 text-nv-light-tertiary q-py-none q-mt-md q-mb-md row q-mx-none items-start flex items-center"
         >
             <div class="col flex items-start">
                 <q-checkbox
@@ -130,7 +130,7 @@
         </div>
         <q-btn
             :color="`nv-${GetSuffix('primary')}`"
-            class="full-width br-20 py-12 q-mt-lg fs-16"
+            class="full-width br-20 py-12 q-mt-lg fs-16 text-black"
             unelevated
             no-caps
             :loading="loading"

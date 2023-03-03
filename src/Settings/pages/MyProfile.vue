@@ -165,7 +165,7 @@
                     </div>
                     <q-btn
                         :color="`nv-${GetSuffix('primary')}`"
-                        class="wp-90 q-py-sm fs-16"
+                        class="wp-90 q-py-sm fs-16 text-black"
                         rounded
                         @click="editName = false"
                         unelevated

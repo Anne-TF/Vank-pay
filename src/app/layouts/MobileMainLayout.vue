@@ -1,5 +1,5 @@
 <template>
-    <q-layout :view="screen.gt.md ? 'lHh Lpr lFf' : 'hHh Lpr lff'">
+    <q-layout :view="screen.gt.md ? 'lHh Lpr lFf' : 'hHh Lpr lff'" :class="{ 'bg-nv-light' : !dark.isActive }">
         <q-header
             v-if="!isMobile"
             :class="{
@@ -138,7 +138,7 @@
         <q-drawer
             :class="{
                 'bg-nv-dark' : dark.isActive,
-                'bg-nv-light' : !dark.isActive
+                'bg-white' : !dark.isActive
             }"
             :width="400"
             :mini-width="90"
@@ -220,7 +220,7 @@
                 class="fixed-bottom mb-0">
                 <div
                     :style="`
-                        background-color: ${dark.isActive ? '#1D2229' : '#FFF'};
+                        background-color: ${dark.isActive ? '#1D2229' : '#f5f5f5'};
                         border: 1px solid ${floatingMenu ? (dark.isActive ? '#303640' : '#939BA6') : 'transparent'};
                         contain: content;
                         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -245,7 +245,7 @@
                                 <h5
                                     :class="{
                                         'text-white' : dark.isActive,
-                                        'text-nv-light-accent' : !dark.isActive
+                                        'text-nv-dark' : !dark.isActive
                                     }"
                                     style="letter-spacing: 2px;"
                                     class="no-margin fs-20">
@@ -268,7 +268,7 @@
                                 <h5
                                     :class="{
                                         'text-white' : dark.isActive,
-                                        'text-nv-light-accent' : !dark.isActive
+                                        'text-nv-dark' : !dark.isActive
                                     }"
                                     style="letter-spacing: 2px;"
                                     class="no-margin fs-20">
@@ -291,7 +291,7 @@
                                 <h5
                                     :class="{
                                         'text-white' : dark.isActive,
-                                        'text-nv-light-accent' : !dark.isActive
+                                        'text-nv-dark' : !dark.isActive
                                     }"
                                     style="letter-spacing: 2px;"
                                     class="no-margin fs-20">
@@ -342,7 +342,7 @@
                                 :style="`
                                     ${
                                         getRoute === link.link && link.link !== '#' && dark.isActive ?
-                                        'background-color: #29313C' : (getRoute === link.link ? 'background-color: #EBECF0' : '')}
+                                        'background-color: #29313C' : (getRoute === link.link ? 'background-color: #000' : '')}
                                 `"
                             >
                                 <q-icon
@@ -351,7 +351,7 @@
                                     :name="link.icon"
                                     :class="{
                                         'text-white' : getRoute === link.link && dark.isActive,
-                                        'text-nv-dark' : getRoute === link.link && !dark.isActive,
+                                        'text-nv-dark-accent' : getRoute === link.link && !dark.isActive,
                                     }"
                                 />
 

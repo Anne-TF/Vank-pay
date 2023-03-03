@@ -2,7 +2,9 @@
     <q-page
         :class="{
             'q-py-md' : isMobile,
-            'bg-nv-ultra-dark flex flex-center' : !isMobile
+            'flex flex-center br-18' : !isMobile,
+            'bg-nv-light' : !Dark.isActive,
+            'bg-nv-dark' : Dark.isActive
         }"
         style="height: 100vh;"
         >
@@ -35,7 +37,7 @@
                         class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
                         :class="{
                             'text-nv-light' : Dark.isActive,
-                            'text-nv-dark' : !Dark.isActive,
+                            'text-black' : !Dark.isActive,
                             'text-right' : !isMobile
                         }"
                     >
@@ -45,7 +47,7 @@
 
                 <q-separator
                     size="0.3em"
-                    :color="Dark.isActive ? 'nv-ultra-dark' : 'nv-light-grey'"
+                    :color="Dark.isActive ? 'nv-ultra-dark' : 'grey-4'"
                     class="mt-20"
                 />
             </div>
@@ -71,7 +73,7 @@
                             :class="`
                                 ${
                                     tab === 'cards'
-                                    ? `bg-nv-${GetSuffix('secondary')}
+                                    ? `text-bold bg-nv-${GetSuffix('secondary')}
                                     ${!Dark.isActive ? 'text-nv-light-accent' : 'text-white'}`
                                     : `text-nv-${GetSuffix(
                                         `${
@@ -82,7 +84,7 @@
                                     )}`
                                 }
                             `"
-                            class="flex items-center justify-center px-17 br-30 fs-12 ls-2 q-mr-sm cursor-pointer"
+                            class="flex items-center justify-center px-17 br-30 fs-12 q-mr-sm cursor-pointer"
                             @click="changeView('cards')"
                         >
                             {{ $t('balance.cards') }}
@@ -92,7 +94,7 @@
                             :class="`
                             ${
                                 tab === 'wallets'
-                                ? `bg-nv-${GetSuffix('secondary')}
+                                ? `text-bold bg-nv-${GetSuffix('secondary')}
                                 ${!Dark.isActive ? 'text-nv-light-accent' : 'text-white'}`
                                 : `text-nv-${GetSuffix(
                                     `${
@@ -103,10 +105,10 @@
                                 )}`
                             }
                         `"
-                            class="flex items-center justify-center px-17 br-30 fs-12 ls-2 cursor-pointer"
+                            class="flex items-center justify-center px-17 br-30 fs-12 cursor-pointer"
                             @click="changeView('wallets')"
                         >
-                                    {{ $t('balance.wallets') }}
+                            {{ $t('balance.wallets') }}
                         </div>
                     </div>
 
@@ -183,7 +185,7 @@
                                     flat
                                     class="mb-10 br-20 py-5 cursor-pointer"
                                     @click="$router.push(`/cards/${card.name.replace(' ', '-')}`)"
-                                    :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.lg ? 'wp-30' : 'wp-45') : '' }`"
+                                    :class="`bg-nv-${Dark.isActive ? GetSuffix('tertiary-opacity') : 'light-primary'} ${ !isMobile ? (Screen.gt.lg ? 'wp-30' : 'wp-45') : '' }`"
                                 >
                                     <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
                                         <div
@@ -194,7 +196,7 @@
                                             class="flex flex-inline">
                                             <q-avatar
                                                 :size="Screen.gt.sm ? '3em' : '3.9em'"
-                                                :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
+                                                :style="`background-color: ${Dark.isActive ? '#161B22' : '#fff'};`"
                                             >
                                                 <q-icon
                                                     size="1.5em"
@@ -207,7 +209,7 @@
                                                     class="no-margin text-light"
                                                     :class="{
                                                         'text-nv-light' : Dark.isActive,
-                                                        'text-nv-light-accent' : !Dark.isActive,
+                                                        'text-black' : !Dark.isActive,
                                                         'fs-16' : Screen.gt.sm,
                                                         'fs-17' : Screen.lt.md
                                                     }"
@@ -217,7 +219,7 @@
                                                 <p
                                                     :class="{
                                                         'text-nv-light-tertiary' : Dark.isActive,
-                                                        'text-nv-light-accent' : !Dark.isActive,
+                                                        'text-nv-dark' : !Dark.isActive,
                                                         'fs-12' : Screen.gt.sm,
                                                         'fs-13' : Screen.lt.md
                                                     }"
@@ -230,7 +232,7 @@
                                         <div
                                             :class="{
                                                 'text-nv-light' : Dark.isActive,
-                                                'text-nv-light-accent' : !Dark.isActive,
+                                                'text-nv-dark' : !Dark.isActive,
                                                 'wp-30 flex items-center justify-end' : isMobile,
                                                 'wp-100 text-right mt-40' : !isMobile
                                             }"
@@ -284,7 +286,7 @@
                                     flat
                                     @click="$router.push(`/currency/${currency.acronym}`)"
                                     class="mb-10 br-20 py-5 cursor-pointer"
-                                    :class="`bg-nv-${GetSuffix('tertiary')}-opacity ${ !isMobile ? (Screen.gt.md ? 'wp-30' : 'wp-45') : '' }`"
+                                    :class="`bg-nv-${Dark.isActive ? GetSuffix('tertiary-opacity') : 'light-primary'}  ${ !isMobile ? (Screen.gt.md ? 'wp-30' : 'wp-45') : '' }`"
                                 >
                                     <q-card-section class="flex flex-inline" style="opacity: 1 !important;">
                                         <div
@@ -295,7 +297,7 @@
                                             class="flex flex-inline">
                                             <q-avatar
                                                 :size="Screen.gt.sm ? '3em' : '3.9em'"
-                                                :style="`background-color: ${Dark.isActive ? '#717A8A' : '#CDCDCD'};`"
+                                                :style="`background-color: ${Dark.isActive ? '#161B22' : '#fff'};`"
                                             >
                                                 <span
                                                     :class="{ 'text-nv-light-accent' : !Dark.isActive }"
@@ -309,7 +311,7 @@
                                                     class="no-margin text-medium"
                                                     :class="{
                                                         'text-nv-light' : Dark.isActive,
-                                                        'text-nv-dark' : !Dark.isActive,
+                                                        'text-black' : !Dark.isActive,
                                                         'fs-16' : Screen.gt.sm,
                                                         'fs-17' : Screen.lt.md
                                                     }"
@@ -319,7 +321,7 @@
                                                 <p
                                                     :class="{
                                                         'text-nv-light-tertiary' : Dark.isActive,
-                                                        'text-nv-light-accent' : !Dark.isActive,
+                                                        'text-nv-dark' : !Dark.isActive,
                                                         'fs-12' : Screen.gt.sm,
                                                         'fs-13' : Screen.lt.md
                                                     }"
@@ -332,7 +334,7 @@
                                         <div
                                             :class="{
                                                 'text-nv-light' : Dark.isActive,
-                                                'text-nv-light-accent' : !Dark.isActive,
+                                                'text-nv-dark' : !Dark.isActive,
                                                 'wp-30 flex items-center justify-end' : isMobile,
                                                 'wp-100 text-right mt-40' : !isMobile
                                             }"
