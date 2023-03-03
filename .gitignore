@@ -39,4 +39,4 @@ yarn-error.log*
 /qori-pay.apk
 /qoripayrelease.jks
 
-.env
+#.env

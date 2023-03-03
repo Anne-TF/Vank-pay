@@ -3,14 +3,15 @@
     <q-inner-loading :showing="splashLoading"
         :class="{
             'bg-nv-dark' : Dark.isActive,
-            'bg-nv-ligth' : !Dark.isActive
+            'bg-nv-light' : !Dark.isActive
         }"
     >
         <q-img
-            alt="Qory pay logo"
-            src="~assets/icons/QoriPay.svg"
+            alt="Vank pay logo"
+            src="~assets/icons/vank.svg"
             style="position:fixed;"
             width="10em"
+            height="10em"
         >
         </q-img>
     </q-inner-loading>
