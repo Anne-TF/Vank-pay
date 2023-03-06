@@ -1,6 +1,7 @@
 <template>
     <div
-        class="q-mt-xl q-px-lg">
+        class="q-px-lg" :class="{ 'q-mt-xl' : $q.screen.lt.md, 'q-mt-md' : $q.screen.gt.sm }">
+        <p :class="{ 'text-h5 q-ml-sm text-semi-bold q-mb-xs' : $q.screen.gt.sm, 'text-nv-dark' : !$q.dark.isActive }" v-text="$t('hello').concat(',')" />
         <div class="flex flex-inline justify-between">
             <div class="flex items-center">
                 <q-icon

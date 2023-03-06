@@ -185,24 +185,52 @@
             <div class="flex justify-center q-py-md">
                 <Logo :size="'8vh'" />
             </div>
-            <q-list class="q-mt-sm">
+            <q-list class="q-mt-none">
                 <EssentialLink :options="options" />
             </q-list>
 
-            <q-item
-                clickable
-                v-ripple
-                @click="hasLogout"
-                class="no-padding q-mb-sm text-nv-light-tertiary absolute-bottom">
-                <q-item-section class="q-py-md q-pl-lg" style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
-                    <q-icon name="logout" size="25px" class="mr-10" />
+            <div
+                class="wp-100 flex justify-center absolute-bottom q-px-lg">
+                <div
+                    class=" fs-10 text-center text-nv-light-tertiary cursor-pointer q-mb-md"
+                    @click="setLang(locale.includes('es') ? 'en-US' : 'es-ES')"
+                >
+                    {{ $t('buttons.changeLanguageTo') }}
+                    <span
+                        class="ml-3"
+                        :class="`text-nv-${GetSuffix('accent')}`"
+                    >
+                            {{
+                            $t(
+                                `langs.${
+                                    locale.includes('es')
+                                        ? 'english'
+                                        : 'spanish'
+                                }`
+                            )
+                        }}
+                    </span>
+                </div>
+                <q-btn
+                    class="wp-100 q-mx-auto fs-14 br-20"
+                    :color="`nv-${GetSuffix('tertiary')}`"
+                    no-caps
+                    unelevated
+                    @click="hasLogout"
+                >
                     {{ $t('settings.logout') }}
-                </q-item-section>
+                </q-btn>
 
-                <q-item-section side class="flex items-center q-mr-lg">
-                    <q-icon name="chevron_right" />
-                </q-item-section>
-            </q-item>
+                <p
+                    :class="{
+                    'text-nv-dark-light-grey' : dark.isActive,
+                    'text-nv-light-light-grey' : !dark.isActive
+                }"
+                    class="fs-10 mt-18 text-center"
+                >
+                    {{ $t('settings.dontShareYourAccount') }}
+                </p>
+            </div>
 
             <template v-slot:mini>
                 <div class="fit mini-slot cursor-pointer">
@@ -318,6 +346,7 @@ import { useSettingsStore } from 'stores/settings';
 import Logo from '../components/Logo.vue';
 import MainBalanceView from '../../Balance/pages/MainBalanceView.vue';
 import {useAuthStore} from 'stores/auth';
+import {useI18n} from 'vue-i18n';
 
 const { version } = useQuasar();
 const { dark } = useQuasar();
@@ -325,6 +354,7 @@ const { screen } = useQuasar();
 const $router = useRouter();
 const settingsStore = useSettingsStore();
 const authStore = useAuthStore();
+const { locale } = useI18n({ useScope: 'global' });
 
 const linksList = [
     {
@@ -392,8 +422,7 @@ const showDesktopMenu = ref<boolean>(false);
 const hasLogout = async() =>
 {
     await authStore.logout();
-    await $router.push('/');
-    console.log('aa')
+    await $router.push('/login');
 };
 
 const toggleLeftDrawer = () =>
@@ -447,6 +476,11 @@ const openMenu = (link: string) =>
     {
         $router.push(link);
     }
+};
+
+const setLang = (lang: string) =>
+{
+    void settingsStore.setLang(lang);
 };
 
 const closeMenu = () =>

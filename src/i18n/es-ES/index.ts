@@ -18,6 +18,7 @@ import notifications from './notifications';
 import transactions from './transactions';
 
 export default {
+    hello: 'Hola',
     login: {
         ...login
     },
