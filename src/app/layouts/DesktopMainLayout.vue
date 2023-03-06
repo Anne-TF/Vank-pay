@@ -339,14 +339,14 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
 import EssentialLink from '../components/EssentialLink.vue';
-import { useQuasar } from 'quasar';
+import { Dark, useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import GetSuffix from '../shared/helpers/GetSuffix';
 import { useSettingsStore } from 'stores/settings';
 import Logo from '../components/Logo.vue';
 import MainBalanceView from '../../Balance/pages/MainBalanceView.vue';
-import {useAuthStore} from 'stores/auth';
-import {useI18n} from 'vue-i18n';
+import { useAuthStore } from 'stores/auth';
+import { useI18n } from 'vue-i18n';
 
 const { version } = useQuasar();
 const { dark } = useQuasar();
@@ -445,7 +445,7 @@ const toggleLeftDrawer = () =>
 
 const switchMode = () =>
 {
-    dark.set(!dark.isActive);
+    void settingsStore.setDarkMode(!Dark.isActive);
 };
 
 const handleScroll = (info: any) =>

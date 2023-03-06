@@ -2,5 +2,6 @@ export default {
     totalBalance: 'Balance total',
     balance: 'Balance',
     cards: 'Tarjetas',
-    wallets: 'Billeteras'
+    wallets: 'Billeteras',
+    accounts: 'Cuentas'
 };
