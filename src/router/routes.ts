@@ -198,6 +198,22 @@ const routes: RouteRecordRaw[] = [
         }
     },
 
+    {
+        path: '/transactions',
+        component: () => import('../app/layouts/DesktopMainLayout.vue'),
+        children: [
+            { path: '', component: () => import('../Transaction/pages/TransactionsPage.vue') },
+            { path: 'convert-history', component: () => import('../Transaction/components/ConversionsHistory.vue') },
+            { path: 'pay-history', component: () => import('../Transaction/components/ConversionsHistory.vue') }
+        ],
+        meta: {
+            fullAuth: true,
+            hideMobileMenu: false,
+            enterAnimation: 'animated slideInLeft',
+            leaveAnimation: 'animated slideOutLeft'
+        }
+    },
+
     // Always leave this as last one,
     // but you can also remove it
     {

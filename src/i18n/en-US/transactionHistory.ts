@@ -3,6 +3,7 @@ export default {
     withdrawal: 'Withdrawal',
     deposit: 'Deposit',
     withdraw: 'Withdraw',
+    exchange: 'Conversion',
     filters: 'Filters',
     currencyDetailFilters: {
         all: 'All',

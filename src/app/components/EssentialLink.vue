@@ -1,5 +1,6 @@
 <template>
     <div
+        v-if="showUser"
         class="q-px-lg" :class="{ 'q-mt-xl' : $q.screen.lt.md, 'q-mt-md' : $q.screen.gt.sm }">
         <p :class="{ 'text-h5 q-ml-sm text-semi-bold q-mb-xs' : $q.screen.gt.sm, 'text-nv-dark' : !$q.dark.isActive }" v-text="$t('hello').concat(',')" />
         <div class="flex flex-inline justify-between">
@@ -35,7 +36,7 @@
                         <q-icon
                             size="1.6em"
                             class="mb-4 cursor-pointer"
-                            name="img:icons/copy.svg"
+                            name="img:/icons/copy.svg"
                             @click="copy(getUserId)"
                         />
                     </p>
@@ -56,7 +57,7 @@
                     >
                     <q-icon
                         size="1.3em"
-                        name="img:icons/badge-check.svg"
+                        name="img:/icons/badge-check.svg"
                     />
                     <span class="q-ml-sm text-nv-info">LvL 1</span>
                 </div>
@@ -70,17 +71,18 @@
             clickable
             v-ripple
             @click="$router.push(link.to)"
-            :active="
-                $router.currentRoute.value.path.includes(link.to)
-            "
+            :active="$route.path !== '/' && $route.path.includes(link.to) && link.to !== '/' || $route.path === '/' && link.to === '/'"
             :class="{
-                'text-nv-light-tertiary' : !$router.currentRoute.value.path.includes(link.to)
+                'text-nv-light-tertiary' : !$route.path.includes(link.to) || $route.path.includes(link.to) && $route.path !== '/' && link.to === '/',
+                'br-20' : !showUser
             }"
             :active-class="`text-nv-${GetSuffix('accent')}`"
             class="no-padding q-mb-sm"
             v-for="(link, index) in options"
             :key="index">
-            <q-item-section class="q-py-md q-pl-lg" style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
+            <q-item-section
+                class="q-py-md" :class="{ 'q-pl-lg' : showUser, 'q-pl-md' : !showUser && $q.screen.gt.sm }"
+                style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
                 <span
                     class="iconify fs-25 mr-10"
                     :data-icon="link.icon"
@@ -88,8 +90,8 @@
                     {{ $t(`${link.key}`) }}
             </q-item-section>
 
-            <q-item-section side class="flex items-center q-mr-lg">
-                <q-icon name="chevron_right" />
+            <q-item-section side class="flex items-center" :class="{ 'q-mr-lg' : showUser, 'q-mr-md' : !showUser && $q.screen.gt.sm }">
+                <q-icon name="chevron_right" :color="$route.path.includes(link.to) && link.to !== '/' || $route.path === '/' && link.to === '/' ? `nv-${GetSuffix('accent')}` : 'nv-light-tertiary'" />
             </q-item-section>
         </q-item>
     </q-list>
@@ -107,6 +109,11 @@ defineProps({
     options: {
         type: Array,
         default: () => []
+    },
+    showUser: {
+        type: Boolean,
+        default: true,
+        required: false
     }
 });
 

@@ -4,10 +4,10 @@
         style="height: 100%;">
         <div
             :class="{
-                'q-px-lg mt-25' : isMobile,
-                'mt-5 q-px-md' : !isMobile
+                'mt-25' : isMobile,
+                'mt-5' : !isMobile
             }"
-            class="flex flex-inline justify-between items-center mt-23">
+            class="flex flex-inline justify-between items-center mt-23 q-px-md">
             <q-icon
                 color="nv-light-tertiary"
                 v-if="!isMobile"
@@ -38,14 +38,14 @@
             <q-icon
                 @click="changePersonalInfo()"
                 class="fs-20"
-                :name="`img:icons/${getIcon}.svg`"
+                :name="`img:/icons/${getIcon}.svg`"
             />
         </div>
 
         <div
             :class="{
-                'q-px-lg' : isMobile,
-                'q-px-md' : !isMobile
+                'q-px-md' : isMobile,
+                'q-px-sm' : !isMobile
             }"
             class="q-mt-xl">
             <q-icon
@@ -77,8 +77,10 @@
                 :class="{
                     'text-nv-light' : Dark.isActive,
                     'text-nv-dark' : !Dark.isActive,
+                    'q-px-md' : $q.screen.gt.sm
                 }"
-                class="row q-mx-none q-mb-none q-mt-lg fs-14">
+                class="row q-mx-none q-mb-xl q-mt-lg fs-14">
+                <p class="col-12 text-bold" :class="{ 'fs-18' : $q.screen.gt.sm }" v-text="$t('settings.profile.accountDetails')" />
                 <div class="col-12 flex flex-inline justify-between">
                     <p class="no-margin">
                         UUID
@@ -89,7 +91,7 @@
                             size="1.6em"
                             class="ml-6 mb-4 cursor-pointer"
                             @click="copy('23213232')"
-                            name="img:icons/copy.svg"
+                            name="img:/icons/copy.svg"
                         />
                     </p>
                 </div>
@@ -103,7 +105,7 @@
                         <q-icon
                             size="1.6em"
                             class="ml-6 mb-4 cursor-pointer"
-                            name="img:icons/copy.svg"
+                            name="img:/icons/copy.svg"
                             @click="copy(getUserPhone)"
                         />
                     </p>
@@ -118,12 +120,16 @@
                         <q-icon
                             size="1.6em"
                             class="ml-6 mb-4 cursor-pointer"
-                            name="img:icons/copy.svg"
+                            name="img:/icons/copy.svg"
                             @click="copy(getUserEmail)"
                         />
                     </p>
                 </div>
             </div>
+
+            <EssentialLink :show-user="false" :options="options" />
+
+            <p v-text="$t('login.terms')" class="text-nv-light-tertiary text-center absolute-bottom q-mb-lg" />
         </div>
 
         <q-dialog
@@ -188,6 +194,7 @@ import { useAuthStore } from 'stores/auth';
 import { useSettingsStore } from 'stores/settings';
 import CopyClipboard from 'src/app/shared/helpers/CopyClipboard';
 import { useI18n } from 'vue-i18n';
+import EssentialLink from 'src/app/components/EssentialLink.vue';
 
 // CONSTANTS
 const $q = useQuasar();
@@ -195,6 +202,18 @@ const authStore = useAuthStore();
 const settingsStore = useSettingsStore();
 const editName = ref<boolean>(false);
 const { t } = useI18n({ useScope: 'global' });
+const options = ref<{key: string, icon: string, to: string}[]>([
+    {
+        key: 'settings.security.title',
+        icon: 'ant-design:security-scan-filled',
+        to: '/settings/security'
+    },
+    {
+        key: 'settings.support.title',
+        icon: 'ic:round-contact-support',
+        to: 'support'
+    }
+]);
 
 // COMPUTEDS
 

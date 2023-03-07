@@ -2,10 +2,18 @@ export default {
     settings: 'Settings',
     username: 'Username',
     profile: {
-        accountInfo: 'Account information'
+        accountInfo: 'Account information',
+        accountDetails: 'Account details'
     },
-    paymentMethods: {
-        title: 'Payment methods'
+    home: 'Home',
+    transactions: {
+        title: 'Transactions'
+    },
+    beneficiaries: {
+        title: 'Beneficiaries'
+    },
+    inviteFriend: {
+        title: 'Invite a friend'
     },
     security: {
         title: 'Security',

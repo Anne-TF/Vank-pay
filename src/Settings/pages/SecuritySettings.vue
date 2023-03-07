@@ -17,18 +17,12 @@
                 />
             </div>
             <q-icon
-                v-if="isMobile"
                 class="cursor-pointer wp-10"
                 @click="$router.back()"
                 size="2em"
                 name="arrow_back"
             />
-            <div
-                :class="{
-                    'wp-85' : isMobile,
-                    'wp-100' : !isMobile
-                }"
-                class="text-center">
+            <div class="text-center wp-85">
                 <h5
                     class="no-margin fs-18"
                     :class="{
@@ -73,7 +67,7 @@
                     @click="$router.push('/settings/security/sms-auth')"
                     class="flex flex-inline justify-between items-center br-17 px-14 wp-93 cursor-pointer"
                 >
-                    <q-icon size="2.6em" :name="`img:icons/message-${Dark.isActive ? 'dark' : 'light'}.svg`" />
+                    <q-icon size="2.6em" :name="`img:/icons/message-${Dark.isActive ? 'dark' : 'light'}.svg`" />
                     <span
                         class="mx-1 wp-40 fs-13 lh-18">
                         {{ $t('settings.security.text') }}
@@ -91,7 +85,7 @@
                     `"
                     class="flex flex-inline justify-between items-center br-17 px-14 wp-93 cursor-pointer"
                 >
-                    <q-icon size="2.6em" :name="`img:icons/email-${Dark.isActive ? 'dark' : 'light'}.svg`" />
+                    <q-icon size="2.6em" :name="`img:/icons/email-${Dark.isActive ? 'dark' : 'light'}.svg`" />
                     <span
                         class="mx-1 wp-40 fs-13 lh-18">
                         {{ $t('settings.security.email') }}
@@ -110,7 +104,7 @@
                     `"
                     class="flex flex-inline justify-between items-center br-17 px-14 wp-50 cursor-pointer"
                 >
-                    <q-icon size="2.6em" :name="`img:icons/authy-${Dark.isActive ? 'dark' : 'light'}.svg`" />
+                    <q-icon size="2.6em" :name="`img:/icons/authy-${Dark.isActive ? 'dark' : 'light'}.svg`" />
                     <span
                         class="mx-1 wp-40 fs-13 lh-18">
                         {{ $t('settings.security.authy') }}
@@ -122,13 +116,13 @@
 
         <div class="mt-35">
             <q-list
-                class="no-margin no-padding"
+                class="no-margin q-px-sm"
                 dense>
                 <q-item
                     clickable
                     v-ripple
                     @click="$router.push('/settings/security/change-password')"
-                    class="no-padding q-mb-sm text-nv-light-tertiary">
+                    class="no-padding q-mb-sm text-nv-light-tertiary br-20">
                     <q-item-section
                         class="q-py-md q-pl-md">
                         {{ $t('fields.password') }}

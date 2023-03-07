@@ -13,7 +13,7 @@
                     dense
                     round
                     size="1.8em"
-                    :icon="`img:icons/menu-${dark.isActive ? 'dark' : 'light'}.svg`"
+                    :icon="`img:/icons/menu-${dark.isActive ? 'dark' : 'light'}.svg`"
                     aria-label="Menu"
                     @click="toggleLeftDrawer"
                 />
@@ -74,14 +74,14 @@
                     <q-icon
                         class="cursor-pointer"
                         v-show="!showDesktopMenu"
-                        :name="`img:icons/transfer-${getIconSuffix}.svg`"
+                        :name="`img:/icons/transfer-${getIconSuffix}.svg`"
                         size="4em"
                     />
 
                     <q-icon
                         v-show="showDesktopMenu"
                         size="4em"
-                        :name="`img:icons/close-${getIconSuffix}.svg`"
+                        :name="`img:/icons/close-${getIconSuffix}.svg`"
                     />
 
                     <q-menu v-model="showDesktopMenu" :offset="[0, 15]" style="border-radius: 10px !important; min-width: 285px; max-width: 300px;">
@@ -97,7 +97,7 @@
                             "
                         >
                             <div class="flex flex-inline items-center q-mb-sm">
-                                <q-icon size="3em" :name="`img:icons/deposit-${getIconSuffix}.svg`" />
+                                <q-icon size="3em" :name="`img:/icons/deposit-${getIconSuffix}.svg`" />
                                 <div class="q-ml-md">
                                     <h5
                                         :class="{
@@ -120,7 +120,7 @@
                             </div>
 
                             <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
-                                <q-icon size="3em" :name="`img:icons/withdraw-${getIconSuffix}.svg`" />
+                                <q-icon size="3em" :name="`img:/icons/withdraw-${getIconSuffix}.svg`" />
                                 <div class="q-ml-md">
                                     <h5
                                         :class="{
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
-                                <q-icon size="3em" :name="`img:icons/p2p-${getIconSuffix}.svg`" />
+                                <q-icon size="3em" :name="`img:/icons/p2p-${getIconSuffix}.svg`" />
                                     <div class="q-ml-md">
                                         <h5
                                             :class="{
@@ -179,14 +179,14 @@
             show-if-above
             style="height: 100%;"
             :mini="mini"
-            :behavior="screen.md ? 'mobile' : 'desktop'"
+            :behavior="$q.screen.width < 1600 ? 'mobile' : 'desktop'"
             v-model="leftDrawerOpen"
             v-if="!isMobile">
             <div class="flex justify-center q-py-md">
                 <Logo :size="'8vh'" />
             </div>
             <q-list class="q-mt-none">
-                <EssentialLink :options="options" />
+                <EssentialLink :show-user="true" :options="options" />
             </q-list>
 
             <div
@@ -278,7 +278,8 @@
                     'justify-end' : screen.lt.lg && $router.currentRoute.value.path !== '/',
                     'justify-center' : screen.gt.md || screen.md && $router.currentRoute.value.path === '/',
                     'bg-nv-ultra-dark' : dark.isActive,
-                    'bg-nv-light-secondary' : !dark.isActive
+                    'bg-nv-light-secondary' : !dark.isActive,
+                    'row reverse' : $route.path.includes('transactions')
                 }"
                 style="height: 50vh;">
                 <Transition
@@ -287,24 +288,29 @@
                     leave-active-class="animated slideOutLeft"
                     :duration="{
                         enter: 300,
-                        leave: 200
+                        leave: 130
                     }"
                 >
                     <q-card
                         :class="{
                             'bg-nv-dark' : dark.isActive,
-                            'wp-29 br-20 q-pa-md q-mr-xl' : screen.gt.md,
-                            'wp-35 br-20 q-pa-sm q-mr-md' : screen.md,
+                            'wp-29 br-20 q-pa-md' : screen.gt.md,
+                            'q-mr-xl' : screen.gt.md && !$route.path.includes('transactions'),
+                            'q-mr-md' : screen.md && !$route.path.includes('transactions'),
+                            'q-ml-xl' : screen.gt.md && $route.path.includes('transactions'),
+                            'q-ml-md' : screen.md && $route.path.includes('transactions'),
+                            'wp-35 br-20 q-pa-sm' : screen.md,
                             'no-padding' : screen.sm || screen.xs
                         }"
                         flat
                         v-show="show"
+                        v-if="$route.path !== '/transactions'"
                         class="hide-scrollbar"
                         :style="`
                             height: ${screen.gt.sm ? '80' : '100'}vh; overflow-y: auto;
                         `">
-                        <router-view v-slot="{ Component, route }" >
-                            <Transition
+                        <router-view v-slot="{ Component/*, route*/ }" >
+<!--                            <Transition
                                 :appear-active-class="route.meta.enterAnimation"
                                 :leave-active-class="route.meta.leaveAnimation"
                                 :duration="{
@@ -312,12 +318,14 @@
                                     leave: 200
                                 }"
                             >
-                                <component
-                                    style="height: 100% !important;"
-                                    @close="closeMenu"
-                                    :is="Component"
-                                />
-                            </Transition>
+                                <
+                            </Transition>-->
+
+                            <component
+                            style="height: 100% !important;"
+                            @close="closeMenu"
+                            :is="Component"
+                            />
                         </router-view>
                     </q-card>
                 </Transition>
@@ -325,11 +333,24 @@
                     style="contain: content;"
                     v-if="screen.gt.sm"
                     :class="{
-                        'wp-62' : screen.gt.md,
+                        'wp-62' : screen.gt.md && !$route.path.includes('transactions'),
                         'wp-80' : screen.md && $router.currentRoute.value.path === '/',
-                        'wp-60' : screen.md && $router.currentRoute.value.path !== '/'
+                        'wp-50' : screen.md && $router.currentRoute.value.path !== '/' || screen.gt.md && $route.path.includes('transactions')
                     }">
-                    <MainBalanceView class="hp-90" />
+                    <MainBalanceView v-if="!$route.path.includes('transactions')" class="hp-90" />
+                    <q-card
+                        :class="{
+                            'bg-nv-dark' : dark.isActive,
+                            'no-padding' : screen.sm || screen.xs
+                        }"
+                        flat
+                        v-if="$route.path.includes('transactions')"
+                        class="hide-scrollbar br-20"
+                        :style="`
+                            height: ${screen.gt.sm ? '80' : '100'}vh; overflow-y: auto;
+                        `">
+                        <TransactionsPage  />
+                    </q-card>
                 </div>
             </q-page>
         </q-page-container>
@@ -347,6 +368,7 @@ import Logo from '../components/Logo.vue';
 import MainBalanceView from '../../Balance/pages/MainBalanceView.vue';
 import { useAuthStore } from 'stores/auth';
 import { useI18n } from 'vue-i18n';
+import TransactionsPage from 'src/Transaction/pages/TransactionsPage.vue';
 
 const { version } = useQuasar();
 const { dark } = useQuasar();
@@ -390,19 +412,24 @@ const linksList = [
 ];
 const options = ref<{key: string, icon: string, to: string}[]>([
     {
-        key: 'settings.paymentMethods.title',
+        key: 'settings.home',
+        icon: 'ic:round-home',
+        to: '/'
+    },
+    {
+        key: 'settings.transactions.title',
         icon: 'ri:money-dollar-circle-fill',
-        to: 'payment-methods'
+        to: 'transactions'
     },
     {
-        key: 'settings.security.title',
-        icon: 'ant-design:security-scan-filled',
-        to: '/settings/security'
-    },
-    {
-        key: 'settings.support.title',
-        icon: 'ic:round-contact-support',
+        key: 'settings.beneficiaries.title',
+        icon: 'mdi:people',
         to: 'support'
+    },
+    {
+        key: 'settings.inviteFriend.title',
+        icon: 'ic:round-emoji-people',
+        to: 'invite-friend'
     },
     {
         key: 'settings.share.title',

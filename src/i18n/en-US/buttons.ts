@@ -5,6 +5,7 @@ export default {
     changeLanguageTo: 'Change language to ',
     send: 'Send code',
     continue: 'Continue',
+    cancel: 'Cancel',
     deposit: {
         title: 'Deposit',
         caption: 'Deposit funds into your wallet'

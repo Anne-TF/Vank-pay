@@ -4,6 +4,7 @@ export default {
     createAccount: 'Crear cuenta',
     changeLanguageTo: 'Cambiar idioma a ',
     send: 'Enviar código',
+    cancel: 'Cancelar',
     continue: 'Continuar',
     deposit: {
         title: 'Cargar',

@@ -3,5 +3,8 @@ export default {
     phoneNumber: 'Phone number',
     password: 'Password',
     confirmPassword: 'Confirm your password',
-    search: 'Search'
+    search: 'Search',
+    amount: 'Amount',
+    nameBeneficiary: "Beneficiary's name",
+    description: 'Description'
 };

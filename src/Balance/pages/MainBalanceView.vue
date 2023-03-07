@@ -31,7 +31,7 @@
                     <q-icon
                         @click="changeViewBalance()"
                         class="fs-20 ml-5 mb-8"
-                        :name="`img:icons/${getIcon}.svg`"
+                        :name="`img:/icons/${getIcon}.svg`"
                     />
                     <h4
                         class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
@@ -79,7 +79,7 @@
                                         `${
                                             !Dark.isActive
                                             ? 'tertiary'
-                                            : 'secondary'
+                                            : 'light-grey'
                                         }`
                                     )}`
                                 }
@@ -100,7 +100,7 @@
                                         `${
                                             !Dark.isActive
                                             ? 'tertiary'
-                                            : 'secondary'
+                                            : 'light-grey'
                                         }`
                                     )}`
                                 }
@@ -121,7 +121,7 @@
                                     `${
                                         !Dark.isActive
                                         ? 'tertiary'
-                                        : 'secondary'
+                                        : 'light-grey'
                                     }`
                                 )}`
                             }
@@ -251,7 +251,7 @@
                                                     size="1.4em"
                                                     class="mr-2"
                                                     v-show="card.type === 'VISA'"
-                                                    :name="`img:icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
+                                                    :name="`img:/icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
                                             </q-avatar>
                                             </q-item-section>
 
@@ -406,12 +406,12 @@
                                     <q-item-section avatar>
                                         <q-avatar
                                             :size="Screen.gt.sm ? '3em' : '3.9em'"
-                                            :style="`${!$q.dark.isActive ? 'border: 1px solid black;' : ''}`" color="nv-light-primary" text-color="black">
+                                            :style="`background-color: ${$q.dark.isActive ? '#161B22' : '#f9eb37'} ${!$q.dark.isActive ? 'border: 1px solid black;' : ''}`">
                                             <q-icon
                                                 size="1.4em"
                                                 class="mr-3"
                                                 v-show="card.type === 'VISA'"
-                                                :name="`img:icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
+                                                :name="`img:/icons/visa-${Dark.isActive ? 'light' : 'dark'}.svg`" />
                                         </q-avatar>
                                     </q-item-section>
 
@@ -674,6 +674,6 @@ settingsStore.setShowMobileMenu(true);
 
 if ($router.currentRoute.value.query.tab)
 {
-    tab.value = $router.currentRoute.value.query.tab;
+    tab.value = $router.currentRoute.value.query.tab.toString();
 }
 </script>
