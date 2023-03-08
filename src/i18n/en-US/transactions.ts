@@ -6,7 +6,19 @@ export default {
     withdrawMethods: 'Withdrawal methods',
     depositMethods: 'Deposit methods',
     deposit: {
-        title: 'Deposit'
+        title: 'Deposit',
+        getAddress: 'Get address',
+        chargeJust: 'Send just {crypto} at this address',
+        receiveJust: 'Receive just {crypto} at this address',
+        walletAddress: 'Wallet address',
+        history: 'Deposit history',
+        youDeposited: 'You have deposited',
+        byPressingContinue: 'By pressing continue you are accepting the terms and conditions and privacy policy to do this operation',
+        makeTheTransfer: 'Make the bank transfer',
+        tranferFromYourBank: 'Transfer from your online bank the amount below',
+        receive: 'You receive',
+        rate: 'Rate',
+        account: 'Account'
     },
     withdraw: {
         title: 'Withdraw'

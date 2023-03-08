@@ -23,7 +23,7 @@
             <div class="mb-20">
                 <div
                     :class="{
-                        'pt-20 flex items-center q-px-lg' : isMobile,
+                        'pt-20 flex items-center q-px-md' : isMobile,
                         'flex justify-end q-px-xl q-pt-xl' : !isMobile
                     }"
                 >
@@ -65,9 +65,10 @@
             >
                 <div
                     :class="{
-                        'q-px-lg' : isMobile
+                        'q-px-md justify-center' : isMobile,
+                        'justify-between' : $q.screen.gt.sm
                     }"
-                    class="flex justify-between mb-10">
+                    class="flex mb-10">
                     <div class="flex flex-inline justify-start">
                         <div
                             :class="`
@@ -139,8 +140,9 @@
                         @focus="onFocus = true"
                         @blur="onFocus = false"
                         :class="{
-                            'wp-35' : !onFocus,
-                            'wp-40' : onFocus,
+                            'wp-35' : !onFocus && $q.screen.gt.sm,
+                            'wp-40' : onFocus && $q.screen.gt.sm,
+                            'q-mt-md wp-90' : $q.screen.lt.md,
                             'ultra-dense-input--dark' : Dark.isActive,
                             'ultra-dense-input--light' : !Dark.isActive
                         }"
@@ -167,10 +169,10 @@
                     animated>
                     <!-- ALL PANEL --->
                     <q-tab-panel
-                        class="no-margin pb-30 q-px-none no-scroll hp-100"
+                        class="no-margin pb-80 q-px-none no-scroll hp-100"
                         name="all"
                         :class="{
-                            'q-px-lg' : isMobile
+                            'q-px-md' : isMobile
                         }"
                     >
                         <q-scroll-area
@@ -195,7 +197,7 @@
                             class="no-margin no-padding hp-100"
                         >
                             <q-scroll-observer @scroll="onScroll" />
-                            <div class="wp-98 q-ml-sm">
+                            <div :class="{ 'wp-98 q-ml-sm' : $q.screen.gt.sm }">
                                 <q-expansion-item
                                     class="wp-100"
                                     default-opened
@@ -310,10 +312,10 @@
                     </q-tab-panel>
                     <!-- ACCOUNTS PANEL --->
                     <q-tab-panel
-                        class="no-margin pb-30 q-px-none no-scroll hp-100"
+                        class="no-margin pb-80 q-px-none no-scroll hp-100"
                         name="accounts"
                         :class="{
-                            'q-px-lg' : isMobile
+                            'q-px-md' : isMobile
                         }"
                     >
                         <q-scroll-area
@@ -366,10 +368,10 @@
                     </q-tab-panel>
                     <!-- CARDS PANEL --->
                     <q-tab-panel
-                        class="no-margin pb-30 q-px-none no-scroll hp-100"
+                        class="no-margin pb-80 q-px-none no-scroll hp-100"
                         name="cards"
                         :class="{
-                            'q-px-lg' : isMobile
+                            'q-px-md' : isMobile
                         }"
                     >
                         <q-scroll-area
@@ -428,10 +430,10 @@
                     </q-tab-panel>
                     <!-- WALLETS PANEL --->
                     <q-tab-panel
-                        class="no-margin pb-30 q-px-none no-scroll hp-100"
+                        class="no-margin pb-80 q-px-none no-scroll hp-100"
                         name="wallets"
                         :class="{
-                            'q-px-lg' : isMobile
+                            'q-px-md' : isMobile
                         }"
                     >
                         <q-scroll-area

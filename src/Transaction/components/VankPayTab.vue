@@ -1,6 +1,6 @@
 <template>
     <div class="hp-100">
-        <div class="q-mt-md q-px-sm hp-96">
+        <div class="q-mt-sm hp-96" :class="{ 'q-px-sm' : $q.screen.gt.sm }">
             <q-tabs
                 v-model="tab"
                 dense
@@ -13,8 +13,8 @@
                 <q-tab name="scan" :label="$t('transactions.pay.scan')" />
             </q-tabs>
 
-            <q-tab-panels class="hp-83 overflow-auto bg-transparent q-pt-md" v-model="tab">
-                <q-tab-panel name="send">
+            <q-tab-panels :class="{ 'q-px-none' : $q.screen.lt.md }" class="hp-94 overflow-auto bg-transparent q-pt-sm q-pb-none" v-model="tab">
+                <q-tab-panel name="send" class="q-px-none flex column q-pb-none justify-between">
                     <q-form>
                         <p v-text="$t('fields.amount')" class="q-mb-none q-pl-sm" />
                         <q-input
@@ -52,7 +52,7 @@
                             </template>
                         </q-input>
 
-                        <div class="q-mt-xl flex flex-inline">
+                        <div class="q-mt-lg flex flex-inline">
                             <div
                                 :class="`
                             ${
@@ -173,41 +173,44 @@
                             :active-class="`text-nv-${GetSuffix('accent')}`"
                             class="no-padding q-mt-lg br-18">
                             <q-item-section
-                                class="q-py-md q-pl-sm"
+                                class="q-py-md"
+                                :class="{ 'q-pl-sm' : $q.screen.gt.sm }"
                                 style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
                                 <q-icon size="20px" name="history" class="mr-10" />
                                 {{ $t('transactions.pay.history') }}
                             </q-item-section>
 
-                            <q-item-section side class="flex items-center q-mr-md">
+                            <q-item-section :class="{ 'q-mr-md' : $q.screen.gt.sm }" side class="flex items-center">
                                 <q-icon name="chevron_right" :color="$route.path.includes('history') ? `nv-${GetSuffix('accent')}` : 'nv-light-tertiary'" />
                             </q-item-section>
                         </q-item>
-                        <div
-                            class="fixed-bottom q-mb-lg flex flex-inline justify-between q-px-lg q-py-sm">
-                            <q-btn
-                                no-caps
-                                unelevated
-                                class="wp-48 br-20 fs-14 py-13"
-                                :class="{'text-nv-dark-accent' : !$q.dark.isActive }"
-                                :color="`${$q.dark.isActive ? 'nv-'.concat(GetSuffix('tertiary')) : 'dark'}`"
-                            >
-                                {{ $t('buttons.cancel') }}
-                            </q-btn>
-
-                            <q-btn
-                                no-caps
-                                unelevated
-                                class="wp-48 br-20 fs-15 py-15 text-black"
-                                :color="`nv-${GetSuffix('primary')}`"
-                            >
-                                {{ $t('buttons.continue') }}
-                            </q-btn>
-                        </div>
                     </q-form>
+
+                    <div :class="{ 'q-px-sm' : $q.screen.gt.sm }"
+                         class="flex flex-inline justify-between">
+                        <q-btn
+                            no-caps
+                            unelevated
+                            class="wp-48 br-20 fs-14"
+                            :class="{'text-nv-dark-accent' : !$q.dark.isActive, 'py-8' : $q.screen.lt.md, 'py-10' : $q.screen.gt.sm }"
+                            :color="`${$q.dark.isActive ? 'nv-'.concat(GetSuffix('tertiary')) : 'dark'}`"
+                        >
+                            {{ $t('buttons.cancel') }}
+                        </q-btn>
+
+                        <q-btn
+                            no-caps
+                            unelevated
+                            class="wp-48 br-20 fs-15 text-black"
+                            :class="{ 'py-8' : $q.screen.lt.md, 'py-10' : $q.screen.gt.sm }"
+                            :color="`nv-${GetSuffix('primary')}`"
+                        >
+                            {{ $t('buttons.continue') }}
+                        </q-btn>
+                    </div>
                 </q-tab-panel>
 
-                <q-tab-panel name="receive">
+                <q-tab-panel name="receive" class="q-px-none">
                     <p v-text="$t('fields.email')" class="no-margin" />
                     <q-input
                         rounded
@@ -255,7 +258,7 @@
                     </q-input>
                 </q-tab-panel>
 
-                <q-tab-panel name="scan">
+                <q-tab-panel name="scan" class="q-px-none">
                     Por definir
                 </q-tab-panel>
             </q-tab-panels>
@@ -358,4 +361,6 @@ const copy = async(value: string): Promise<void> =>
         progress: true
     });
 };
+
+
 </script>

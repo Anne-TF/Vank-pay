@@ -1,6 +1,6 @@
 <template>
-    <div class="hp-100" :class="{ 'q-px-md q-pt-md' : $q.screen.gt.sm }">
-        <div class="flex flex-inline justify-between">
+    <div :style="`${$q.screen.lt.md ? 'overflow: hidden !important; height: 100%;' : ''}`" class="q-px-md q-pt-md">
+        <div v-if="$q.screen.gt.sm" class="flex flex-inline justify-between">
             <h5
                 class="no-margin text-medium fs-22"
                 :class="{
@@ -8,13 +8,37 @@
                     'text-nv-dark' : !Dark.isActive
                 }"
             >
-                {{ $route.path.includes('convert-history') ? $t('transactions.convert.history') : $t('transactions.pay.history') }}
+                {{ $t(`transactions.${$route.path.split('/').reverse()[0].split('-')[0]}.history`) }}
             </h5>
 
            <div>
                <q-icon class="cursor-pointer q-mr-md" size="28px" name="filter_alt" color="nv-light-tertiary" />
                <q-icon @click="$router.push('/transactions')" class="cursor-pointer" size="23px" name="cancel" color="nv-light-tertiary" />
            </div>
+        </div>
+
+        <div
+            v-else
+            class="flex flex-inline items-center q-px-md mt-25">
+            <q-icon
+                class="cursor-pointer wp-10"
+                @click="() => {
+                    $router.back();
+                    settingsStore.setShowMobileMenu(true);
+                }"
+                size="2em"
+                name="arrow_back"
+            />
+            <div class="text-center wp-85">
+                <h5
+                    class="no-margin fs-18"
+                    :class="{
+                        'text-nv-light' : $q.dark.isActive,
+                        'text-nv-dark' : !$q.dark.isActive,
+                    }">
+                    {{ $t(`transactions.${$route.path.split('/').reverse()[0].split('-')[0]}.history`) }}
+                </h5>
+            </div>
         </div>
 
         <q-scroll-area
@@ -32,7 +56,8 @@
                 width: '3px',
                 opacity: '0.4'
             }"
-            class="q-mb-none q-mx-none q-mt-md hp-93"
+            :style="`${$q.screen.lt.md ? 'height: 90vh !important;' : ''}`"
+            class="q-mb-none q-mx-none q-pt-md hp-93"
         >
         <q-scroll-observer @scroll="onScroll" />
             <q-list class="q-px-none">
@@ -49,18 +74,23 @@
                                     'text-nv-light-tertiary' : Dark.isActive,
                                     'text-nv-light-accent' : !Dark.isActive
                                 }"
-                                :data-icon="register.action === 'exchange' ? 'gg:arrows-exchange-alt' : (register?.type === 'send' ? 'teenyicons:send-right-solid' : 'teenyicons:send-left-solid')" />
+                                :data-icon="register.action === 'exchange' ? 'gg:arrows-exchange-alt' : ( register.action === 'send' ?
+                                 (register?.type === 'send' ? 'teenyicons:send-right-solid' : 'teenyicons:send-left-solid') : 'ant-design:download-outlined')" />
                         </q-avatar>
                     </q-item-section>
 
                     <q-item-section>
                         <q-item-label
                             :class="{
-                                'text-nv-dark' : !Dark.isActive
+                                'text-nv-dark' : !Dark.isActive,
+                                'fs-17' : $q.screen.lt.md && register.action === 'exchange',
+                                'fs-15' : $q.screen.gt.sm,
+                                'fs-13' : register.action !== 'exchange' && $q.screen.lt.md
                             }"
-                            class="fs-17 text-light flex items-center">
-                            {{ register.action === 'exchange' ? register.from :
-                            $t(register.type === 'send' ? 'transactions.pay.youSended' : 'transactions.pay.youReceived', { amount: register.amount.toString().concat(register.currency) }) }}
+                            class="text-light flex items-center">
+                            {{ register.action === 'pay' ?
+                            $t(register.type === 'send' ? 'transactions.pay.youSended' : 'transactions.pay.youReceived', { amount: register.amount.toString().concat(register.currency) }) :
+                            (register.action === 'deposit' ? $t('transactions.deposit.youDeposited') : register.from) }}
                             <span
                             class="iconify fs-23"
                             v-if="register.action === 'exchange'"
@@ -76,9 +106,16 @@
                         </q-item-label>
                     </q-item-section>
 
-                    <q-item-section side :class="{ 'fs-18' : register.action !== 'pay', 'fs-12' : register.action === 'pay' }" class="hp-100 wp-40 flex flex-inline items-center text-light">
+                    <q-item-section
+                        side
+                        :class="{
+                            'fs-17' : register.action === 'exchange',
+                            'fs-12' : register.action === 'pay' && $q.screen.gt.sm,
+                            'fs-10' : register.action === 'pay' && $q.screen.lt.md
+                        }"
+                        class="hp-100 wp-40 flex flex-inline items-center text-light">
                         <div class="flex flex-inline items-center text-nv-light-primary">
-                            {{ register.action !== 'pay' ? register.amount.toString().concat((register.to)) : register.to }}
+                            {{ register.action !== 'pay' ? `${register.action !== 'exchange' ? '$' : ''}`.concat(register.amount.toString(), ' ', (register.to)) : register.to }}
                         </div>
                     </q-item-section>
                 </q-item>
@@ -154,6 +191,7 @@ import {computed, onMounted, ref} from 'vue';
 import GetSuffix from '../../app/shared/helpers/GetSuffix.js';
 import { useI18n } from 'vue-i18n';
 import {useRoute} from 'vue-router';
+import {useSettingsStore} from 'stores/settings';
 
 const props = defineProps({
     filterOptions: {
@@ -164,6 +202,7 @@ const props = defineProps({
 
 const emit = defineEmits(['handleScroll']);
 const $route = useRoute();
+const settingsStore = useSettingsStore();
 
 const filter = ref<string>('all');
 const { t } = useI18n({ useScope: 'global' });
@@ -175,6 +214,14 @@ const isMobile = computed(() => Screen.lt.md);
 const onScroll = (info: any) =>
 {
     emit('handleScroll', info);
+    if (info.direction === 'down')
+    {
+        settingsStore.setShowMobileMenu(false);
+    }
+    else
+    {
+        settingsStore.setShowMobileMenu(true);
+    }
 };
 
 const setFilter = (option: { label: string, value: string }) =>
@@ -218,6 +265,20 @@ onMounted(() =>
                 description: 'Some thing',
                 amount: 10,
                 type: i % 2 === 0 ? 'send' : 'receive',
+                date: '2022-01-16'
+            });
+        }
+    }
+    else if ($route.path.includes('deposit-history'))
+    {
+        for (let i = 0; i < 12; i++)
+        {
+            data.push({
+                action: 'deposit',
+                to: 'USDT',
+                from: 'USD',
+                preffix: '$',
+                amount: 9.99,
                 date: '2022-01-16'
             });
         }

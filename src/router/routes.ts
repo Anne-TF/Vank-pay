@@ -200,11 +200,12 @@ const routes: RouteRecordRaw[] = [
 
     {
         path: '/transactions',
-        component: () => import('../app/layouts/DesktopMainLayout.vue'),
+        component: () => import('../app/layouts/AppLayout.vue'),
         children: [
             { path: '', component: () => import('../Transaction/pages/TransactionsPage.vue') },
             { path: 'convert-history', component: () => import('../Transaction/components/ConversionsHistory.vue') },
-            { path: 'pay-history', component: () => import('../Transaction/components/ConversionsHistory.vue') }
+            { path: 'pay-history', component: () => import('../Transaction/components/ConversionsHistory.vue') },
+            { path: 'deposit-history', component: () => import('../Transaction/components/ConversionsHistory.vue') }
         ],
         meta: {
             fullAuth: true,

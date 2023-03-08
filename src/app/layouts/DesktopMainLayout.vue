@@ -66,6 +66,7 @@
                         :class="{
                             'text-white' : getRoute === '/' && dark.isActive,
                             'text-nv-dark-accent' : getRoute === '/' && !dark.isActive,
+                            'text-black' : getRoute !== '/' && !dark.isActive
                         }"
                     />
                 </div>
@@ -276,7 +277,7 @@
                 :class="{
                     'flex items-center q-px-lg' : screen.gt.sm,
                     'justify-end' : screen.lt.lg && $router.currentRoute.value.path !== '/',
-                    'justify-center' : screen.gt.md || screen.md && $router.currentRoute.value.path === '/',
+                    'justify-center' : screen.gt.sm && ($router.currentRoute.value.path === '/' || $router.currentRoute.value.path.includes('transactions')),
                     'bg-nv-ultra-dark' : dark.isActive,
                     'bg-nv-light-secondary' : !dark.isActive,
                     'row reverse' : $route.path.includes('transactions')

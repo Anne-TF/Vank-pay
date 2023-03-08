@@ -167,24 +167,29 @@ const authStore = useAuthStore();
 const settingsStore = useSettingsStore();
 const options = ref<{key: string, icon: string, to: string}[]>([
     {
-        key: 'settings.paymentMethods.title',
+        key: 'settings.home',
+        icon: 'ic:round-home',
+        to: '/'
+    },
+    {
+        key: 'settings.transactions.title',
         icon: 'ri:money-dollar-circle-fill',
-        to: '/settings/payment-methods'
+        to: 'transactions'
     },
     {
-        key: 'settings.security.title',
-        icon: 'ant-design:security-scan-filled',
-        to: '/settings/security'
+        key: 'settings.beneficiaries.title',
+        icon: 'mdi:people',
+        to: 'support'
     },
     {
-        key: 'settings.support.title',
-        icon: 'ic:round-contact-support',
-        to: '/settings/support'
+        key: 'settings.inviteFriend.title',
+        icon: 'ic:round-emoji-people',
+        to: 'invite-friend'
     },
     {
         key: 'settings.share.title',
         icon: 'ci:share',
-        to: '/settings/share'
+        to: 'share'
     }
 ]);
 

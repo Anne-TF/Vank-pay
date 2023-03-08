@@ -191,17 +191,17 @@
                 <div v-show="showMenu" class="overlay" />
             </Transition>
             <router-view v-slot="{ Component, route }" >
-            <Transition
-                :appear-active-class="route.meta.enterAnimation"
-                :leave-active-class="route.meta.leaveAnimation"
-                :duration="{
-                  enter: 100,
-                  leave: 200
-                }"
-                appear
-              >
-              <component style="height: 100% !important;" :is="Component" />
-            </Transition>
+                <Transition
+                    :appear-active-class="route.meta.enterAnimation"
+                    :leave-active-class="route.meta.leaveAnimation"
+                    :duration="{
+                      enter: 100,
+                      leave: 100
+                    }"
+                    appear
+                  >
+                  <component style="height: 100% !important;" :is="Component" />
+                </Transition>
             </router-view>
         </q-page-container>
 
@@ -239,7 +239,10 @@
                 >
                     <!-- PAY OPTIONS -->
                     <div v-show="showMenu">
-                        <div @click="$router.push('/deposit')" class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                        <div @click="() => {
+                                $router.push({ path: '/transactions', query: { tab: 'deposit' } });
+                                showMenu = false;
+                            }" class="flex flex-inline items-center q-pt-lg q-mb-sm">
                             <q-icon size="3.5em" :name="`img:icons/deposit-${getIconSuffix}.svg`" />
                             <div class="q-ml-md">
                                 <h5
@@ -262,8 +265,11 @@
                             </div>
                         </div>
 
-                        <div @click="$router.push('/withdraw')" class="flex flex-inline items-center q-pt-lg q-mb-sm">
-                            <q-icon size="3.5em" :name="`img:icons/withdraw-${getIconSuffix}.svg`" />
+                        <div @click="() => {
+                                $router.push({ path: '/transactions', query: { tab: 'withdraw' } });
+                                showMenu = false;
+                            }" class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                            <q-icon size="3.5em" :name="`img:/icons/withdraw-${getIconSuffix}.svg`" />
                             <div class="q-ml-md">
                                 <h5
                                     :class="{
@@ -285,8 +291,12 @@
                             </div>
                         </div>
 
-                        <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
-                            <q-icon size="3.5em" :name="`img:icons/p2p-${getIconSuffix}.svg`" />
+                        <div
+                            @click="() => {
+                                $router.push({ path: '/transactions', query: { tab: 'pay' } });
+                                showMenu = false;
+                            }" class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                            <q-icon size="3.5em" :name="`img:/icons/p2p-${getIconSuffix}.svg`" />
                             <div class="q-ml-md">
                                 <h5
                                     :class="{
@@ -318,7 +328,7 @@
                                 enter-active-class="enter-overlay"
                                 leave-active-class="leave-icons"
                             >
-                            <q-icon v-show="showMenu" size="4em" :name="`img:icons/close-${getIconSuffix}.svg`" @click="showMenu = false" />
+                            <q-icon v-show="showMenu" size="4em" :name="`img:/icons/close-${getIconSuffix}.svg`" @click="showMenu = false" />
                             </transition>
                         </div>
                     </div>
@@ -356,7 +366,7 @@
                                 />
 
                                 <q-icon
-                                    :name="`img:icons/transfer-${getIconSuffix}.svg`"
+                                    :name="`img:/icons/transfer-${getIconSuffix}.svg`"
                                     v-show="link.link === '#'"
                                     size="4em"
                                     style="margin-top: -10px"
@@ -426,19 +436,24 @@ const linksList = [
 ];
 const options = ref<{key: string, icon: string, to: string}[]>([
     {
-        key: 'settings.paymentMethods.title',
+        key: 'settings.home',
+        icon: 'ic:round-home',
+        to: '/'
+    },
+    {
+        key: 'settings.transactions.title',
         icon: 'ri:money-dollar-circle-fill',
-        to: 'payment-methods'
+        to: 'transactions'
     },
     {
-        key: 'settings.security.title',
-        icon: 'ant-design:security-scan-filled',
-        to: 'security'
-    },
-    {
-        key: 'settings.support.title',
-        icon: 'ic:round-contact-support',
+        key: 'settings.beneficiaries.title',
+        icon: 'mdi:people',
         to: 'support'
+    },
+    {
+        key: 'settings.inviteFriend.title',
+        icon: 'ic:round-emoji-people',
+        to: 'invite-friend'
     },
     {
         key: 'settings.share.title',

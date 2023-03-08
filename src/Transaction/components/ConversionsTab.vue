@@ -1,25 +1,25 @@
 <template>
-    <div>
-        <div
-            v-if="showBanner"
-            class="q-py-sm  q-px-md br-5 text-bold q-mt-md flex items-center justify-between q-mx-sm"
-            :class="`bg-nv-${GetSuffix('accent')} text-${$q.dark.isActive ? 'black' : 'white'}`">
+    <div class="flex column justify-between hp-97">
+        <div :class="{ 'q-px-md' : $q.screen.gt.sm }">
+            <div
+                v-if="showBanner"
+                class="q-py-sm  br-5 text-bold q-mt-md flex items-center justify-between"
+                :class="`bg-nv-${GetSuffix('accent')} text-${$q.dark.isActive ? 'black' : 'white'} ${$q.screen.lt.md ? 'fs-11 q-px-sm' : 'q-px-md'}`">
                     <span class="flex items-center">
-                        <q-icon name="info" class="q-mr-md" size="20px" />
+                        <q-icon name="info" :class="{ 'q-mr-md' : $q.screen.gt.sm, 'q-mr-sm' : $q.screen.lt.md }" :size="$q.screen.gt.sm ? '20px' : '15px'" />
                         {{ $t('transactions.convert.banner') }}
                     </span>
-            <q-icon name="close" class="cursor-pointer" size="20px" @click="showBanner = false" />
-        </div>
+                <q-icon name="close" class="cursor-pointer" :size="$q.screen.gt.sm ? '20px' : '15px'" @click="showBanner = false" />
+            </div>
 
-        <div class="q-mt-md q-px-sm">
-            <div class="flex justify-between">
-                <p class="no-margin flex column">
+            <div class="flex justify-between q-mt-lg">
+                <p class="no-margin justify-lg-center flex column">
                     <span :class="{ 'fs-18' : $q.screen.gt.sm }" class="text-semi-bold q-mb-xs" v-text="$t('transactions.convert.whatToExchange')" />
-                    <span class="text-nv-light-tertiary" v-text="$t('transactions.convert.selectCurrency')" />
+                    <span :class="{ 'fs-12' : $q.screen.lt.md }" class="text-nv-light-tertiary" v-text="$t('transactions.convert.selectCurrency')" />
                 </p>
-                <p class="no-margin flex column text-right">
-                    <span class="text-nv-light-tertiary">Saldo actual</span>
-                    <span class="fs-20" v-text="'$'.concat(getBalance)" />
+                <p class="no-margin flex column justify-end text-right">
+                    <span :class="{ 'fs-11' : $q.screen.lt.md }" class="text-nv-light-tertiary" v-text="$t('transactions.convert.actualBalance')" />
+                    <span :class="{ 'fs-20' : $q.screen.gt.sm, 'fs-16' : $q.screen.lt.md }" v-text="'$'.concat(getBalance)" />
                 </p>
             </div>
 
@@ -32,9 +32,9 @@
                 outlined
                 v-model="form.amountFrom"
                 :color="'transparent'"
-                mask="##.#"
                 :prefix="options1.find((e) => e.currency === form.from)?.preffix"
                 reverse-fill-mask
+                mask="##.##"
                 :suffix="form.from"
                 class="q-mb-md"
                 :class="{
@@ -65,6 +65,7 @@
                 v-model="form.amountTo"
                 :color="'transparent'"
                 mask="##.#"
+                readonly
                 :prefix="options2.find((e) => e.currency === form.to)?.preffix"
                 reverse-fill-mask
                 :suffix="form.to"
@@ -89,37 +90,38 @@
                 </template>
             </q-input>
 
-            <p class="q-mt-lg text-nv-light-tertiary" v-text="$t('transactions.convert.includedComissions')" />
-        </div>
+            <p :class="{ 'fs-12' : $q.screen.lt.md }" class="q-mt-lg text-nv-light-tertiary" v-text="$t('transactions.convert.includedComissions')" />
 
-        <q-item
-            clickable
-            @click="$router.push('/transactions/convert-history')"
-            :active="$route.path.includes('convert-history')"
-            :class="{
+            <q-item
+                clickable
+                @click="$router.push('/transactions/convert-history')"
+                :active="$route.path.includes('convert-history')"
+                :class="{
                         'text-nv-light-tertiary' : !$route.path.includes('history'),
                     }"
-            :active-class="`text-nv-${GetSuffix('accent')}`"
-            class="no-padding q-mb-sm br-18">
-            <q-item-section
-                class="q-py-md q-pl-sm"
-                style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
-                <q-icon size="20px" name="history" class="mr-10" />
-                {{ $t('transactions.convert.history') }}
-            </q-item-section>
+                :active-class="`text-nv-${GetSuffix('accent')}`"
+                class="no-padding q-mb-sm br-18">
+                <q-item-section
+                    class="q-py-md"
+                    :class="{ 'q-pl-sm' : $q.screen.gt.sm }"
+                    style="flex-direction: row !important; justify-content: start !important; align-items: center !important;">
+                    <q-icon size="20px" name="history" class="mr-10" />
+                    {{ $t('transactions.convert.history') }}
+                </q-item-section>
 
-            <q-item-section side class="flex items-center q-mr-md">
-                <q-icon name="chevron_right" :color="$route.path.includes('history') ? `nv-${GetSuffix('accent')}` : 'nv-light-tertiary'" />
-            </q-item-section>
-        </q-item>
+                <q-item-section :class="{ 'q-mr-md' : $q.screen.gt.sm }" side class="flex items-center">
+                    <q-icon name="chevron_right" :color="$route.path.includes('history') ? `nv-${GetSuffix('accent')}` : 'nv-light-tertiary'" />
+                </q-item-section>
+            </q-item>
+        </div>
 
-        <div
-            class="fixed-bottom q-mb-lg flex flex-inline justify-between q-px-lg q-py-sm">
+        <div :class="{ 'q-px-md' : $q.screen.gt.sm }"
+            class="flex flex-inline justify-between">
             <q-btn
                 no-caps
                 unelevated
-                class="wp-48 br-20 fs-14 py-13"
-                :class="{'text-nv-dark-accent' : !$q.dark.isActive }"
+                class="wp-48 br-20 fs-14"
+                :class="{'text-nv-dark-accent' : !$q.dark.isActive, 'py-8' : $q.screen.lt.md, 'py-10' : $q.screen.gt.sm }"
                 :color="`${$q.dark.isActive ? 'nv-'.concat(GetSuffix('tertiary')) : 'dark'}`"
             >
                 {{ $t('buttons.cancel') }}
@@ -128,7 +130,8 @@
             <q-btn
                 no-caps
                 unelevated
-                class="wp-48 br-20 fs-15 py-15 text-black"
+                class="wp-48 br-20 fs-15 text-black"
+                :class="{ 'py-8' : $q.screen.lt.md, 'py-10' : $q.screen.gt.sm }"
                 :color="`nv-${GetSuffix('primary')}`"
             >
                 {{ $t('buttons.continue') }}
