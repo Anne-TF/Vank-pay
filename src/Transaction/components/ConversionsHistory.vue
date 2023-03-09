@@ -117,6 +117,7 @@
                         <div class="flex flex-inline items-center text-nv-light-primary">
                             {{ register.action !== 'pay' ? `${register.action !== 'exchange' ? '$' : ''}`.concat(register.amount.toString(), ' ', (register.to)) : register.to }}
                         </div>
+                        <span class="fs-11 text-nv-light-tertiary" v-if="register.status" v-text="$t(`transactions.status.${register.status}`)" />
                     </q-item-section>
                 </q-item>
             </q-list>
@@ -279,7 +280,8 @@ onMounted(() =>
                 from: 'USD',
                 preffix: '$',
                 amount: 9.99,
-                date: '2022-01-16'
+                date: '2022-01-16',
+                status: 'verified'
             });
         }
     }

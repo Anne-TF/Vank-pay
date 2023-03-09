@@ -24,6 +24,10 @@
                 <deposit-tab />
             </q-tab-panel>
 
+            <q-tab-panel :class="{ 'q-px-none' : $q.screen.lt.md }" name="withdraw">
+                <withdraw-tab />
+            </q-tab-panel>
+
             <q-tab-panel :class="{ 'q-px-none' : $q.screen.lt.md }"  name="convert">
                 <conversions-tab />
             </q-tab-panel>
@@ -47,6 +51,7 @@ import ConversionsTab from 'src/Transaction/components/ConversionsTab.vue';
 import VankPayTab from 'src/Transaction/components/VankPayTab.vue';
 import DepositTab from 'src/Transaction/components/DepositTab.vue';
 import { useRouter } from 'vue-router';
+import WithdrawTab from 'src/Transaction/components/WithdrawTab.vue';
 
 // CONSTANTS
 const $q = useQuasar();

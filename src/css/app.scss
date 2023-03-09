@@ -140,7 +140,7 @@ body.body--light {
 
 
 .rounded--dark-input--withAlert {
-  .q-field__control {
+  .q-field__control, .q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
     height: 48px !important;
     background-color: #353E49 !important;
     border-radius: 13px !important;
@@ -199,6 +199,60 @@ body.body--light {
     border: 1px solid #F5F5F5 !important;
     transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
   }
+}
+
+.rounded--dark-select--withAlert {
+    .q-field__control, .q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
+        background-color: #353E49 !important;
+        border-radius: 13px !important;
+        padding-bottom: 0 !important;
+        transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+
+    .q-field__after,.q-field__messages, .q-field__bottom {
+        display: none !important;
+    }
+
+    .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
+        text-align: center !important;
+    }
+
+    .q-field--with-bottom {
+        padding-bottom: 0 !important;
+    }
+
+    .q-field--filled, .q-field__control::before {
+        border: 1px solid rgba(0, 0, 0, 0.24) !important;
+        transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+}
+
+.rounded--light-select--withAlert {
+    .q-field__control, .q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
+        background-color: #e6e6e6 !important;
+        border-radius: 13px !important;
+        padding-bottom: 0 !important;
+        transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+
+    .q-field__after,.q-field__messages, .q-field__bottom {
+        display: none !important;
+    }
+
+    .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
+        text-align: center !important;
+    }
+
+    .q-field--with-bottom {
+        padding-bottom: 0 !important;
+    }
+
+    .q-field--filled, .q-field__control::before {
+        border: 1px solid #F5F5F5 !important;
+        transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
 }
 
 .rounded--dark-textarea--withAlert {
