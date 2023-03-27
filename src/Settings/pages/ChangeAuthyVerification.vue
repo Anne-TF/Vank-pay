@@ -28,7 +28,6 @@
                     class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive,
                     }">
                     {{ $t('settings.security.smsAuth.verification') }}
                 </h5>
@@ -97,6 +96,9 @@
                 :color="`nv-${GetSuffix('primary')}`"
                 class="full-width br-20 py-12 mt-30 fs-16 text-black"
                 unelevated
+                :class="{
+                    'text-nv-light-accent' : !$q.dark.isActive
+                }"
                 no-caps
             >
                 {{ $t('buttons.continue') }}

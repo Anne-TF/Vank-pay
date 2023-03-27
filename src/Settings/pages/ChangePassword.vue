@@ -28,7 +28,6 @@
                     class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive,
                     }">
                     {{ $t('settings.changePassword.title') }}
                 </h5>
@@ -80,6 +79,7 @@
                         v-show="data.currentPassword?.length > 0"
                         :name="isPwd ? 'visibility' : 'visibility_off'"
                         class="cursor-pointer"
+                        :color="$q.dark.isActive ? 'white' : 'nv-light-accent'"
                         @click="isPwd = !isPwd"
                     />
                 </template>
@@ -113,6 +113,7 @@
                         v-show="data.password?.length > 0"
                         :name="isPwd2 ? 'visibility' : 'visibility_off'"
                         class="cursor-pointer"
+                        :color="$q.dark.isActive ? 'white' : 'nv-light-accent'"
                         @click="isPwd2 = !isPwd2"
                     />
                 </template>
@@ -144,6 +145,7 @@
                     <q-icon
                         v-show="data.confirmPassword?.length > 0"
                         :name="isPwd3 ? 'visibility' : 'visibility_off'"
+                        :color="$q.dark.isActive ? 'white' : 'nv-light-accent'"
                         class="cursor-pointer"
                         @click="isPwd3 = !isPwd3"
                     />
@@ -152,8 +154,12 @@
 
             <q-btn
                 :color="`nv-${GetSuffix('primary')}`"
-                class="full-width br-20 py-12 q-mt-lg fs-16 text-black"
+                class="full-width br-20 py-12 q-mt-lg fs-16"
                 unelevated
+                :class="{
+                    'text-nv-light-accent' : !$q.dark.isActive,
+                    'text-nv-dark' : $q.dark.isActive
+                }"
                 no-caps
             >
                 {{ $t('buttons.continue') }}

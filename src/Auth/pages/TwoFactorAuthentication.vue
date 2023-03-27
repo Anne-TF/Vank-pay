@@ -211,6 +211,10 @@
                     :color="`nv-${GetSuffix('primary')}`"
                     class="full-width br-20 py-12 mt-40 fs-16 text-black"
                     unelevated
+                    :class="{
+                        'text-nv-light-accent' : !$q.dark.isActive,
+                        'text-nv-dark' : $q.dark.isActive
+                    }"
                     no-caps
                     @click="handleValidation"
                     :loading="loading"

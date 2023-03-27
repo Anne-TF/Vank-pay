@@ -7,8 +7,8 @@
         }"
     >
         <q-img
-            alt="Vank pay logo"
-            src="~assets/icons/vank.svg"
+            alt="Muza logo"
+            :src="getUrl"
             style="position:fixed;"
             width="10em"
             height="10em"
@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import { Dark, Platform, useQuasar } from 'quasar';
-import { onMounted, ref, watchEffect } from 'vue';
+import {computed, onMounted, ref, watchEffect} from 'vue';
 import { useSettingsStore } from 'stores/settings';
 import { useAuthStore } from 'stores/auth';
 import { useI18n } from 'vue-i18n';
@@ -31,6 +31,10 @@ import { Keyboard, KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 const { locale, availableLocales } = useI18n({ useScope: 'global' });
 
 const $q = useQuasar();
+const getUrl = computed(() =>
+{
+    return new URL(`./assets/icons/muza-${$q.dark.isActive ? 'dark' : 'light'}.svg`, import.meta.url).href;
+});
 
 const splashLoading = ref<boolean>(true);
 

@@ -28,7 +28,6 @@
                     class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive,
                     }">
                     {{ $t('settings.security.authyAuth.title') }}
                 </h5>
@@ -58,8 +57,8 @@
                 :class="{
                     'nv-switch--active--dark' : authyAuth && Dark.isActive,
                     'nv-switch--inactive--dark' : !authyAuth && Dark.isActive,
-                    'nv-switch--active--light' : authyAuth && Dark.isActive,
-                    'nv-switch--inactive--light' : !authyAuth && Dark.isActive,
+                    'nv-switch--active--light' : authyAuth && !Dark.isActive,
+                    'nv-switch--inactive--light' : !authyAuth && !Dark.isActive,
                 }"
                 class="mr-9 mb-10"
                 @update:model-value="setAuthy"

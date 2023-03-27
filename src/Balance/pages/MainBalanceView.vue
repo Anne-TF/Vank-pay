@@ -37,7 +37,7 @@
                         class="q-mx-none q-mb-none text-light wp-100 q-mt-sm"
                         :class="{
                             'text-nv-light' : Dark.isActive,
-                            'text-black' : !Dark.isActive,
+                            'text-nv-light-accent' : !Dark.isActive,
                             'text-right' : !isMobile
                         }"
                     >

@@ -24,7 +24,7 @@
                     flat
                     round
                     class="q-mr-sm"
-                    :color="dark.isActive ? 'white' : 'dark'"
+                    :color="dark.isActive ? 'white' : 'nv-light-accent'"
                     :icon="dark.isActive ? 'light_mode' : 'dark_mode'"
                 />
 
@@ -35,7 +35,7 @@
                     :style="`
                         ${
                             getRoute.includes('notifications') && dark.isActive ?
-                            'background-color: #29313C' : (getRoute.includes('notifications') ? 'background-color: #000' : '')
+                            'background-color: #29313C' : (getRoute.includes('notifications') ? 'background-color: #5a5a58' : '')
                         }`"
                     >
 
@@ -44,7 +44,7 @@
                         :class="{
                             'text-white' : getRoute.includes('notifications') && dark.isActive,
                             'text-nv-dark-accent' : getRoute.includes('notifications') && !dark.isActive,
-                            'text-black' : !dark.isActive && !getRoute.includes('notifications')
+                            'text-nv-light-accent' : !dark.isActive && !getRoute.includes('notifications')
                         }"
                     />
                 </div>
@@ -56,7 +56,7 @@
                     :style="`
                         ${
                             getRoute === '/' && dark.isActive ?
-                            'background-color: #29313C' : (getRoute === '/' ? 'background-color: #000' : '')
+                            'background-color: #29313C' : (getRoute === '/' ? 'background-color: #5a5a58' : '')
                         }`"
                     >
 
@@ -66,6 +66,7 @@
                         :class="{
                             'text-white' : getRoute === '/' && dark.isActive,
                             'text-nv-dark-accent' : getRoute === '/' && !dark.isActive,
+                            'text-nv-light-accent' : getRoute !== '/' && !dark.isActive
                         }"
                     />
                 </div>
@@ -96,7 +97,7 @@
                                 height: 20em !important;
                             "
                         >
-                            <div class="flex flex-inline items-center q-mb-sm">
+                            <div @click="$router.push('/deposit')" class="flex flex-inline cursor-pointer items-center q-mb-sm">
                                 <q-icon size="3em" :name="`img:icons/deposit-${getIconSuffix}.svg`" />
                                 <div class="q-ml-md">
                                     <h5
@@ -119,7 +120,7 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-inline items-center q-pt-lg q-mb-sm">
+                            <div @click="$router.push('/withdraw')" class="flex flex-inline cursor-pointer items-center q-pt-lg q-mb-sm">
                                 <q-icon size="3em" :name="`img:icons/withdraw-${getIconSuffix}.svg`" />
                                 <div class="q-ml-md">
                                     <h5
@@ -183,7 +184,7 @@
             v-model="leftDrawerOpen"
             v-if="!isMobile">
             <div class="flex justify-center q-py-md">
-                <Logo :size="'8vh'" />
+                <Logo :size="'6vh'" />
             </div>
             <q-list class="q-mt-sm">
                 <EssentialLink :options="options" />
@@ -265,6 +266,7 @@
                     <q-card
                         :class="{
                             'bg-nv-dark' : dark.isActive,
+                            'bg-nv-light' : !dark.isActive,
                             'wp-29 br-20 q-pa-md q-mr-xl' : screen.gt.md,
                             'wp-35 br-20 q-pa-sm q-mr-md' : screen.md,
                             'no-padding' : screen.sm || screen.xs

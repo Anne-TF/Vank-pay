@@ -1,9 +1,9 @@
 <template>
-     <q-page
+    <div
         :class="{
-            'q-py-md' : isMobile
-        }"
-        class="hp-100">
+            'q-py-md' : isMobile,
+            'bg-nv-light' : !Dark.isActive
+        }" style="height: 100%; contain: content;">
         <div
             :class="{
                 'mt-25 q-px-lg' : isMobile
@@ -12,11 +12,7 @@
             <q-icon class="cursor-pointer" @click="$router.back()" size="2em" name="arrow_back" />
         </div>
 
-        <div
-            :class="{
-                'mt-10 q-px-lg flex justify-center' : isMobile,
-            }"
-        >
+        <div class="mt-10 q-px-lg flex justify-center wp-100">
         <q-img class="wp-77" :src="getCard">
             <div class="wp-100 hp-100 flex flex-center" style="background-color: transparent;">
                 <div class="flex flex-inline items-center justify-center">
@@ -99,7 +95,7 @@
             </div>
         </transition>
 
-    </q-page>
+    </div>
 </template>
 
 <script lang="ts" setup>

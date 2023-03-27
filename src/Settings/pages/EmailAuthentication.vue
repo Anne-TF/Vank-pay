@@ -28,7 +28,6 @@
                     class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive,
                     }">
                     {{ $t('settings.security.emailAuth.title') }}
                 </h5>
@@ -62,8 +61,8 @@
                 :class="{
                     'nv-switch--active--dark' : emailAuth && Dark.isActive,
                     'nv-switch--inactive--dark' : !emailAuth && Dark.isActive,
-                    'nv-switch--active--light' : emailAuth && Dark.isActive,
-                    'nv-switch--inactive--light' : !emailAuth && Dark.isActive,
+                    'nv-switch--active--light' : emailAuth && !Dark.isActive,
+                    'nv-switch--inactive--light' : !emailAuth && !Dark.isActive,
                 }"
                 class="mr-9 mb-10"
                 @update:model-value="setEmail"

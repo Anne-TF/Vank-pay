@@ -39,7 +39,7 @@
                 right: '0px',
                 borderRadius: '9px',
                 backgroundColor: `${
-                    Screen.lt.md ? 'transparent' : (Dark.isActive ? '#016608' : '#52B301')
+                    Screen.lt.md ? 'transparent' : '#edd580'
                 }`,
                 width: '3px',
                 opacity: '0.7'

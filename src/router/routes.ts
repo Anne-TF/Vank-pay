@@ -111,7 +111,7 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/currency',
-        component: () => import('../app/layouts/MobileMainLayout.vue'),
+        component: () => import('../app/layouts/DesktopMainLayout.vue'),
         children: [
             { path: ':currency', component: () => import('../Balance/pages/_CurrencyDetail.vue') }
         ],
@@ -124,7 +124,7 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/cards',
-        component: () => import('../app/layouts/MobileMainLayout.vue'),
+        component: () => import('../app/layouts/DesktopMainLayout.vue'),
         children: [
             { path: ':card', component: () => import('../Balance/pages/_CardDetail.vue') }
         ],

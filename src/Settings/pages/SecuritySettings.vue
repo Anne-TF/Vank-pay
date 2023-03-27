@@ -33,7 +33,6 @@
                     class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive,
                     }">
                     {{ $t('settings.security.title') }}
                 </h5>
@@ -46,7 +45,6 @@
                 class="no-margin fs-16"
                 :class="{
                     'text-nv-light' : Dark.isActive,
-                    'text-nv-dark' : !Dark.isActive,
                 }">
                 {{ $t('settings.security.twoFactorAuth') }}
             </h5>

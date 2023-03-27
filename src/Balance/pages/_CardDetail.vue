@@ -1,10 +1,10 @@
 <template>
-     <q-page
+    <div
         :class="{
             'q-py-md' : isMobile,
             'bg-nv-light' : !Dark.isActive
         }"
-        class="hp-100">
+        style="height: 100%; contain: content;">
         <div
             :class="{
                 'mt-25 q-px-lg' : isMobile
@@ -112,7 +112,7 @@
                 </q-btn>
             </div>
         </transition>
-    </q-page>
+    </div>
 </template>
 
 <script lang="ts" setup>

@@ -193,6 +193,7 @@
                     <q-icon
                         v-show="loginForm.password?.length > 0"
                         :name="isPwd ? 'visibility' : 'visibility_off'"
+                        :color="$q.dark.isActive ? 'white' : 'nv-light-accent'"
                         class="cursor-pointer"
                         @click="isPwd = !isPwd"
                     />
@@ -201,7 +202,11 @@
 
             <q-btn
                 :color="`nv-${GetSuffix('primary')}`"
-                class="full-width br-20 py-12 q-mt-lg fs-16 text-black"
+                class="full-width br-20 py-12 q-mt-lg fs-16"
+                :class="{
+                    'text-nv-light-accent' : !$q.dark.isActive,
+                    'text-nv-dark' : $q.dark.isActive
+                }"
                 unelevated
                 no-caps
                 :loading="loading"

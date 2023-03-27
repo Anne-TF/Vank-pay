@@ -16,7 +16,7 @@
                 }"
                 class="flex column items-center"
             >
-                <Logo class="q-mb-lg" :size="isMobile ? '165px' : '545px'" />
+                <Logo class="q-mb-lg" :size="isMobile ? '165px' : '345px'" />
                 <h5
                     :class="{ 'fs-23': isXS }"
                     class="no-padding q-mb-xs q-mt-sm text-center"

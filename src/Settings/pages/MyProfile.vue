@@ -29,7 +29,6 @@
                     class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive,
                     }"
                 >
                     {{ $t('settings.profile.accountInfo') }}
@@ -60,7 +59,6 @@
                    class="no-margin fs-26"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive,
                     }"
                 >
                     {{ getUserName }}

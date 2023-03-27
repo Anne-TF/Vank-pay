@@ -155,9 +155,11 @@
             <q-btn
                 :color="`nv-${GetSuffix('primary')}`"
                 :class="{
-                    'mb-40' : !isMobile
+                    'mb-40' : !isMobile,
+                    'text-nv-light-accent' : !$q.dark.isActive,
+                    'text-nv-dark' : $q.dark.isActive
                 }"
-                class="full-width br-20 py-12 mt-30 fs-16 text-black"
+                class="full-width br-20 py-12 mt-30 fs-16"
                 unelevated
                 no-caps
             >

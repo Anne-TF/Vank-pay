@@ -27,7 +27,6 @@
                     class="no-margin fs-18"
                     :class="{
                         'text-nv-light' : Dark.isActive,
-                        'text-nv-dark' : !Dark.isActive,
                     }">
                     {{ $t('settings.security.smsAuth.title') }}
                 </h5>
@@ -61,8 +60,8 @@
                 :class="{
                     'nv-switch--active--dark' : smsAuth && Dark.isActive,
                     'nv-switch--inactive--dark' : !smsAuth && Dark.isActive,
-                    'nv-switch--active--light' : smsAuth && Dark.isActive,
-                    'nv-switch--inactive--light' : !smsAuth && Dark.isActive,
+                    'nv-switch--active--light' : smsAuth && !Dark.isActive,
+                    'nv-switch--inactive--light' : !smsAuth && !Dark.isActive,
                 }"
                 class="mr-9 mb-10"
                 @update:model-value="setPhone"
