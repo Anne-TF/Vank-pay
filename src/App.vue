@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import { Dark, Platform, useQuasar } from 'quasar';
-import {computed, onMounted, ref, watchEffect} from 'vue';
+import { computed, onMounted, ref, watchEffect } from 'vue';
 import { useSettingsStore } from 'stores/settings';
 import { useAuthStore } from 'stores/auth';
 import { useI18n } from 'vue-i18n';

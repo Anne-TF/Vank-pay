@@ -9,7 +9,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import { Dark } from "quasar";
+import { Dark } from 'quasar';
 
 defineProps({
     size: {

@@ -319,7 +319,7 @@ import GetSuffix from '../shared/helpers/GetSuffix';
 import { useSettingsStore } from 'stores/settings';
 import Logo from '../components/Logo.vue';
 import MainBalanceView from '../../Balance/pages/MainBalanceView.vue';
-import {useAuthStore} from 'stores/auth';
+import { useAuthStore } from 'stores/auth';
 
 const { version } = useQuasar();
 const { dark } = useQuasar();
@@ -395,7 +395,7 @@ const hasLogout = async() =>
 {
     await authStore.logout();
     await $router.push('/');
-    console.log('aa')
+    console.log('aa');
 };
 
 const toggleLeftDrawer = () =>

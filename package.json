@@ -10,6 +10,7 @@
         "build": "quasar build",
         "icons": "icongenie g -m capacitor -i ./src/assets/icons/Icon.png --skip-trim --theme-color 1D2229  --quality 12 --splashscreen-icon-ratio 30",
         "lint": "eslint --ext .js,.ts,.vue ./",
+        "lint:fix": "eslint --ext .js,.ts,.vue ./ --fix",
         "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
         "test": "echo \"No test specified\" && exit 0",
         "dev:android": "quasar dev -m capacitor -T android -e emulator-5554",
