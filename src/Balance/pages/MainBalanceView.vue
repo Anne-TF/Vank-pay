@@ -67,8 +67,8 @@
                     :class="{
                         'q-px-lg' : isMobile
                     }"
-                    class="flex justify-between mb-10">
-                    <div class="flex flex-inline justify-start">
+                    class="flex justify-end mb-10">
+<!--                    <div class="flex flex-inline justify-start">
                         <div
                             :class="`
                                 ${
@@ -110,7 +110,7 @@
                         >
                             {{ $t('balance.wallets') }}
                         </div>
-                    </div>
+                    </div>-->
 
                     <q-input
                         outlined
@@ -371,7 +371,7 @@ const screenSize = reactive({
     width: 0
 });
 const onFocus = ref<boolean>(false);
-const tab = ref<string>('cards');
+const tab = ref<string>('wallets');
 
 const cards = [
     {
